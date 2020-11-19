@@ -3,37 +3,33 @@ package com.sbd.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
-@Entity(name = "publishers")
-public class Publisher {
-
+@Entity(name = "payments")
+public class Payment {
     @Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     private String name;
-
     @OneToMany(
-        mappedBy = "publisher",
+        mappedBy = "payment",
+        cascade = CascadeType.ALL,
         orphanRemoval = true
     )
-    private List<Book> books = new ArrayList<>();
+    private List<Order> orders = new ArrayList<>();
 
-    public Publisher() {
+    public Payment() {
     }
 
     public Long getId() {
         return id;
     }
-    public void setId(Long id) {
-        this.id = id;
-    }
-
     public String getName() {
         return name;
     }
@@ -41,15 +37,4 @@ public class Publisher {
     public void setName(String name) {
         this.name = name;
     }
-
-    public void addBook(Book book) {
-        books.add(book);
-        book.setPublisher(this);
-    }
- 
-    public void removeBook(Book book) {
-        books.remove(book);
-        book.setPublisher(null);
-    }
-
 }
