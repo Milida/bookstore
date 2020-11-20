@@ -3,6 +3,7 @@ package com.sbd.model;
 import java.math.BigDecimal;
 import java.util.Objects;
 
+import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -11,17 +12,24 @@ import javax.persistence.MapsId;
 
 import com.sbd.model.embedded.OrderBookId;
 
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
 @Entity(name = "ordersBooks")
 public class OrderBook {
+
     @EmbeddedId
     private OrderBookId id;
 
-    private String title;
+    @Column(nullable = false)
     private BigDecimal price;
+
+    @Column(nullable = false)
     private Integer quantity;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @MapsId("orderId")
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private Order order;
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -29,31 +37,46 @@ public class OrderBook {
     private Book book;
 
     public OrderBook() {
-
-    }
-    
-    public Integer getQuantity() {
-        return quantity;
     }
 
-    public void setQuantity(Integer quantity) {
-        this.quantity = quantity;
+    public OrderBookId getId() {
+        return id;
     }
 
     public BigDecimal getPrice() {
         return price;
     }
 
+    public Integer getQuantity() {
+        return quantity;
+    }
+
+    public Book getBook() {
+        return book;
+    }
+
+    public Order getOrder() {
+        return order;
+    }
+
+    public void setId(OrderBookId id) {
+        this.id = id;
+    }
+
     public void setPrice(BigDecimal price) {
         this.price = price;
     }
 
-    public String getTitle() {
-        return title;
+    public void setQuantity(Integer quantity) {
+        this.quantity = quantity;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public void setBook(Book book) {
+        this.book = book;
+    }
+
+    public void setOrder(Order order) {
+        this.order = order;
     }
 
     @Override

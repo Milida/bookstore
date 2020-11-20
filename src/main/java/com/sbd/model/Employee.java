@@ -1,25 +1,28 @@
 package com.sbd.model;
 
+import java.io.Serializable;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.MapsId;
 import javax.persistence.OneToOne;
-import javax.persistence.PrimaryKeyJoinColumn;
+
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 @Entity(name = "employees")
-public class Employee extends User {
+public class Employee implements Serializable {
 
     @Id
-    private Long userId;
-
-    @OneToOne
-    @PrimaryKeyJoinColumn(name = "user_id", referencedColumnName = "user_id")
+    @OneToOne(cascade = CascadeType.ALL)
+    @MapsId
+    @JoinColumn(name = "userId")
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private User user;
 
     private Employee() {
-    }
-
-    public Long getUserId() {
-        return userId;
     }
 
     public User getUser() {

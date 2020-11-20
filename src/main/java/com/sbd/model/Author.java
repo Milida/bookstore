@@ -3,52 +3,71 @@ package com.sbd.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
 @Entity(name = "authors")
 public class Author {
+    
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    private String firstName;
-    private String lastName;
+
+    @Column(length = 63, nullable = false)
+    private String firstname;
+
+    @Column(length = 63, nullable = false)
+    private String lastname;
 
     @ManyToMany(mappedBy = "authors")
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private List<Book> books = new ArrayList<>();
 
     public Author() {
     }
 
-    public List<Book> getBooks() {
-        return books;
-    }
-
-    public String getFirstName() {
-        return firstName;
+    public Author(String firstname, String lastname) {
+        this.firstname = firstname;
+        this.lastname = lastname;
     }
 
     public Long getId() {
         return id;
     }
 
+    public String getFirstName() {
+        return firstname;
+    }
+
     public String getLastName() {
-        return lastName;
+        return lastname;
+    }
+
+    public List<Book> getBooks() {
+        return books;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public void setFirstName(String firstname) {
+        this.firstname = firstname;
+    }
+
+    public void setLastName(String lastname) {
+        this.lastname = lastname;
     }
 
     public void setBooks(List<Book> books) {
         this.books = books;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
     }
 
     @Override
@@ -64,4 +83,5 @@ public class Author {
     public int hashCode() {
         return getClass().hashCode();
     }
+
 }

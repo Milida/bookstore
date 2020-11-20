@@ -3,6 +3,7 @@ package com.sbd.model;
 import java.math.BigDecimal;
 import java.util.Date;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -12,6 +13,7 @@ import javax.persistence.ManyToOne;
 
 @Entity(name = "orders")
 public class Order {
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
@@ -28,14 +30,29 @@ public class Order {
     @ManyToOne(fetch = FetchType.LAZY)
     private Shipment shipment;
 
+    @Column(nullable = false)
     private BigDecimal price;
-    private Date date;
+
+    @Column(nullable = false)
+    private Date date = new Date();
 
     public Order() {
     }
 
     public Long getId() {
         return id;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public OrderStatus getStatus() {
+        return status;
+    }
+
+    public BigDecimal getPrice() {
+        return price;
     }
 
     public Date getDate() {
@@ -46,20 +63,24 @@ public class Order {
         return payment;
     }
 
-    public BigDecimal getPrice() {
-        return price;
-    }
-
     public Shipment getShipment() {
         return shipment;
     }
 
-    public OrderStatus getStatus() {
-        return status;
+    public void setId(Long id) {
+        this.id = id;
     }
 
-    public User getUser() {
-        return user;
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public void setStatus(OrderStatus status) {
+        this.status = status;
+    }
+
+    public void setPrice(BigDecimal price) {
+        this.price = price;
     }
 
     public void setDate(Date date) {
@@ -70,33 +91,22 @@ public class Order {
         this.payment = payment;
     }
 
-    public void setPrice(BigDecimal price) {
-        this.price = price;
-    }
-
     public void setShipment(Shipment shipment) {
         this.shipment = shipment;
     }
 
-    public void setStatus(OrderStatus status) {
-        this.status = status;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
-
-
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Order )) return false;
+        if (this == o)
+            return true;
+        if (!(o instanceof Order))
+            return false;
         return id != null && id.equals(((Order) o).getId());
     }
- 
+
     @Override
     public int hashCode() {
-        return 32;
+        return getClass().hashCode();
     }
 
 }
