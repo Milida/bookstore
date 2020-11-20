@@ -28,13 +28,13 @@ public class User {
     @Column(length = 511, nullable = false)
     private String password;
 
-    @Column(length = 63, nullable = false)
+    @Column(length = 15, nullable = false)
     private String phone;
 
-    @Column(length = 63, nullable = false)
+    @Column(length = 127, nullable = false)
     private String address;
 
-    @Column(length = 63, nullable = false)
+    @Column(length = 7, nullable = false)
     private String postalCode;
 
     @Column(length = 63, nullable = false)
