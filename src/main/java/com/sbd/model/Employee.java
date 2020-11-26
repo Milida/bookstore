@@ -22,7 +22,7 @@ public class Employee implements Serializable {
     @OnDelete(action = OnDeleteAction.CASCADE)
     private User user;
 
-    private Employee() {
+    public Employee() {
     }
 
     public User getUser() {
