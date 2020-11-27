@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -20,7 +21,7 @@ public class Publisher {
     @Column(length = 63, nullable = false)
     private String name;
 
-    @OneToMany(mappedBy = "publisher", orphanRemoval = true)
+    @OneToMany(mappedBy = "publisher", orphanRemoval = true, fetch = FetchType.LAZY)
     private List<Book> books = new ArrayList<>();
 
     public Publisher() {

@@ -11,11 +11,13 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
 @RestController
+@RequestMapping("/books")
 public class BookController {
 
     @Autowired
@@ -25,19 +27,19 @@ public class BookController {
         this.bookRepository = bookRepository;
     }
 
-    @GetMapping("/books")
+    @GetMapping
     ResponseEntity<List<Book>> getBooks() {
-        return new ResponseEntity<>(bookRepository.findAll(), HttpStatus.OK);
+        throw new BookNotFoundException("Book not found");
     }
 
-    @PostMapping("/books")
+    @PostMapping
     ResponseEntity<Book> addBook(@RequestBody Book book) {
         return new ResponseEntity<>(bookRepository.save(book), HttpStatus.CREATED);
     }
 
-    @GetMapping("/books/{id}")
+    @GetMapping("/{id}")
     ResponseEntity<Book> getBook(@PathVariable Long id) {
-        Book book = bookRepository.findById(id).orElseThrow(() -> new BookNotFoundException(id));
+        Book book = bookRepository.findById(id).orElseThrow(() -> new BookNotFoundException("Book not found"));
         return new ResponseEntity<>(book, HttpStatus.OK);
     }
 }
