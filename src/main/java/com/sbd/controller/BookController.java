@@ -29,7 +29,7 @@ public class BookController {
 
     @GetMapping
     ResponseEntity<List<Book>> getBooks() {
-        throw new BookNotFoundException("Book not found");
+        return new ResponseEntity<>(bookRepository.findAll(), HttpStatus.OK);
     }
 
     @PostMapping
