@@ -6,6 +6,7 @@ import java.util.Objects;
 import javax.persistence.Embeddable;
 
 @Embeddable
+@SuppressWarnings("serial")
 public class OrderBookId implements Serializable {
 
     private Long orderId;

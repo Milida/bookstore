@@ -13,6 +13,7 @@ import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
 @Entity(name = "employees")
+@SuppressWarnings("serial")
 public class Employee implements Serializable {
 
     @Id
