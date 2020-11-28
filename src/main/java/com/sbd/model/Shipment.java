@@ -15,7 +15,7 @@ import javax.persistence.OneToMany;
 public class Shipment {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(length = 63, nullable = false)

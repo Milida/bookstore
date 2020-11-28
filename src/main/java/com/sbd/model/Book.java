@@ -23,7 +23,7 @@ import javax.persistence.ManyToOne;
 public class Book {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(length = 127, nullable = false)
@@ -38,16 +38,17 @@ public class Book {
     @Column(length = 1023)
     private String description;
 
+    @JsonIgnoreProperties({"books", "hibernateLazyInitializer"})
     @ManyToOne(fetch = FetchType.LAZY)
     private Publisher publisher;
 
     @JsonIgnoreProperties("books")
-    @ManyToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE })
+    @ManyToMany(cascade = CascadeType.MERGE)
     @JoinTable(name = "categoriesBooks", joinColumns = @JoinColumn(name = "book_id"), inverseJoinColumns = @JoinColumn(name = "category_id"))
     private List<Category> categories = new ArrayList<>();
 
     @JsonIgnoreProperties("books")
-    @ManyToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE })
+    @ManyToMany(cascade = CascadeType.MERGE)
     @JoinTable(name = "authorsBooks", joinColumns = @JoinColumn(name = "book_id"), inverseJoinColumns = @JoinColumn(name = "author_id"))
     private List<Author> authors = new ArrayList<>();
 
