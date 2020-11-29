@@ -39,7 +39,7 @@ public class Book {
     private String description;
 
     @JsonIgnoreProperties({"books", "hibernateLazyInitializer"})
-    @ManyToOne(cascade = { CascadeType.PERSIST, CascadeType.MERGE})
+    @ManyToOne(cascade = { CascadeType.MERGE})
     private Publisher publisher;
 
     @JsonIgnoreProperties("books")
