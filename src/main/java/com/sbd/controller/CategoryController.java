@@ -2,6 +2,8 @@ package com.sbd.controller;
 
 import com.sbd.bookstore.repository.CategoryRepository;
 import com.sbd.model.Category;
+import com.sbd.payroll.ConflictException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -22,6 +24,9 @@ public class CategoryController {
 
     @PostMapping
     ResponseEntity<Category> addCategory(@RequestBody Category category) {
+        if (categoryRepository.existsByName(category.getName()))
+            throw new ConflictException(String.format("Category with name '%s' already exists", category.getName()));
+
         return new ResponseEntity<>(categoryRepository.save(category), HttpStatus.CREATED);
     }
 }
