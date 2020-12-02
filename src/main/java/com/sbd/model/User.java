@@ -1,5 +1,6 @@
 package com.sbd.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import java.util.ArrayList;
@@ -27,6 +28,7 @@ public class User {
     @Column(length = 63, nullable = false)
     private String email;
 
+    @JsonIgnore
     @Column(length = 511, nullable = false)
     private String password;
 

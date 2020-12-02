@@ -9,6 +9,7 @@ import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
 import javax.persistence.MapsId;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.sbd.model.embedded.CartId;
 
 import org.hibernate.annotations.OnDelete;
@@ -22,18 +23,20 @@ public class Cart {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @MapsId("userId")
+    @JsonIgnoreProperties("hibernateLazyInitializer")
     @OnDelete(action = OnDeleteAction.CASCADE)
     private User user;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @MapsId("bookId")
+    @JsonIgnoreProperties("hibernateLazyInitializer")
     @OnDelete(action = OnDeleteAction.CASCADE)
     private Book book;
 
     @Column(nullable = false)
     private Integer quantity;
 
-    private Cart() {
+    public Cart() {
     }
 
     public CartId getId() {
