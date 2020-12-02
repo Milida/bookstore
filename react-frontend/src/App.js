@@ -11,13 +11,13 @@ function App() {
       <Router>
         <div className = "container">
           <HeaderComponent />
-            <div className="container">
+            <main className="container">
               <Switch>
                 <Route path = "/books" component = {ListBookComponent}></Route>
                 <Route path = "/add-book" component = {AddBookComponent}></Route>
                 <ListBookComponent />
               </Switch>
-            </div>
+            </main>
           <FooterComponent />
         </div>
       </Router>

@@ -13,7 +13,7 @@ class FooterComponent extends Component {
         return (
             <div>
                 <footer className="footer">
-                    <span className="text-muted"> Made By: Ida Milewska, Michał Sawicki, Natalia Tarasiuk</span>
+                    Project created by: Ida Milewska, Michał Sawicki, Natalia Tarasiuk
                 </footer>
                 
             </div>
