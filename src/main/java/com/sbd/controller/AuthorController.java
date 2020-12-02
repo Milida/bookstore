@@ -42,14 +42,12 @@ public class AuthorController {
     }
 
     @PutMapping("/{id}")
-    ResponseEntity<?> updateBook(@RequestBody Author author, @PathVariable Long id) {
+    ResponseEntity<?> updateAuthor(@RequestBody Author author, @PathVariable Long id) {
 
         authorRepository.findById(id).map(oldAuthor -> {
             BeanUtils.copyProperties(author, oldAuthor, new String[] { "id" });
             return authorRepository.save(oldAuthor);
-        }).orElseGet(() -> {
-            return authorRepository.save(author);
-        });
+        }).orElseGet(() -> authorRepository.save(author));
 
         return new ResponseEntity<>("Updated successfully", HttpStatus.OK);
     }
