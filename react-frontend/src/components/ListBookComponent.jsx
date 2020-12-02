@@ -18,7 +18,7 @@ class ListBookComponent extends Component {
     }
 
     addBook(){
-        this.props.history.push('add-book');
+        this.props.history.push('/add-book');
     }
 
     render() {
