@@ -61,8 +61,7 @@ class ListBookComponent extends Component {
                                             <td>{book.publisher.name}</td>
                                             <td>{book.price}</td>
                                             <td>{book.quantity}</td>
-                                            <td>{book.categories[0].name}</td>
-                                            <td>{book.description}</td>
+                                            <td><ul>{book.categories.map(category => <li key={category.id}>{category.name}</li>)}</ul></td>
                                             <td>
                                                 <button onClick={() => this.removeBook(book)} className="btn btn-danger">Delete</button>
                                             </td>
