@@ -16,7 +16,7 @@ function App() {
       <Router>
         <div className = "container">
           <HeaderComponent />
-            <div className="container">
+            <main className="container">
               <Switch>
                 <Route path = "/books" component = {ListBookComponent}></Route>
                 <Route path = "/add-book" component = {AddBookComponent}></Route>    
@@ -26,7 +26,7 @@ function App() {
                 <Route path = "/add-category" component = {AddCategoryComponent}></Route>
                 <Route path = "/update-category/:id" component = {UpdateCategoryComponent}></Route>
               </Switch>
-            </div>
+            </main>
           <FooterComponent />
         </div>
       </Router>
