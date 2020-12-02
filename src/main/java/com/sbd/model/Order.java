@@ -1,5 +1,7 @@
 package com.sbd.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import java.math.BigDecimal;
 import java.util.Date;
 
@@ -43,10 +45,12 @@ public class Order {
         return id;
     }
 
+    @JsonIgnoreProperties({"orders", "hibernateLazyInitializer"})
     public User getUser() {
         return user;
     }
 
+    @JsonIgnoreProperties({"orders", "hibernateLazyInitializer"})
     public OrderStatus getStatus() {
         return status;
     }

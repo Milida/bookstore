@@ -1,5 +1,7 @@
 package com.sbd.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -40,6 +42,7 @@ public class User {
     @Column(length = 63, nullable = false)
     private String city;
 
+    @JsonIgnoreProperties({"user", "hibernateLazyInitializer"})
     @OneToMany(mappedBy = "user", orphanRemoval = true)
     private List<Order> orders = new ArrayList<>();
 
