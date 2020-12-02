@@ -9,6 +9,7 @@ import ListCategoriesComponent from './components/ListCategoriesComponent';
 import AddCategoryComponent from './components/AddCategoryComponent';
 import AddAuthorComponent from './components/AddAuthorComponent';
 import UpdateCategoryComponent from './components/UpdateCategoryComponent';
+import UpdateAuthorComponent from './components/UpdateAuthorComponent';
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
                 <Route path = "/add-book" component = {AddBookComponent}></Route>    
                 <Route path = "/authors" component = {ListAuthorComponent}></Route>   
                 <Route path = "/add-author" component = {AddAuthorComponent}></Route>
+                <Route path = "/update-author/:id" component = {UpdateAuthorComponent}></Route>
                 <Route path = "/categories" component = {ListCategoriesComponent}></Route> 
                 <Route path = "/add-category" component = {AddCategoryComponent}></Route>
                 <Route path = "/update-category/:id" component = {UpdateCategoryComponent}></Route>

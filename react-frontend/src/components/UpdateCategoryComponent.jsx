@@ -15,8 +15,7 @@ class UpdateCategoryComponent extends Component {
         this.updateCategory = this.updateCategory.bind(this);
     }
 
-
-    componentDidCatch(){
+    componentDidMount(){
         CategoryService.getCategoryById(this.state.id).then((res) =>{
             let category = res.data;
             this.setState({name : category.name,
@@ -51,7 +50,7 @@ class UpdateCategoryComponent extends Component {
                 <div className = "container">
                     <div className = "row">
                         <div className = "card col-md-6 offset-md-3 offset-md-3">
-                            <h3 className="text-center">Add Category</h3>
+                            <h3 className="text-center">Update Category</h3>
                             <div className= "card-body">
                                 <form>
                                     <div className = "form-group">

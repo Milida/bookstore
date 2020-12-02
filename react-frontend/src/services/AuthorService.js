@@ -10,7 +10,15 @@ class AuthorService {
 
  addAuthor(author){
      return axios.post(AUTHOR_API_BASE_URL, author);
-    }   
+    }
+    
+    getAuthorById(authorId){
+        return axios.get(AUTHOR_API_BASE_URL +'/' + authorId);
+    }
+    
+    updateAuthor(author, authorId){
+        return axios.put(AUTHOR_API_BASE_URL + '/' + authorId, author);
+    }
 }
 
 export default new AuthorService()
