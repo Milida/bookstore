@@ -39,7 +39,6 @@ class ListBookComponent extends Component {
                                 <th>Price</th>
                                 <th>Quantity</th>
                                 <th>Category</th>
-                                <th>Description</th>
                                 <th>Actions</th>
                             </tr>
                         </thead>
@@ -55,8 +54,7 @@ class ListBookComponent extends Component {
                                         <td>{book.price}</td>
                                         <td>{book.quantity}</td>
                                         <td>{book.categories[0].name}</td>
-                                        <td>{book.description}</td>
-                                    
+                                        <td>Action</td>
                                     </tr>
                                 )
                             }
