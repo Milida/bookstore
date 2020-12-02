@@ -17,11 +17,16 @@ class AddCategoryComponent extends Component {
     saveCategory = (e) => {
         e.preventDefault();
         let category = {name: this.state.name,  description: this.state.description};
-        console.log('category =>' + JSON.stringify(category));
+        if(!category.name) {
+            alert("Please fill the name field!");
+        } else {
+            console.log('category =>' + JSON.stringify(category));
 
-        CategoryService.addCategory(category).then(res =>{
-            this.props.history.push('/categories');
-        });
+            CategoryService.addCategory(category).then(res =>{
+                this.props.history.push('/categories');
+            }).catch(error => alert("This category already exists!"));
+        }
+
     }
 
     changeNameHandler = (event) =>{

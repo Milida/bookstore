@@ -9,6 +9,11 @@ class ListAuthorComponent extends Component {
             authors : []
         }
         this.addAuthor = this.addAuthor.bind(this);
+        this.editAuthor = this.editAuthor.bind(this);
+    }
+
+    editAuthor(author){
+        this.props.history.push(`/update-author/${author.id}`);
     }
 
     componentDidMount(){
@@ -31,8 +36,8 @@ class ListAuthorComponent extends Component {
                     <table className = "table table-striped table-bordered">
                         <thead>
                             <tr>
-                                <th>Author's FirstName</th>
-                                <th>Author's LastName</th>
+                                <th>Author's Firstname</th>
+                                <th>Author's Lastname</th>
 
                                 <th>Actions</th>
                             </tr>
@@ -45,6 +50,9 @@ class ListAuthorComponent extends Component {
                                     <tr key = {author.id}>
                                         <td>{author.firstName}</td>
                                         <td>{author.lastName}</td>
+                                        <td>
+                                            <button onClick ={() => this.editAuthor(author)} className="btn btn-info">Update</button>
+                                        </td>
                                     </tr>
                                 )
                             }

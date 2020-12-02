@@ -12,8 +12,8 @@ class ListCategoriesComponent extends Component {
         this.editCategory = this.editCategory.bind(this);
     }
     
-    editCategory(id){
-        this.props.history.push(`/update-category/${id}`);
+    editCategory(category){
+        this.props.history.push(`/update-category/${category.id}`);
     }
 
     componentDidMount(){
@@ -50,7 +50,7 @@ class ListCategoriesComponent extends Component {
                                         <td>{category.name}</td>
                                         <td>{category.description}</td>
                                         <td>
-                                            <button onClick ={() => this.editCategory(category.id)} className="btn btn-info">Update</button>
+                                            <button onClick ={() => this.editCategory(category)} className="btn btn-info">Update</button>
                                         </td>
                                     </tr>
                                 )
