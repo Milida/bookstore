@@ -2,6 +2,7 @@ package com.sbd.controller;
 
 import com.sbd.bookstore.repository.UserRepository;
 import com.sbd.model.User;
+import com.sbd.payroll.ConflictException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -22,6 +23,9 @@ public class UserController {
 
     @PostMapping
     ResponseEntity<User> addUser(@RequestBody User user) {
+        if (userRepository.existsByEmail(user.getEmail()))
+            throw new ConflictException(String.format("User with email '%s' already exists", user.getEmail()));
+
         return new ResponseEntity<>(userRepository.save(user), HttpStatus.CREATED);
     }
 }
