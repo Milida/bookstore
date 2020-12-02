@@ -55,17 +55,6 @@ class ListBookComponent extends Component {
                             {
                                 this.state.books.map(
                                     book =>
-<<<<<<< HEAD
-                                    <tr key = {book.id}>
-                                        <td>{book.title}</td>
-                                        <td>{book.authors[0].firstName+ " " + book.authors[0].lastName } </td>
-                                        <td>{book.publisher.name}</td>
-                                        <td>{book.price}</td>
-                                        <td>{book.quantity}</td>
-                                        <td>{book.categories[0].name}</td>
-                                        <td>Action</td>
-                                    </tr>
-=======
                                         <tr key={book.id}>
                                             <td>{book.title}</td>
                                             <td><ul>{book.authors.map(author => <li key={author.id}>{author.firstName + " " + author.lastName}</li>)} </ul></td>
@@ -78,7 +67,6 @@ class ListBookComponent extends Component {
                                                 <button onClick={() => this.removeBook(book)} className="btn btn-danger">Delete</button>
                                             </td>
                                         </tr>
->>>>>>> react-proba
                                 )
                             }
                         </tbody>
