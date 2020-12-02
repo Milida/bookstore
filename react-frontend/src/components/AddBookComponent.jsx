@@ -3,6 +3,7 @@ import BookService from '../services/BookService';
 import AuthorService from '../services/AuthorService';
 import Select from 'react-select'
 import PublisherService from '../services/PublisherService';
+import CategoryService from '../services/CategoryService';
 
 class AddBookComponent extends Component {
     
@@ -15,7 +16,7 @@ class AddBookComponent extends Component {
             publisher: null,
             price: '',
             quantity: '',
-            categories: [{id: 1}],
+            categories: [],
             description: '',
             authorsList: [],
             categoriesList: [],
@@ -26,6 +27,7 @@ class AddBookComponent extends Component {
         this.changePublisherHandler = this.changePublisherHandler.bind(this);
         this.changePriceHandler = this.changePriceHandler.bind(this);
         this.changeQuantityHandler = this.changeQuantityHandler.bind(this);
+        this.changeCategoryHandler = this.changeCategoryHandler.bind(this);
         this.changeDescriptionHandler = this.changeDescriptionHandler.bind(this);
         this.saveBook = this.saveBook.bind(this);
     }
@@ -42,6 +44,12 @@ class AddBookComponent extends Component {
                 return {value: {id: publisher.id}, label: publisher.name}
             })
             this.setState({publishersList: options});
+        })
+        CategoryService.getCategories().then(res => {
+            let options = res.data.map(category => {
+                return {value: {id: category.id}, label: category.name}
+            })
+        this.setState({categoriesList: options});
         })
     }
     saveBook = (e) => {
@@ -67,6 +75,11 @@ class AddBookComponent extends Component {
     changeAuthorsHandler = (event) => {
         if(event) {
             this.setState({authors: event.map(author => author.value)});
+        }
+    }
+    changeCategoryHandler = (event) => {
+        if(event) {
+            this.setState({categories: event.map(category => category.value)});
         }
     }
 
@@ -135,6 +148,18 @@ class AddBookComponent extends Component {
                                         <label>Quantity:</label>
                                         <input placeholder="Quantity" name="quantity" className="form-control"
                                             value={this.state.quantity} onChange={this.changeQuantityHandler} />
+                                    </div>
+                                    <div className="form-group">
+                                    <label>Categories:</label>
+                                    <Select
+                                        defaultValue={''}
+                                        isMulti
+                                        name="Categories"
+                                        options={this.state.categoriesList}
+                                        className="basic-multi-select"
+                                        classNamePrefix="select"
+                                        onChange={this.changeCategoryHandler}
+                                    />
                                     </div>
                                     <div className="form-group">
                                         <label>Description:</label>
