@@ -6,30 +6,38 @@ class ListBookComponent extends Component {
         super(props)
 
         this.state = {
-            books : []
+            books: []
         }
         this.addBook = this.addBook.bind(this);
+        this.removeBook = this.removeBook.bind(this);
+
     }
 
-    componentDidMount(){
-        BookService.getBooks().then((res)  => {
-            this.setState({books: res.data});
+    componentDidMount() {
+        BookService.getBooks().then((res) => {
+            this.setState({ books: res.data });
         });
     }
 
-    addBook(){
-        this.props.history.push('add-book');
+    addBook() {
+        this.props.history.push('/add-book');
     }
+
+    removeBook(bookToRemove) {
+        BookService.removeBook(bookToRemove).then(res =>
+            this.setState({ books: this.state.books.filter(book => book.id !== bookToRemove.id) }));
+    }
+
 
     render() {
         return (
             <div>
                 <h2 className="text-center">Book List</h2>
-                <div className = "row">
+                <div className="row">
                     <button className="btn btn-primary" onClick={this.addBook}>Add Book</button>
                 </div>
                 <div className="row">
-                    <table className = "table table-striped table-bordered">
+                    <table className="table table-striped table-bordered">
                         <thead>
                             <tr>
                                 {/* <th>ID</th> */}
@@ -47,6 +55,7 @@ class ListBookComponent extends Component {
                             {
                                 this.state.books.map(
                                     book =>
+<<<<<<< HEAD
                                     <tr key = {book.id}>
                                         <td>{book.title}</td>
                                         <td>{book.authors[0].firstName+ " " + book.authors[0].lastName } </td>
@@ -56,6 +65,20 @@ class ListBookComponent extends Component {
                                         <td>{book.categories[0].name}</td>
                                         <td>Action</td>
                                     </tr>
+=======
+                                        <tr key={book.id}>
+                                            <td>{book.title}</td>
+                                            <td><ul>{book.authors.map(author => <li key={author.id}>{author.firstName + " " + author.lastName}</li>)} </ul></td>
+                                            <td>{book.publisher.name}</td>
+                                            <td>{book.price}</td>
+                                            <td>{book.quantity}</td>
+                                            <td>{book.categories[0].name}</td>
+                                            <td>{book.description}</td>
+                                            <td>
+                                                <button onClick={() => this.removeBook(book)} className="btn btn-danger">Delete</button>
+                                            </td>
+                                        </tr>
+>>>>>>> react-proba
                                 )
                             }
                         </tbody>
