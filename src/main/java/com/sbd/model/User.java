@@ -59,6 +59,7 @@ public class User {
         this.address = address;
         this.postalCode = postalCode;
         this.city = city;
+        this.isActive = true;
     }
 
     public Long getId() {

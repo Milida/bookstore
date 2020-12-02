@@ -4,14 +4,8 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.sbd.bookstore.repository.AuthorRepository;
-import com.sbd.bookstore.repository.BookRepository;
-import com.sbd.bookstore.repository.CategoryRepository;
-import com.sbd.bookstore.repository.PublisherRepository;
-import com.sbd.model.Book;
-import com.sbd.model.Publisher;
-import com.sbd.model.Category;
-import com.sbd.model.Author;
+import com.sbd.bookstore.repository.*;
+import com.sbd.model.*;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -28,9 +22,15 @@ public class DatabaseInitializer implements CommandLineRunner {
     CategoryRepository categoryRepository;
     @Autowired
     AuthorRepository authorRepository;
+    @Autowired
+    UserRepository userRepository;
 
     @Override
     public void run(String... args) throws Exception {
+        List<User> users = new ArrayList<>();
+        users.add(new User("Natalia", "Tarasiuk", "natalia.tarasiuk@123.pl", "qweasdzxc", "123456789", "...", "12-345", "xyz"));
+        users.add(new User("Michał", "Sawicki", "michał.sawicki@123.pl", "qweasdzxc", "123456789", "...", "12-345", "xyz"));
+        users.add(new User("Ida", "Milewska", "ida.milewska@123.pl", "qweasdzxc", "123456789", "...", "12-345", "xyz"));
 
         List<Publisher> publishers = new ArrayList<>();
         publishers.add(new Publisher("Polskie Wydawnictwo"));
@@ -75,6 +75,10 @@ public class DatabaseInitializer implements CommandLineRunner {
 
         for (Book book : books) {
             bookRepository.save(book);
+        }
+
+        for (User user : users) {
+            userRepository.save(user);
         }
 
     }
