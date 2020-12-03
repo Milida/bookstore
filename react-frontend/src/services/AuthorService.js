@@ -8,7 +8,7 @@ class AuthorService {
         return axios.get(AUTHOR_API_BASE_URL);
     }
 
- addAuthor(author){
+    addAuthor(author){
      return axios.post(AUTHOR_API_BASE_URL, author);
     }
     

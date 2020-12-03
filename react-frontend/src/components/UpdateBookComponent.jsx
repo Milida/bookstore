@@ -20,7 +20,9 @@ class UpdateBookComponent extends Component {
             description: '',
             authorsList: [],
             categoriesList: [],
-            publishersList: []
+            publishersList: [],
+            defaultAuthors: []
+
         }
         this.changeTitleHandler = this.changeTitleHandler.bind(this);
         this.changeAuthorsHandler = this.changeAuthorsHandler.bind(this);
@@ -33,27 +35,10 @@ class UpdateBookComponent extends Component {
     }
 
     componentDidMount() {
-        AuthorService.getAuthors().then(res => {
-            let options = res.data.map(author => {
-                return {value: {id: author.id}, label: author.firstName + " " + author.lastName}
-            })
-        this.setState({authorsList: options});
-        })
-        PublisherService.getPublishers().then(res => {
-            let options = res.data.map(publisher => {
-                return {value: {id: publisher.id}, label: publisher.name}
-            })
-            this.setState({publishersList: options});
-        })
-        CategoryService.getCategories().then(res => {
-            let options = res.data.map(category => {
-                return {value: {id: category.id}, label: category.name}
-            })
-        this.setState({categoriesList: options});
-        })
-        BookService.getBookById(this.state.id).then((res) =>{
+        BookService.getBookById(this.state.id).then((res) => {
             let book = res.data;
-            this.setState({title : book.title,
+            this.setState({
+                title: book.title,
                 authors: book.authors,
                 publisher: book.publisher,
                 categories: book.categories,
@@ -61,8 +46,31 @@ class UpdateBookComponent extends Component {
                 price: book.price,
                 quantity: book.quantity,
                 descriprion: book.descriprion
-            }); 
+            });
+
+            AuthorService.getAuthors().then(res => {
+                let options = res.data.filter(author => !this.state.authors.includes(author)).map(author => {
+                    return { value: { id: author.id, firstName: author.firstName, lastName: author.lastName }, label: author.firstName + " " + author.lastName }
+                })
+                this.setState({ authorsList: options });
+            })
         });
+
+
+
+        PublisherService.getPublishers().then(res => {
+            let options = res.data.map(publisher => {
+                return { value: { id: publisher.id, name: publisher.name }, label: publisher.name }
+            })
+            this.setState({ publishersList: options });
+        })
+        CategoryService.getCategories().then(res => {
+            let options = res.data.map(category => {
+                return { value: { id: category.id, name: category.name }, label: category.name }
+            })
+            this.setState({ categoriesList: options });
+        })
+
     }
     updateBook = (e) => {
         e.preventDefault();
@@ -85,19 +93,20 @@ class UpdateBookComponent extends Component {
     }
 
     changeAuthorsHandler = (event) => {
-        if(event) {
-            this.setState({authors: event.map(author => author.value)});
+        if (event) {
+            console.log(event);
+            this.setState({ authors: event.map(author => author.value) });
         }
     }
     changeCategoryHandler = (event) => {
-        if(event) {
-            this.setState({categories: event.map(category => category.value)});
+        if (event) {
+            this.setState({ categories: event.map(category => category.value) });
         }
     }
 
-    changePublisherHandler = (event) =>{
+    changePublisherHandler = (event) => {
         if (event) {
-            this.setState({publisher: event.value});
+            this.setState({ publisher: event.value });
         }
     }
 
@@ -133,22 +142,25 @@ class UpdateBookComponent extends Component {
                                     </div>
 
                                     <div className="form-group">
-                                    <label>Authors:</label>
-                                    <Select
-                                        defaultValue={''}
-                                        isMulti
-                                        name="Authors"
-                                        options={this.state.authorsList}
-                                        className="basic-multi-select"
-                                        classNamePrefix="select"
-                                        onChange={this.changeAuthorsHandler}
-                                    />
+                                        <label>Authors:</label>
+                                        <Select
+                                            className="basic-multi-select"
+                                            classNamePrefix="select"
+                                            value={this.state.authors.map(a => {
+                                                return { value: { id: a.id, firstName: a.firstName, lastName: a.lastName }, label: a.firstName + " " + a.lastName }
+                                            })}
+                                            isMulti
+                                            name="Authors"
+                                            options={this.state.authorsList.filter(author => !this.state.authors.includes(author.value))}
+
+                                            onChange={this.changeAuthorsHandler}
+                                        />
                                     </div>
 
-                                    
+
                                     <div className="form-group">
-                                    <label>Publisher:</label>
-                                    <Select onChange={this.changePublisherHandler} options={this.state.publishersList} />
+                                        <label>Publisher:</label>
+                                        <Select onChange={this.changePublisherHandler}  options={this.state.publishersList} />
                                     </div>
 
                                     <div className="form-group">
@@ -162,16 +174,19 @@ class UpdateBookComponent extends Component {
                                             value={this.state.quantity} onChange={this.changeQuantityHandler} />
                                     </div>
                                     <div className="form-group">
-                                    <label>Categories:</label>
-                                    <Select
-                                        defaultValue={''}
-                                        isMulti
-                                        name="Categories"
-                                        options={this.state.categoriesList}
-                                        className="basic-multi-select"
-                                        classNamePrefix="select"
-                                        onChange={this.changeCategoryHandler}
-                                    />
+                                        <label>Categories:</label>
+                                        <Select
+                                            value={this.state.categories.map(c => {
+                                                return { value: { id: c.id, name: c.name }, label: c.name  }
+                                            })}
+                                            isMulti
+                                            name="Categories"
+                                            options={this.state.categoriesList.filter(category => !this.state.categories.includes(category.value))}
+
+                                            className="basic-multi-select"
+                                            classNamePrefix="select"
+                                            onChange={this.changeCategoryHandler}
+                                        />
                                     </div>
                                     <div className="form-group">
                                         <label>Description:</label>

@@ -53,7 +53,7 @@ class AddAuthorComponent extends Component {
                                     <div className = "form-group">
                                         <label>First Name:</label>
                                         <input placeholder="Firstname" name="firstname" className="form-control" 
-                                            value={this.state.name} onChange={this.changeFirstNameHandler}/>
+                                            value={this.state.firstName} onChange={this.changeFirstNameHandler}/>
                                     </div>
                                     <div className = "form-group">
                                         <label>Last Name:</label>

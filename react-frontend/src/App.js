@@ -14,6 +14,7 @@ import UpdatePublisherComponent from './components/UpdatePublisherComponent';
 import AddPublisherComponent from './components/AddPublisherComponent';
 import ListPublisherComponent from './components/ListPublisherComponent';
 import UpdateBookComponent from './components/UpdateBookComponent';
+import ListUsersComponent from './components/ListUsersComponent';
 
 function App() {
   return (
@@ -35,6 +36,7 @@ function App() {
                 <Route path = "/publishers" component = {ListPublisherComponent}></Route> 
                 <Route path = "/add-publisher" component = {AddPublisherComponent}></Route>
                 <Route path = "/update-publisher/:id" component = {UpdatePublisherComponent}></Route>
+                <Route path = "/users" component = {ListUsersComponent}></Route>
               </Switch>
             </main>
           <FooterComponent />

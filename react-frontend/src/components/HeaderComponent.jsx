@@ -19,6 +19,7 @@ class HeaderComponent extends Component {
                         <div><a href = "http://localhost:3000/publishers" className="navbar-brand" >Publishers</a></div>
                         <div><a href = "http://localhost:3000/authors" className="navbar-brand" >Authors</a></div>
                         <div><a href = "http://localhost:3000/categories" className="navbar-brand" >Categories</a></div>
+                        <div><a href = "http://localhost:3000/users" className="navbar-brand" >Users</a></div>
                     </nav>
                 </header>
             </div>
