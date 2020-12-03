@@ -10,6 +10,7 @@ class ListBookComponent extends Component {
         }
         this.addBook = this.addBook.bind(this);
         this.removeBook = this.removeBook.bind(this);
+        this.editBook = this.editBook.bind(this);
 
     }
 
@@ -17,6 +18,9 @@ class ListBookComponent extends Component {
         BookService.getBooks().then((res) => {
             this.setState({ books: res.data });
         });
+    }
+    editBook(book){
+        this.props.history.push(`/update-book/${book.id}`);
     }
 
     addBook() {
@@ -64,6 +68,7 @@ class ListBookComponent extends Component {
                                             <td><ul>{book.categories.map(category => <li key={category.id}>{category.name}</li>)}</ul></td>
                                             <td>
                                                 <button onClick={() => this.removeBook(book)} className="btn btn-danger">Delete</button>
+                                                <button onClick ={() => this.editBook(book)} className="btn btn-info">Update</button>
                                             </td>
                                         </tr>
                                 )

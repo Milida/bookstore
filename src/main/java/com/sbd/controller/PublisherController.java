@@ -13,6 +13,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.annotation.CrossOrigin;
 
+import java.util.*;
+
 import java.util.List;
 
 @CrossOrigin(origins = "*")
@@ -44,6 +46,7 @@ public class PublisherController {
 
     @PutMapping("/{id}")
     ResponseEntity<?> updatePublisher(@RequestBody Publisher publisher, @PathVariable Long id) {
+        System.out.println(publisher.toString());
         publisherRepository.findById(id).map(oldPublisher -> {
             BeanUtils.copyProperties(publisher, oldPublisher, new String[] { "id" });
             return publisherRepository.save(oldPublisher);
@@ -51,4 +54,14 @@ public class PublisherController {
 
         return new ResponseEntity<>("Updated successfully", HttpStatus.OK);
     }
+
+   /* @DeleteMapping("/{id}")
+    ResponseEntity<?> deletePublisher(@PathVariable Long id) {
+        Optional <Publisher> publisher =  publisherRepository.findById(id);
+        publisher.isPresent();
+            if(publisher.getBooks().isEmpty()){
+                publisherRepository.delete(getPublisher(id).getBody());
+            }
+        return new ResponseEntity<>("Deleted successfully", HttpStatus.OK);
+    }*/
 }

@@ -10,6 +10,10 @@ import AddCategoryComponent from './components/AddCategoryComponent';
 import AddAuthorComponent from './components/AddAuthorComponent';
 import UpdateCategoryComponent from './components/UpdateCategoryComponent';
 import UpdateAuthorComponent from './components/UpdateAuthorComponent';
+import UpdatePublisherComponent from './components/UpdatePublisherComponent';
+import AddPublisherComponent from './components/AddPublisherComponent';
+import ListPublisherComponent from './components/ListPublisherComponent';
+import UpdateBookComponent from './components/UpdateBookComponent';
 
 function App() {
   return (
@@ -20,13 +24,17 @@ function App() {
             <main className="container">
               <Switch>
                 <Route path = "/books" component = {ListBookComponent}></Route>
-                <Route path = "/add-book" component = {AddBookComponent}></Route>    
+                <Route path = "/add-book" component = {AddBookComponent}></Route> 
+                <Route path = "/update-book/:id" component = {UpdateBookComponent}></Route>   
                 <Route path = "/authors" component = {ListAuthorComponent}></Route>   
                 <Route path = "/add-author" component = {AddAuthorComponent}></Route>
                 <Route path = "/update-author/:id" component = {UpdateAuthorComponent}></Route>
                 <Route path = "/categories" component = {ListCategoriesComponent}></Route> 
                 <Route path = "/add-category" component = {AddCategoryComponent}></Route>
                 <Route path = "/update-category/:id" component = {UpdateCategoryComponent}></Route>
+                <Route path = "/publishers" component = {ListPublisherComponent}></Route> 
+                <Route path = "/add-publisher" component = {AddPublisherComponent}></Route>
+                <Route path = "/update-publisher/:id" component = {UpdatePublisherComponent}></Route>
               </Switch>
             </main>
           <FooterComponent />

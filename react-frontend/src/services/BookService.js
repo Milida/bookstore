@@ -14,6 +14,13 @@ class BookService {
     removeBook(book) {
         return axios.delete(BOOK_API_BASE_URL + '/' + book.id);
     }
+    getBookById(bookId){
+        return axios.get(BOOK_API_BASE_URL +'/' + bookId);
+    }
+    
+    updateBook(book, bookId){
+        return axios.put(BOOK_API_BASE_URL + '/' + bookId, book);
+    }
 }
 
 export default new BookService()

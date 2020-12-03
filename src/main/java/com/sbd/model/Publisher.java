@@ -24,7 +24,7 @@ public class Publisher {
     private String name;
 
     @JsonIgnoreProperties("publisher")
-    @OneToMany(mappedBy = "publisher", orphanRemoval = true, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "publisher", fetch = FetchType.LAZY)
     private List<Book> books = new ArrayList<>();
 
     public Publisher() {
