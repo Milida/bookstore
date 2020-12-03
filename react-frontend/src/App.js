@@ -1,5 +1,7 @@
 import './App.css';
-import {BrowserRouter as Router, Route, Switch} from 'react-router-dom'
+import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
+import MainPageComponent from './components/main/MainPageComponent';
+import BookDetailsComponent from './components/main/BookDetailsComponent';
 import FooterComponent from './components/FooterComponent';
 import HeaderComponent from './components/HeaderComponent';
 import ListBookComponent from './components/ListBookComponent';
@@ -24,6 +26,8 @@ function App() {
           <HeaderComponent />
             <main className="container">
               <Switch>
+                <Route exact path = "/"  component = {MainPageComponent}></Route>
+                <Route path = "/books/:id"  component = {BookDetailsComponent}></Route>
                 <Route path = "/books" component = {ListBookComponent}></Route>
                 <Route path = "/add-book" component = {AddBookComponent}></Route> 
                 <Route path = "/update-book/:id" component = {UpdateBookComponent}></Route>   

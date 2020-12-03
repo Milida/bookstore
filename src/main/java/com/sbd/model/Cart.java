@@ -39,6 +39,12 @@ public class Cart {
     public Cart() {
     }
 
+    public Cart(User user, Book book) {
+        this.user = user;
+        this.book = book;
+    }
+
+
     public CartId getId() {
         return id;
     }

@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import {Link} from 'react-router-dom';
 
 class HeaderComponent extends Component {
     constructor(props) {
@@ -13,13 +14,13 @@ class HeaderComponent extends Component {
         return (
             <div>
                 <header>
-                    <nav className="navbar navbar-expand-md navbar-dark bg-dark text-white">
-                        <div> <a href = "http://localhost:3000" className="navbar-brand" >Book Shop</a></div>
-                        <div><a href = "http://localhost:3000/books" className="navbar-brand" >Books</a></div>
-                        <div><a href = "http://localhost:3000/publishers" className="navbar-brand" >Publishers</a></div>
-                        <div><a href = "http://localhost:3000/authors" className="navbar-brand" >Authors</a></div>
-                        <div><a href = "http://localhost:3000/categories" className="navbar-brand" >Categories</a></div>
-                        <div><a href = "http://localhost:3000/users" className="navbar-brand" >Users</a></div>
+                    <nav className="navbar navbar-expand-md navbar-dark bg-dark text-white mb-4">
+                        <div><Link className="navbar-brand" to = "/">Book Shop</Link></div>
+                        <div><Link className="navbar-brand" to = "/books">Books</Link></div>
+                        <div><Link className="navbar-brand" to = "/publishers">Publishers</Link></div>
+                        <div><Link className="navbar-brand" to = "/authors">Authors</Link></div>
+                        <div><Link className="navbar-brand" to = "/categories">Categories</Link></div>
+                        <div><Link className="navbar-brand" to = "/users">Users</Link></div>
                     </nav>
                 </header>
             </div>
