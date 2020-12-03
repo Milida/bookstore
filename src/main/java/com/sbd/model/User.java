@@ -2,6 +2,8 @@ package com.sbd.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonProperty.Access;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,8 +29,8 @@ public class User {
 
     @Column(length = 63, nullable = false)
     private String email;
-
-    @JsonIgnore
+    
+    @JsonProperty(access = Access.WRITE_ONLY)
     @Column(length = 511, nullable = false)
     private String password;
 
@@ -48,8 +50,9 @@ public class User {
     @OneToMany(mappedBy = "user", orphanRemoval = true)
     private List<Order> orders = new ArrayList<>();
 
+    @JsonProperty(access = Access.WRITE_ONLY)
     @Column(nullable = false)
-    private Boolean isActive;
+    private Boolean isActive = true;
 
     public User() {
     }
