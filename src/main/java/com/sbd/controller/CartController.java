@@ -4,6 +4,8 @@ import com.sbd.bookstore.repository.CartRepository;
 import com.sbd.model.Book;
 import com.sbd.model.Cart;
 import com.sbd.model.User;
+import com.sbd.payroll.NotFoundException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
@@ -20,10 +22,11 @@ public class CartController {
     @Autowired
     CartRepository cartRepository;
 
-    @GetMapping
-    ResponseEntity<List<Cart>> getUserCarts(@RequestBody User user) {
-        System.out.println(user.getId());
-        return new ResponseEntity<>(cartRepository.findByUserId(user.getId()), HttpStatus.OK);
+    @GetMapping("/{id}")
+    ResponseEntity<List<Cart>> getUserCarts(@PathVariable Long id) {
+        List<Cart> carts = cartRepository.findByUserId(id)
+                .orElseThrow(() -> new NotFoundException(String.format("User with ID = %d was not found", id)));
+        return new ResponseEntity<>(carts, HttpStatus.OK);
     }
 
     @PostMapping

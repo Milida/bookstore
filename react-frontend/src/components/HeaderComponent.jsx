@@ -37,6 +37,7 @@ class HeaderComponent extends Component {
                             {this.state.userId ?
                                 <div className="d-flex">
                                     <div><Link className="navbar-brand" to={'/users/' + this.state.userId}>{this.state.userFirstname}</Link></div>
+                                    <div><Link className="navbar-brand" to="/cart">Cart</Link></div>
                                     <div><Link className="navbar-brand" to="/logout" onClick={UserService.logout}>Logout</Link></div>
                                 </div> :
                                 <div className="d-flex">
