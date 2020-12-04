@@ -54,8 +54,13 @@ public class AuthorController {
 
     @DeleteMapping("/{id}")
     ResponseEntity<?> removeAuthor(@PathVariable Long id) {
-        authorRepository.delete(getAuthor(id).getBody());
-        return new ResponseEntity<>("Deleted successfully", HttpStatus.OK);
+        Author author = getAuthor(id).getBody();
+        if(author.getBooks().isEmpty())
+        {
+            authorRepository.delete(getAuthor(id).getBody());
+            return new ResponseEntity<>("Deleted successfully", HttpStatus.OK);
+        } else {
+            throw new ConflictException("Cannot remove author with assigned books!");
+        }
     }
-
 }

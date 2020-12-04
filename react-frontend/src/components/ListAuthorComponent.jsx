@@ -10,6 +10,7 @@ class ListAuthorComponent extends Component {
         }
         this.addAuthor = this.addAuthor.bind(this);
         this.editAuthor = this.editAuthor.bind(this);
+        this.removeAuthor = this.removeAuthor.bind(this);
     }
 
     editAuthor(author){
@@ -24,6 +25,10 @@ class ListAuthorComponent extends Component {
     addAuthor(){
         this.props.history.push('/add-author');
      }
+     removeAuthor(authorToRemove) {
+        AuthorService.removeAuthor(authorToRemove).then(res =>
+            this.setState({ authors: this.state.authors.filter(author => author.id !== authorToRemove.id) })).catch(error => alert("Cannot remove author with assigned books!"));
+    }
 
     render() {
         return (
@@ -33,7 +38,7 @@ class ListAuthorComponent extends Component {
                     <button className="btn btn-primary" onClick={this.addAuthor}>Add Author</button>
                 </div>
                 <div className="row">
-                    <table className = "table table-striped table-bordered">
+                    <table style={{marginTop:"10px"}} className = "table table-striped table-bordered">
                         <thead>
                             <tr>
                                 <th>Author's Firstname</th>
@@ -51,7 +56,8 @@ class ListAuthorComponent extends Component {
                                         <td>{author.firstName}</td>
                                         <td>{author.lastName}</td>
                                         <td>
-                                            <button onClick ={() => this.editAuthor(author)} className="btn btn-info">Update</button>
+                                            <button style={{marginRight:"10px"}} onClick ={() => this.editAuthor(author)} className="btn btn-info">Update</button>
+                                            <button  onClick={() => this.removeAuthor(author)} className="btn btn-danger">Delete</button>
                                         </td>
                                     </tr>
                                 )

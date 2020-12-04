@@ -41,7 +41,7 @@ class ListBookComponent extends Component {
                     <button className="btn btn-primary" onClick={this.addBook}>Add Book</button>
                 </div>
                 <div className="row">
-                    <table className="table table-striped table-bordered">
+                    <table style={{marginTop:"10px"}} className="table table-striped table-bordered">
                         <thead>
                             <tr>
                                 {/* <th>ID</th> */}
