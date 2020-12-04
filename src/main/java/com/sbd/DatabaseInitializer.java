@@ -29,8 +29,12 @@ public class DatabaseInitializer implements CommandLineRunner {
     public void run(String... args) throws Exception {
         List<User> users = new ArrayList<>();
         users.add(new User("Natalia", "Tarasiuk", "natalia.tarasiuk@123.pl", "qweasdzxc", "123456789", "...", "12-345", "xyz"));
-        users.add(new User("Michał", "Sawicki", "michał.sawicki@123.pl", "qweasdzxc", "123456789", "...", "12-345", "xyz"));
+        users.add(new User("Michał", "Sawicki", "msawicki@email.com", "qwerty", "123456789", "...", "12-345", "xyz"));
         users.add(new User("Ida", "Milewska", "ida.milewska@123.pl", "qweasdzxc", "123456789", "...", "12-345", "xyz"));
+
+        // Employee e = new Employee();
+        // e.setUser(users.get(1));
+        // employeeRepository.save(e);
 
         List<Publisher> publishers = new ArrayList<>();
         publishers.add(new Publisher("Polskie Wydawnictwo"));

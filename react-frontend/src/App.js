@@ -18,6 +18,7 @@ import ListPublisherComponent from './components/ListPublisherComponent';
 import UpdateBookComponent from './components/UpdateBookComponent';
 import ListUsersComponent from './components/ListUsersComponent';
 import Registration from './components/Registration'
+import Login from './components/Login'
 
 function App() {
   return (
@@ -43,6 +44,7 @@ function App() {
                 <Route path = "/update-publisher/:id" component = {UpdatePublisherComponent}></Route>
                 <Route path = "/users" component = {ListUsersComponent}></Route>
                 <Route path = "/registration" component = {Registration}></Route>
+                <Route path = "/login" component = {Login}></Route>
               </Switch>
             </main>
           <FooterComponent />

@@ -38,7 +38,7 @@ class Registration extends Component {
       postalCode: this.state.postalCode,
       city: this.state.city
     };
-    UserService.addUserr(user).then(res => {
+    UserService.addUser(user).then(res => {
       this.props.history.push('/');
     }).catch(error => alert("This user already exists!"));
   }
@@ -56,6 +56,7 @@ class Registration extends Component {
                   <div className="form-group">
                     <label>Firstname:  </label>{"\n"}
                     <input
+                      className="form-control"
                       type="firstname"
                       name="firstname"
                       placeholder="Firstname"
@@ -67,6 +68,7 @@ class Registration extends Component {
                   <div className="form-group">
                     <label>Lastname:  </label>{"\n"}
                     <input
+                      className="form-control"
                       type="lastname"
                       name="lastname"
                       placeholder="Lastname"
@@ -78,6 +80,8 @@ class Registration extends Component {
                   <div className="form-group">
                     <label>Email:  </label>{"\n"}
                     <input
+                    typeof='email'
+                      className="form-control"
                       type="email"
                       name="email"
                       placeholder="Email"
@@ -89,6 +93,7 @@ class Registration extends Component {
                   <div className="form-group">
                     <label>Password: </label>{"\n"}
                     <input
+                      className="form-control"
                       type="password"
                       name="password"
                       placeholder="Password"
@@ -100,17 +105,19 @@ class Registration extends Component {
                   <div className="form-group">
                     <label>Phone:  </label>{"\n"}
                     <input
+                      className="form-control"
                       type="phone"
                       name="phone"
                       placeholder="Phone"
                       value={this.state.phone}
                       onChange={this.handleChange}
                       required
-                    />                  
-                    </div>
+                    />
+                  </div>
                   <div className="form-group">
-                    <label>Address:  </label>{"\n"}
+                    <label>Address:  </label>
                     <input
+                      className="form-control"
                       type="address"
                       name="address"
                       placeholder="Address"
@@ -122,6 +129,7 @@ class Registration extends Component {
                   <div className="form-group">
                     <label>Postal Code:  </label>{"\n"}
                     <input
+                      className="form-control"
                       type="postalCode"
                       name="postalCode"
                       placeholder="PostalCode"
@@ -133,6 +141,7 @@ class Registration extends Component {
                   <div className="form-group">
                     <label>City:  </label>{"\n"}
                     <input
+                      className="form-control"
                       type="city"
                       name="city"
                       placeholder="City"
@@ -151,7 +160,7 @@ class Registration extends Component {
             required
           /> */}
 
-                  <button type="submit">Register</button>
+                  <button className="btn-primary btn-lg mt-5 btn-block" type="submit">Register</button>
                 </form>
               </div>
             </div>
