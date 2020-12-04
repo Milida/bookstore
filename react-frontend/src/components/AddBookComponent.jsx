@@ -57,7 +57,7 @@ class AddBookComponent extends Component {
 
         let book = {
             title: this.state.title, authors: this.state.authors, categories: this.state.categories, publisher: this.state.publisher,
-            price: this.state.price, quantity: this.state.quantity, descriprion: this.state.description
+            price: this.state.price, quantity: this.state.quantity, description: this.state.description
         };
         console.log('book =>' + JSON.stringify(book));
 
@@ -164,7 +164,7 @@ class AddBookComponent extends Component {
                                     <div className="form-group">
                                         <label>Description:</label>
                                         <textarea rows="5" placeholder="Description" name="description" className="form-control"
-                                            value={this.state.descriprion} onChange={this.changeDescriptionHandler} />
+                                            value={this.state.description} onChange={this.changeDescriptionHandler} />
                                     </div>
                                     <button className="btn btn-success" onClick={this.saveBook}>Save</button>
                                     <button className="btn btn-danger" onClick={this.cancel.bind(this)} style={{ marginLeft: "10px" }}>Cancel</button>

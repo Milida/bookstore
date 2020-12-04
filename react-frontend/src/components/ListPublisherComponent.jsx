@@ -27,7 +27,7 @@ class ListPublisherComponent extends Component {
      }
      removePublisher(publisherToRemove) {
         PublisherService.removePublisher(publisherToRemove).then(res =>
-            this.setState({ publishers: this.state.publishers.filter(publisher => publisher.id !== publisherToRemove.id) }));
+            this.setState({ publishers: this.state.publishers.filter(publisher => publisher.id !== publisherToRemove.id) })).catch(error => alert("Cannot remove publisher with assigned books!"));
     }
 
     render() {
@@ -38,7 +38,7 @@ class ListPublisherComponent extends Component {
                     <button className="btn btn-primary" onClick={this.addPublisher}>Add Publisher</button>
                 </div>
                 <div className="row">
-                    <table className = "table table-striped table-bordered">
+                    <table style={{marginTop:"10px"}} className = "table table-striped table-bordered">
                         <thead>
                             <tr>
                                 <th>Publisher's Name</th>
@@ -53,7 +53,7 @@ class ListPublisherComponent extends Component {
                                     <tr key = {publisher.id}>
                                         <td>{publisher.name}</td>
                                         <td>
-                                            <button onClick ={() => this.editPublisher(publisher)} className="btn btn-info">Update</button>
+                                            <button style={{marginRight:"10px"}} onClick ={() => this.editPublisher(publisher)} className="btn btn-info">Update</button>
                                             <button onClick={() => this.removePublisher(publisher)} className="btn btn-danger">Delete</button>
                                         
                                         </td>
