@@ -34,7 +34,7 @@ class LisUsersComponent extends Component {
                                 <th>user's Address</th>
                                 <th>user's Postal Code</th>
                                 <th>user's City</th>
-                                <th>Active</th>
+                                {/* <th>Active</th> */}
 
                                 {/* <th>Actions</th> */}
                             </tr>
@@ -52,7 +52,7 @@ class LisUsersComponent extends Component {
                                         <td>{user.address}</td>
                                         <td>{user.postalCode}</td>
                                         <td>{user.city}</td>
-                                        <td>{user.isActive.toString()}</td>
+                                        {/* <td>{user.isActive.toString()}</td> */}
                                         {/* <td>
                                             <button onClick ={() => this.edituser(user)} className="btn btn-info">Update</button>
                                         </td> */}
