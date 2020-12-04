@@ -40,7 +40,8 @@ public class DatabaseInitializer implements CommandLineRunner {
         books.add(new Book("Harry Potter", BigDecimal.valueOf(39.99), 17));
         books.add(new Book("Pan Tadeusz", BigDecimal.valueOf(50.99), 20));
         books.add(new Book("Dziady cz.3", BigDecimal.valueOf(24.99), 9));
-
+        books.get(0).setDescription("Harry Potter is a series of seven fantasy novels written by British author J. K. Rowling. The novels chronicle the lives of a young wizard, Harry Potter, and his friends Hermione Granger and Ron Weasley, all of whom are students at Hogwarts School of Witchcraft and Wizardry. The main story arc concerns Harry's struggle against Lord Voldemort, a dark wizard who intends to become immortal, overthrow the wizard governing body known as the Ministry of Magic and subjugate all wizards and Muggles (non-magical people).");
+        
         List<Category> categories = new ArrayList<>();
         categories.add(new Category("Polskie"));
         categories.add(new Category("Zagraniczne"));

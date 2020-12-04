@@ -52,4 +52,10 @@ public class AuthorController {
         return new ResponseEntity<>("Updated successfully", HttpStatus.OK);
     }
 
+    @DeleteMapping("/{id}")
+    ResponseEntity<?> removeAuthor(@PathVariable Long id) {
+        authorRepository.delete(getAuthor(id).getBody());
+        return new ResponseEntity<>("Deleted successfully", HttpStatus.OK);
+    }
+
 }

@@ -5,3 +5,16 @@
     width:100%;
     text-align: center;
   }
+
+  .card-text-limited {
+      display: block;
+      width: inherit;
+      overflow: hidden;
+      white-space: pre-line;
+      text-overflow: ellipsis;
+      height: 10.5rem;
+    }
+
+    .navbar-brand:hover {
+      filter: brightness(85%);
+    }

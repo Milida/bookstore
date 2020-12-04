@@ -1,7 +1,6 @@
 package com.sbd.controller;
 
 import com.sbd.bookstore.repository.PublisherRepository;
-import com.sbd.model.Author;
 import com.sbd.model.Publisher;
 import com.sbd.payroll.ConflictException;
 
@@ -12,8 +11,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.annotation.CrossOrigin;
-
-import java.util.*;
 
 import java.util.List;
 
@@ -55,13 +52,16 @@ public class PublisherController {
         return new ResponseEntity<>("Updated successfully", HttpStatus.OK);
     }
 
-   /* @DeleteMapping("/{id}")
+    @DeleteMapping("/{id}")
     ResponseEntity<?> deletePublisher(@PathVariable Long id) {
-        Optional <Publisher> publisher =  publisherRepository.findById(id);
-        publisher.isPresent();
-            if(publisher.getBooks().isEmpty()){
-                publisherRepository.delete(getPublisher(id).getBody());
-            }
-        return new ResponseEntity<>("Deleted successfully", HttpStatus.OK);
-    }*/
+        Publisher publisher = getPublisher(id).getBody();
+        if (publisher.getBooks().isEmpty())
+        {
+            publisherRepository.delete(getPublisher(id).getBody());
+            return new ResponseEntity<>("Deleted successfully", HttpStatus.OK);
+        } else {
+            throw new ConflictException("Cannot remove publisher with assigned books!");
+        }
+
+    }
 }

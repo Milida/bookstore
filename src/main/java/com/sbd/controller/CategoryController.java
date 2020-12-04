@@ -53,4 +53,10 @@ public class CategoryController {
 
         return new ResponseEntity<>("Updated successfully", HttpStatus.OK);
     }
+
+    @DeleteMapping("/{id}")
+    ResponseEntity<?> removeBook(@PathVariable Long id) {
+        categoryRepository.delete(getCategory(id).getBody());
+        return new ResponseEntity<>("Deleted successfully", HttpStatus.OK);
+    }
 }
