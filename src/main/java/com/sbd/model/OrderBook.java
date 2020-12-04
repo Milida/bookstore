@@ -10,6 +10,7 @@ import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
 import javax.persistence.MapsId;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.sbd.model.embedded.OrderBookId;
 
 import org.hibernate.annotations.OnDelete;
@@ -29,10 +30,12 @@ public class OrderBook {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @MapsId("orderId")
+    @JsonIgnoreProperties("hibernateLazyInitializer")
     @OnDelete(action = OnDeleteAction.CASCADE)
     private Order order;
 
     @ManyToOne(fetch = FetchType.LAZY)
+    @JsonIgnoreProperties("hibernateLazyInitializer")
     @MapsId("bookId")
     private Book book;
 

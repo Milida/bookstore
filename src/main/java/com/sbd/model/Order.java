@@ -4,14 +4,9 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.List;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 
 @Entity(name = "orders")
 public class Order {
@@ -26,9 +21,11 @@ public class Order {
     @ManyToOne(fetch = FetchType.LAZY)
     private OrderStatus status;
 
+    @JsonIgnoreProperties({"orders", "hibernateLazyInitializer"})
     @ManyToOne(fetch = FetchType.LAZY)
     private Payment payment;
 
+    @JsonIgnoreProperties({"orders", "hibernateLazyInitializer"})
     @ManyToOne(fetch = FetchType.LAZY)
     private Shipment shipment;
 
@@ -37,6 +34,10 @@ public class Order {
 
     @Column(nullable = false)
     private Date date = new Date();
+
+    @OneToMany(mappedBy = "order")
+    @JsonIgnoreProperties("order")
+    private List<OrderBook> orderBook;
 
     public Order() {
     }
@@ -113,4 +114,11 @@ public class Order {
         return getClass().hashCode();
     }
 
+    public List<OrderBook> getOrderBook() {
+        return orderBook;
+    }
+
+    public void setOrderBook(List<OrderBook> orderBook) {
+        this.orderBook = orderBook;
+    }
 }

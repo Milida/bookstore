@@ -1,8 +1,10 @@
 package com.sbd.controller;
 
+import com.sbd.bookstore.repository.OrderBookRepository;
 import com.sbd.bookstore.repository.OrderRepository;
 import com.sbd.model.Book;
 import com.sbd.model.Order;
+import com.sbd.model.OrderBook;
 import com.sbd.payroll.NotFoundException;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/orders")
 public class OrderController {
@@ -43,6 +46,12 @@ public class OrderController {
         }).orElseGet(() -> orderRepository.save(order));
 
         return new ResponseEntity<>("Updated successfully", HttpStatus.OK);
+    }
+
+    @DeleteMapping("/{id}")
+    ResponseEntity<?> deleteOrder(@PathVariable Long id) {
+        orderRepository.delete(getOrder(id).getBody());
+        return new ResponseEntity<>("Deleted successfully", HttpStatus.OK);
     }
 }
 
