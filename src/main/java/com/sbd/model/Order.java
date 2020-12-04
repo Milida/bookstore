@@ -39,7 +39,15 @@ public class Order {
     @JsonIgnoreProperties("order")
     private List<OrderBook> orderBook;
 
-    public Order() {
+    public Order(){}
+
+    public Order(User user, OrderStatus status, Payment payment, Shipment shipment, BigDecimal price, Date date) {
+        this.user = user;
+        this.status = status;
+        this.payment = payment;
+        this.shipment = shipment;
+        this.price = price;
+        this.date = date;
     }
 
     public Long getId() {
@@ -120,5 +128,9 @@ public class Order {
 
     public void setOrderBook(List<OrderBook> orderBook) {
         this.orderBook = orderBook;
+    }
+
+    public void addOrderBook(OrderBook orderBook) {
+        this.orderBook.add(orderBook);
     }
 }

@@ -42,7 +42,6 @@ class UpdateBookComponent extends Component {
                 authors: book.authors,
                 publisher: book.publisher,
                 categories: book.categories,
-                description: book.description,
                 price: book.price,
                 quantity: book.quantity,
                 description: book.description

@@ -12,7 +12,7 @@ public class OrderBookId implements Serializable {
     private Long orderId;
     private Long bookId;
 
-    private OrderBookId() {
+    public OrderBookId() {
     }
 
     public Long getBookId() {
@@ -22,6 +22,10 @@ public class OrderBookId implements Serializable {
     public Long getOrderId() {
         return orderId;
     }
+
+    public void setBookId(Long id) {this.bookId = id;}
+
+    public void setOrderId(Long id) {this.orderId = id;}
 
     @Override
     public boolean equals(Object o) {
