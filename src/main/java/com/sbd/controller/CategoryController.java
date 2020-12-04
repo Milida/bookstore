@@ -55,8 +55,14 @@ public class CategoryController {
     }
 
     @DeleteMapping("/{id}")
-    ResponseEntity<?> removeBook(@PathVariable Long id) {
-        categoryRepository.delete(getCategory(id).getBody());
-        return new ResponseEntity<>("Deleted successfully", HttpStatus.OK);
+    ResponseEntity<?> removeCategory(@PathVariable Long id) {
+        Category category = getCategory(id).getBody();
+        if(category.getBooks().isEmpty())
+        {
+            categoryRepository.delete(getCategory(id).getBody());
+            return new ResponseEntity<>("Deleted successfully", HttpStatus.OK);
+        } else {
+            throw new ConflictException("Cannot remove category with assigned books!");
+        }
     }
 }

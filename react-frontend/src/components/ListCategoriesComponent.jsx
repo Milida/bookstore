@@ -10,6 +10,7 @@ class ListCategoriesComponent extends Component {
         }
         this.addCategory = this.addCategory.bind(this);
         this.editCategory = this.editCategory.bind(this);
+        this.removeCategory = this.removeCategory.bind(this);
     }
     
     editCategory(category){
@@ -24,6 +25,10 @@ class ListCategoriesComponent extends Component {
     addCategory(){
         this.props.history.push('/add-category');
     }
+    removeCategory(categoryToRemove) {
+        CategoryService.removeCategory(categoryToRemove).then(res =>
+            this.setState({ categorys: this.state.categorys.filter(category => category.id !== categoryToRemove.id) })).catch(error => alert("Cannot remove category with assigned books!"));
+    }
 
     render() {
         return (
@@ -33,7 +38,7 @@ class ListCategoriesComponent extends Component {
                     <button className="btn btn-primary" onClick={this.addCategory}>Add Category</button>
                 </div>
                 <div className="row">
-                    <table className = "table table-striped table-bordered">
+                    <table style={{marginTop:"10px"}} className = "table table-striped table-bordered">
                         <thead>
                             <tr>
                                 <th>Categories Name</th>
@@ -50,7 +55,8 @@ class ListCategoriesComponent extends Component {
                                         <td>{category.name}</td>
                                         <td>{category.description}</td>
                                         <td>
-                                            <button onClick ={() => this.editCategory(category)} className="btn btn-info">Update</button>
+                                            <button style={{marginRight:"10px"}} onClick ={() => this.editCategory(category)} className="btn btn-info">Update</button>
+                                            <button onClick={() => this.removeCategory(category)} className="btn btn-danger">Delete</button>
                                         </td>
                                     </tr>
                                 )

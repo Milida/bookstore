@@ -19,6 +19,8 @@ class CategoryService {
     updateCategory(category, categoryId){
         return axios.put(CATEGORY_API_BASE_URL + '/' + categoryId, category);
     }
+    removeCategory(category) {
+        return axios.delete(CATEGORY_API_BASE_URL + '/' + category.id);
+    }
 }
-
 export default new CategoryService()

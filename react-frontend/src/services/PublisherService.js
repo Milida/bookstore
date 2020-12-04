@@ -19,6 +19,10 @@ class PublisherService {
     updatePublisher(publisher, publisherId) {
         return axios.put(PUBLISHER_API_BASE_URL + '/' + publisherId, publisher);
     }
+    removePublisher(publisher) {
+        return axios.delete(PUBLISHER_API_BASE_URL + '/' + publisher.id);
+    }
+
 }
 
 export default new PublisherService()

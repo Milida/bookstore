@@ -19,6 +19,9 @@ class AuthorService {
     updateAuthor(author, authorId){
         return axios.put(AUTHOR_API_BASE_URL + '/' + authorId, author);
     }
+    removeAuthor(author) {
+        return axios.delete(AUTHOR_API_BASE_URL + '/' + author.id);
+    }
 }
 
 export default new AuthorService()
