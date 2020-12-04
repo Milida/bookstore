@@ -3,10 +3,13 @@ package com.sbd.controller;
 import com.sbd.bookstore.repository.UserRepository;
 import com.sbd.model.User;
 import com.sbd.payroll.ConflictException;
+import com.sbd.payroll.Credentials;
 import com.sbd.payroll.NotFoundException;
+import com.sbd.payroll.UnauthorisedException;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -33,13 +36,12 @@ public class UserController {
         return new ResponseEntity<>(user, HttpStatus.OK);
     }
 
-
     @PostMapping
     ResponseEntity<User> addUser(@RequestBody User user) {
 
         if (userRepository.existsByEmail(user.getEmail()))
             throw new ConflictException(String.format("User with email '%s' already exists", user.getEmail()));
-        
+
         return new ResponseEntity<>(userRepository.save(user), HttpStatus.CREATED);
     }
 
@@ -56,12 +58,28 @@ public class UserController {
         return new ResponseEntity<>("Updated successfully", HttpStatus.OK);
     }
 
-
     @DeleteMapping("/{id}")
-    ResponseEntity<?> removeUser(@PathVariable Long id){
+    ResponseEntity<?> removeUser(@PathVariable Long id) {
         User user = getUser(id).getBody();
         user.setIsActive(false);
         userRepository.save(user);
         return new ResponseEntity<>("Deleted successfully", HttpStatus.OK);
     }
+
+    @PostMapping("/login")
+    ResponseEntity<?> login(@RequestBody Credentials credentials) {
+        User user = userRepository.findByEmailAndPassword(credentials.getEmail(), credentials.getPassword())
+                .orElseThrow(() -> new UnauthorisedException("Invalid login or password!"));
+        if (user.getIsActive()) {
+            HttpHeaders responseHeaders = new HttpHeaders();
+
+            responseHeaders.set("isWorker", Boolean.toString(false));
+
+            return ResponseEntity.ok().headers(responseHeaders).body(user);
+        } else {
+            throw new UnauthorisedException("Acoount is inactive!");
+        }
+
+    }
+
 }

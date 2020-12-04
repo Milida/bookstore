@@ -18,3 +18,10 @@
     .navbar-brand:hover {
       filter: brightness(85%);
     }
+
+    .isDisabled {
+      color: currentColor;
+      cursor: not-allowed;
+      opacity: 0.5;
+      text-decoration: none;
+    }

@@ -40,7 +40,7 @@ class BookDetailsComponent extends Component {
                 <div class="row">
 
                     <div class="col-md-6">
-                        <h3 class="my-3">{this.state.title}</h3>
+                        <h1 class="my-3">{this.state.title}</h1>
                         <h5 className="text-muted">Publisher: {this.state.publisher}</h5>
                         <p>{this.state.description}</p>
 
@@ -65,7 +65,15 @@ class BookDetailsComponent extends Component {
                     </div>
                 </div>
 
-                <button class="btn btn-primary btn-lg" type="button">Add to cart</button>
+                {
+                    localStorage.getItem('userId')
+                    ? <button class="btn btn-primary btn-lg" type="button">Add to cart</button>
+                    : <div>
+                        <button class="btn btn-primary btn-lg disabled" type="button">Add to cart</button>
+                        <p className="text-muted">Please login to buy this product</p>
+                    </div>
+                }
+
 
             </div>
 

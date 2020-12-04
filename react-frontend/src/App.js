@@ -20,6 +20,7 @@ import ListUsersComponent from './components/ListUsersComponent';
 import ListOrdersComponent from "./components/ListOrdersComponent";
 import UpdateOrderComponent from "./components/UpdateOrderComponent";
 import Registration from './components/Registration'
+import Login from './components/Login'
 
 function App() {
   return (
@@ -47,6 +48,7 @@ function App() {
                 <Route path = "/orders" component = {ListOrdersComponent}></Route>
                 <Route path = "/update-order/:id" component = {UpdateOrderComponent}></Route>
                 <Route path = "/registration" component = {Registration}></Route>
+                <Route path = "/login" component = {Login}></Route>
               </Switch>
             </main>
           <FooterComponent />
