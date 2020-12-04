@@ -27,7 +27,7 @@ class ListCategoriesComponent extends Component {
     }
     removeCategory(categoryToRemove) {
         CategoryService.removeCategory(categoryToRemove).then(res =>
-            this.setState({ categorys: this.state.categorys.filter(category => category.id !== categoryToRemove.id) })).catch(error => alert("Cannot remove category with assigned books!"));
+            this.setState({ categories: this.state.categories.filter(category => category.id !== categoryToRemove.id) })).catch(error => alert("Cannot remove category with assigned books!"));
     }
 
     render() {

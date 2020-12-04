@@ -67,8 +67,10 @@ class ListBookComponent extends Component {
                                             <td>{book.quantity}</td>
                                             <td><ul>{book.categories.map(category => <li key={category.id}>{category.name}</li>)}</ul></td>
                                             <td>
-                                                <button onClick={() => this.removeBook(book)} className="btn btn-danger">Delete</button>
+                                                <div className="text-center">
                                                 <button onClick ={() => this.editBook(book)} className="btn btn-info">Update</button>
+                                                <button style={{marginTop:"10px"}}  onClick={() => this.removeBook(book)} className="btn btn-danger">Delete</button>
+                                                </div>
                                             </td>
                                         </tr>
                                 )
