@@ -46,7 +46,7 @@ public class User {
     private String city;
 
     @JsonIgnoreProperties({"user", "hibernateLazyInitializer"})
-    @OneToMany(mappedBy = "user", orphanRemoval = true)
+    @OneToMany(mappedBy = "user")
     private List<Order> orders = new ArrayList<>();
 
     @JsonProperty(access = Access.WRITE_ONLY)

@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.annotation.CrossOrigin;
 
 import java.util.List;
+import java.util.Optional;
 
 @CrossOrigin(origins = "*")
 @RestController
@@ -47,13 +48,15 @@ public class UserController {
 
     @PutMapping("/{id}")
     ResponseEntity<?> updateUser(@RequestBody User user, @PathVariable Long id) {
-
+        if (user.getPassword() == null || user.getPassword().equals("")) {
+            Optional<User> tmp = userRepository.findById(id);
+            String password = tmp.get().getPassword();
+            user.setPassword(password);
+        }
         userRepository.findById(id).map(oldUser -> {
             BeanUtils.copyProperties(user, oldUser, new String[] { "id" });
             return userRepository.save(oldUser);
-        }).orElseGet(() -> {
-            return userRepository.save(user);
-        });
+        }).orElseGet(() -> userRepository.save(user));
 
         return new ResponseEntity<>("Updated successfully", HttpStatus.OK);
     }
@@ -70,6 +73,7 @@ public class UserController {
     ResponseEntity<?> login(@RequestBody Credentials credentials) {
         User user = userRepository.findByEmailAndPassword(credentials.getEmail(), credentials.getPassword())
                 .orElseThrow(() -> new UnauthorisedException("Invalid login or password!"));
+        System.out.println(user.getIsActive());
         if (user.getIsActive()) {
             HttpHeaders responseHeaders = new HttpHeaders();
 

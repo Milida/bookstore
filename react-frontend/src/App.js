@@ -21,6 +21,8 @@ import ListOrdersComponent from "./components/ListOrdersComponent";
 import UpdateOrderComponent from "./components/UpdateOrderComponent";
 import Registration from './components/Registration'
 import Login from './components/Login'
+import MyAccountComponent from "./components/MyAccountComponent";
+import UpdateUserComponent from "./components/UpdateUserComponent";
 
 function App() {
   return (
@@ -44,7 +46,9 @@ function App() {
                 <Route path = "/publishers" component = {ListPublisherComponent}></Route> 
                 <Route path = "/add-publisher" component = {AddPublisherComponent}></Route>
                 <Route path = "/update-publisher/:id" component = {UpdatePublisherComponent}></Route>
+                <Route path = "/users/:id" component = {MyAccountComponent}></Route>
                 <Route path = "/users" component = {ListUsersComponent}></Route>
+                <Route path = "/update-user/:id" component = {UpdateUserComponent}></Route>
                 <Route path = "/orders" component = {ListOrdersComponent}></Route>
                 <Route path = "/update-order/:id" component = {UpdateOrderComponent}></Route>
                 <Route path = "/registration" component = {Registration}></Route>
