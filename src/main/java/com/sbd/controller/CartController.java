@@ -1,10 +1,7 @@
 package com.sbd.controller;
 
 import com.sbd.bookstore.repository.CartRepository;
-import com.sbd.model.Book;
 import com.sbd.model.Cart;
-import com.sbd.model.User;
-import com.sbd.payroll.NotFoundException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -23,19 +20,28 @@ public class CartController {
     CartRepository cartRepository;
 
     @GetMapping("/{id}")
-    ResponseEntity<List<Cart>> getUserCarts(@PathVariable Long id) {
-        List<Cart> carts = cartRepository.findByUserId(id)
-                .orElseThrow(() -> new NotFoundException(String.format("User with ID = %d was not found", id)));
+    ResponseEntity<List<Cart>> getUserCart(@PathVariable Long id) {
+        List<Cart> carts = cartRepository.findByUserId(id);
         return new ResponseEntity<>(carts, HttpStatus.OK);
     }
 
     @PostMapping
-    ResponseEntity<?> addBook(@RequestBody User user, @RequestBody Book book) {
+    ResponseEntity<?> addBook(@RequestBody Cart cart) {
         try {
-            return new ResponseEntity<>(cartRepository.save(new Cart(user, book)), HttpStatus.OK);
+            return new ResponseEntity<>(cartRepository.save(cart), HttpStatus.OK);
         } catch (DataIntegrityViolationException ex) {
             return new ResponseEntity<>("Incorrect user/book ID", HttpStatus.BAD_REQUEST);
         }
     }
+
+    @PostMapping("/remove")
+    ResponseEntity<?> removeItem(@RequestBody Cart cart) {
+
+        cartRepository.delete(cart);
+        return new ResponseEntity<>("Deleted successfully", HttpStatus.OK);
+
+    }
+
+
 
 }

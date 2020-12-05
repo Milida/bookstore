@@ -7,9 +7,7 @@ import java.util.List;
 
 import com.sbd.bookstore.repository.*;
 import com.sbd.model.*;
-
 import com.sbd.model.embedded.OrderBookId;
-import org.aspectj.weaver.ast.Or;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
@@ -37,6 +35,8 @@ public class DatabaseInitializer implements CommandLineRunner {
     OrderRepository orderRepository;
     @Autowired
     OrderBookRepository orderBookRepository;
+    @Autowired
+    CartRepository cartRepository;
 
     @Override
     public void run(String... args) throws Exception {
@@ -103,6 +103,17 @@ public class DatabaseInitializer implements CommandLineRunner {
         orderBookIds.get(1).setOrderId(order.getId());
         orderBooks.get(0).setId(orderBookIds.get(0));
         orderBooks.get(1).setId(orderBookIds.get(1));
+
+        // CartId cartId = new CartId();
+        // cartId.setBookId(books.get(0).getId());
+        // cartId.setUserId(users.get(0).getId());
+
+        // Cart cart = new Cart();
+        // cart.setId(cartId);
+        // cart.setBook(books.get(0));
+        // cart.setUser(users.get(0));
+        // cart.setQuantity(5);
+        // cartRepository.save(cart);
 
 
         books.get(0).addCategory(categories.get(0));
