@@ -9,7 +9,6 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
 import javax.persistence.MapsId;
-import javax.persistence.criteria.CriteriaBuilder;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.sbd.model.embedded.OrderBookId;

@@ -1,15 +1,35 @@
 import React, { Component } from 'react';
 import {Link} from 'react-router-dom';
+import CartService from '../../services/CartService';
 
 class BookCardComponent extends Component {
     constructor(props) {
         super(props)
 
         this.state = {
-            book: props.book
+            book: props.book,
+            userId: localStorage.getItem('userId')
         }
+        this.addToCart = this.addToCart.bind(this);
     }
 
+    addToCart(bookId) {
+        CartService.addToCart(
+            {
+                "id": {
+                    "userId": this.state.userId,
+                    "bookId": bookId
+                },
+                "user": {
+                    "id": this.state.userId
+                },
+                "book": {
+                    "id": bookId
+                },
+                "quantity": 1
+            }
+        ).then(res => {alert("Product added to your cart")})
+    }
 
     render() {
         return (
@@ -23,7 +43,7 @@ class BookCardComponent extends Component {
                     <div className="card-footer text-center">
                         {
                             localStorage.getItem('userId')
-                            ? <a href="#" className="card-link">Add to cart</a>
+                            ? <a href="#" className="card-link" onClick={this.addToCart}>Add to cart</a>
                             : <a href="#" className="card-link text-muted disabled">Please login to buy this product</a>
                         }
                         

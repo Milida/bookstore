@@ -1,9 +1,7 @@
 package com.sbd.controller;
 
-import com.sbd.bookstore.repository.OrderBookRepository;
 import com.sbd.bookstore.repository.OrderRepository;
 import com.sbd.model.Order;
-import com.sbd.model.OrderBook;
 import com.sbd.payroll.NotFoundException;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;

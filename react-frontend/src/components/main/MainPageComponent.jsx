@@ -24,7 +24,7 @@ class MainPageComponent extends Component {
                 <div className="row justify-content-center">
 
                     {this.state.books.map(book => {
-                        return <BookCard book={book} />
+                        return <BookCard key={book.id} book={book} />
                     })}
 
 

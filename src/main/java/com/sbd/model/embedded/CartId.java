@@ -12,7 +12,7 @@ public class CartId implements Serializable {
     private Long userId;
     private Long bookId;
 
-    private CartId() {
+    public CartId() {
     }
 
     public Long getUserId() {
@@ -21,6 +21,14 @@ public class CartId implements Serializable {
 
     public Long getBookId() {
         return bookId;
+    }
+
+    public void setBookId(Long bookId) {
+        this.bookId = bookId;
+    }
+
+    public void setUserId(Long userId) {
+        this.userId = userId;
     }
 
     @Override

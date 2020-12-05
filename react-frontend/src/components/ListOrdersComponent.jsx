@@ -30,7 +30,6 @@ class ListOrdersComponent extends Component {
     }
 
     render() {
-        console.log(this.state.orders);
         return (
             <div>
                 <h2 className="text-center">Order List</h2>
