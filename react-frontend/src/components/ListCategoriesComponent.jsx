@@ -18,6 +18,8 @@ class ListCategoriesComponent extends Component {
     }
 
     componentDidMount(){
+        if (localStorage.getItem('isWorker') !== "true")
+            this.props.history.push("/");
         CategoryService.getCategories().then((res)  => {
             this.setState({categories: res.data});
         });

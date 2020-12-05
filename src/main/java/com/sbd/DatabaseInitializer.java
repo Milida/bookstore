@@ -37,6 +37,8 @@ public class DatabaseInitializer implements CommandLineRunner {
     OrderRepository orderRepository;
     @Autowired
     OrderBookRepository orderBookRepository;
+    @Autowired
+    EmployeeRepository employeeRepository;
 
     @Override
     public void run(String... args) throws Exception {
@@ -45,9 +47,9 @@ public class DatabaseInitializer implements CommandLineRunner {
         users.add(new User("Michał", "Sawicki", "msawicki@email.com", "qwerty", "123456789", "...", "12-345", "xyz"));
         users.add(new User("Ida", "Milewska", "ida.milewska@123.pl", "qweasdzxc", "123456789", "...", "12-345", "xyz"));
 
-        // Employee e = new Employee();
-        // e.setUser(users.get(1));
-        // employeeRepository.save(e);
+        Employee e = new Employee();
+        e.setUser(users.get(1));
+        employeeRepository.save(e);
 
         List<Publisher> publishers = new ArrayList<>();
         publishers.add(new Publisher("Polskie Wydawnictwo"));

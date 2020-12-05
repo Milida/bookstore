@@ -81,7 +81,7 @@ public class UserController {
 
             return ResponseEntity.ok().headers(responseHeaders).body(user);
         } else {
-            throw new UnauthorisedException("Acoount is inactive!");
+            throw new UnauthorisedException("Account is inactive!");
         }
 
     }

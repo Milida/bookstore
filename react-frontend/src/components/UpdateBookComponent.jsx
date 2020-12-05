@@ -35,6 +35,8 @@ class UpdateBookComponent extends Component {
     }
 
     componentDidMount() {
+        if (localStorage.getItem('isWorker') !== "true")
+            this.props.history.push("/");
         BookService.getBookById(this.state.id).then((res) => {
             let book = res.data;
             this.setState({

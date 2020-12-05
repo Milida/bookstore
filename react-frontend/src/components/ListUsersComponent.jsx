@@ -11,6 +11,8 @@ class LisUsersComponent extends Component {
     }
 
     componentDidMount(){
+        if (localStorage.getItem('isWorker') !== "true")
+            this.props.history.push("/");
         UserService.getUsers().then((res)  => {
             this.setState({users: res.data});
         });

@@ -14,6 +14,8 @@ class MyAccountComponent extends Component{
     }
 
     componentDidMount(){
+        if (!localStorage.getItem('userId'))
+            this.props.history.push("/");
         UserService.getUserById(localStorage.getItem('userId')).then((res)  => {
             this.setState({user: res.data});
         });
@@ -37,9 +39,6 @@ class MyAccountComponent extends Component{
 
 
     render() {
-        if (this.state.user.id == null) {
-            return (<div> <p>You have no access!</p></div>)
-        }
         return (
             <div>
                 <h2 className="text-center">Your data</h2>

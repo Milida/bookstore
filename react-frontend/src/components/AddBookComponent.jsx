@@ -33,6 +33,8 @@ class AddBookComponent extends Component {
     }
 
     componentDidMount() {
+        if (localStorage.getItem('isWorker') !== "true")
+            this.props.history.push("/");
         AuthorService.getAuthors().then(res => {
             let options = res.data.map(author => {
                 return {value: {id: author.id}, label: author.firstName + " " + author.lastName}

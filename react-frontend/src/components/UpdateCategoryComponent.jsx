@@ -16,6 +16,8 @@ class UpdateCategoryComponent extends Component {
     }
 
     componentDidMount(){
+        if (localStorage.getItem('isWorker') !== "true")
+            this.props.history.push("/");
         CategoryService.getCategoryById(this.state.id).then((res) =>{
             let category = res.data;
             this.setState({name : category.name,

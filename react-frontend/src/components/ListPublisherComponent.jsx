@@ -18,6 +18,8 @@ class ListPublisherComponent extends Component {
     }
 
     componentDidMount(){
+        if (localStorage.getItem('isWorker') !== "true")
+            this.props.history.push("/");
         PublisherService.getPublishers().then((res)  => {
             this.setState({publishers: res.data});
         });

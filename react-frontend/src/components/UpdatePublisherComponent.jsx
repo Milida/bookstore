@@ -14,6 +14,8 @@ class UpdatePublisherComponent extends Component {
     }
 
     componentDidMount(){
+        if (localStorage.getItem('isWorker') !== "true")
+            this.props.history.push("/");
         PublisherService.getPublisherById(this.state.id).then((res) =>{
             let publisher = res.data;
             this.setState({

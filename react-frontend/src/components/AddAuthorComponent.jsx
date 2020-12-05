@@ -25,9 +25,13 @@ class AddAuthorComponent extends Component {
     
             AuthorService.addAuthor(author).then(res =>{
                 this.props.history.push('/authors');
-            }).catch(error => alert("This author already exists!"));;
+            }).catch(error => alert("This author already exists!"));
         }
+    }
 
+    componentDidMount() {
+        if (localStorage.getItem('isWorker') !== "true")
+            this.props.history.push("/");
     }
 
     changeFirstNameHandler = (event) =>{

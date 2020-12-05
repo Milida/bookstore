@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import UserService from "../services/UserService";
+import EmployeeService from "../services/EmployeeService";
 
 class Login extends Component {
     constructor(props) {
@@ -15,6 +16,11 @@ class Login extends Component {
         this.login = this.login.bind(this);
     }
 
+    componentDidMount() {
+        if (localStorage.getItem('userId'))
+            this.props.history.push("/");
+    }
+
 
     login(e) {
         e.preventDefault();
@@ -25,7 +31,9 @@ class Login extends Component {
         UserService.login(credentials).then(res => {
             localStorage.setItem('userId', res.data.id);
             localStorage.setItem('userFirstname', res.data.firstname);
-            localStorage.setItem('userIsWorker', res.data);      
+            EmployeeService.employeeExistsById(localStorage.getItem('userId')).then(res => {
+                localStorage.setItem('isWorker', res.data);
+            });
             this.props.history.push('/');
             window.location.reload();
         }).catch(error => alert("Invalid login or password!"));

@@ -7,14 +7,16 @@ class HeaderComponent extends Component {
         super(props)
 
         this.state = {
-            user: false
+            user: false,
+            isWorker: localStorage.getItem('isWorker')
         }
     }
 
     componentDidMount() {
         this.setState({
             userId: localStorage.getItem('userId'),
-            userFirstname: localStorage.getItem('userFirstname')
+            userFirstname: localStorage.getItem('userFirstname'),
+            isWorker: localStorage.getItem('isWorker')
         });
     }
 
@@ -25,12 +27,16 @@ class HeaderComponent extends Component {
                     <nav className="navbar navbar-expand-md navbar-dark bg-dark text-white mb-4 d-flex justify-content-between">
                         <div className="d-flex">
                             <div><Link className="navbar-brand" to="/">Book Shop</Link></div>
-                            <div><Link className="navbar-brand" to="/books">Books</Link></div>
-                            <div><Link className="navbar-brand" to="/publishers">Publishers</Link></div>
-                            <div><Link className="navbar-brand" to="/authors">Authors</Link></div>
-                            <div><Link className="navbar-brand" to="/categories">Categories</Link></div>
-                            <div><Link className="navbar-brand" to="/users">Users</Link></div>
-                            <div><Link className="navbar-brand" to = "/orders">Orders</Link></div>
+                            {this.state.isWorker === "true" ?
+                                <>
+                                <div><Link className="navbar-brand" to="/books">Books</Link></div>
+                                <div><Link className="navbar-brand" to="/publishers">Publishers</Link></div>
+                                <div><Link className="navbar-brand" to="/authors">Authors</Link></div>
+                                <div><Link className="navbar-brand" to="/categories">Categories</Link></div>
+                                <div><Link className="navbar-brand" to="/users">Users</Link></div>
+                                <div><Link className="navbar-brand" to = "/orders">Orders</Link></div>
+                                </> : <></>
+                            }
                         </div>
 
                         <div className="d-flex">

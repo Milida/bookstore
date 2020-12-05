@@ -28,6 +28,8 @@ class UpdateOrderComponent extends Component{
         this.updateOrder = this.updateOrder.bind(this);
     }
     componentDidMount() {
+        if (localStorage.getItem('isWorker') !== "true")
+            this.props.history.push("/");
         OrderService.getOrderById(this.state.id).then((res) => {
             let order = res.data;
             this.setState({

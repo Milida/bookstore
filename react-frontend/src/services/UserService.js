@@ -34,6 +34,7 @@ class UserService {
         localStorage.removeItem('userId');
         localStorage.removeItem('userFirstname');
         localStorage.removeItem('userLastname');
+        localStorage.removeItem('isWorker');
         window.location.reload();
     }
 

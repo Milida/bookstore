@@ -18,6 +18,8 @@ class ListAuthorComponent extends Component {
     }
 
     componentDidMount(){
+        if (localStorage.getItem('isWorker') !== "true")
+            this.props.history.push("/");
         AuthorService.getAuthors().then((res)  => {
             this.setState({authors: res.data});
         });

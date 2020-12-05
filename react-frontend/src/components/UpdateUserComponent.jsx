@@ -28,6 +28,8 @@ class UpdateUserComponent extends Component {
     }
 
     componentDidMount(){
+        if (!localStorage.getItem('userId'))
+            this.props.history.push("/");
         UserService.getUserById(localStorage.getItem('userId')).then((res) =>{
             let user = res.data
             this.setState({

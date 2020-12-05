@@ -20,6 +20,11 @@ class Registration extends Component {
     this.saveUser = this.saveUser.bind(this);
   }
 
+  componentDidMount() {
+    if (localStorage.getItem('userId'))
+      this.props.history.push("/");
+  }
+
   handleChange(event) {
     this.setState({
       [event.target.name]: event.target.value

@@ -13,6 +13,11 @@ class AddCategoryComponent extends Component {
         this.changeDescriptionHandler = this.changeDescriptionHandler.bind(this);
         this.saveCategory = this.saveCategory.bind(this);
     }
+
+    componentDidMount() {
+        if (localStorage.getItem('isWorker') !== "true")
+            this.props.history.push("/");
+    }
     
     saveCategory = (e) => {
         e.preventDefault();

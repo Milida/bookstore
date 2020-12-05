@@ -16,6 +16,8 @@ class UpdateAuthorComponent extends Component {
     }
 
     componentDidMount(){
+        if (localStorage.getItem('isWorker') !== "true")
+            this.props.history.push("/");
         AuthorService.getAuthorById(this.state.id).then((res) =>{
             let author = res.data;
             this.setState({

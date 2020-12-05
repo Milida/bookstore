@@ -14,6 +14,8 @@ class ListOrdersComponent extends Component {
     }
 
     componentDidMount() {
+        if (localStorage.getItem('isWorker') !== "true")
+                this.props.history.push("/");
         OrderService.getOrders().then((res) => {
             this.setState({ orders: res.data });
         });

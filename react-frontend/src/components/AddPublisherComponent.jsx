@@ -23,9 +23,14 @@ class AddPublisherComponent extends Component {
     
             PublisherService.addPublisher(publisher).then(res =>{
                 this.props.history.push('/publishers');
-            }).catch(error => alert("This Publisher already exists!"));;
+            }).catch(error => alert("This Publisher already exists!"));
         }
 
+    }
+
+    componentDidMount() {
+        if (localStorage.getItem('isWorker') !== "true")
+            this.props.history.push("/");
     }
 
     changeNameHandler = (event) =>{
