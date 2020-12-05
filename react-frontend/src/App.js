@@ -21,6 +21,7 @@ import ListOrdersComponent from "./components/ListOrdersComponent";
 import UpdateOrderComponent from "./components/UpdateOrderComponent";
 import Registration from './components/Registration'
 import Login from './components/Login'
+import CartComponent from './components/main/CartComponent';
 import MyAccountComponent from "./components/MyAccountComponent";
 import UpdateUserComponent from "./components/UpdateUserComponent";
 
@@ -53,6 +54,7 @@ function App() {
                 <Route path = "/update-order/:id" component = {UpdateOrderComponent}></Route>
                 <Route path = "/registration" component = {Registration}></Route>
                 <Route path = "/login" component = {Login}></Route>
+                <Route path = "/cart" component = {CartComponent}></Route>
               </Switch>
             </main>
           <FooterComponent />

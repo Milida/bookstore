@@ -6,9 +6,10 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface CartRepository extends JpaRepository<Cart, Long> {
     //@EntityGraph(value = "User.Cart", type = EntityGraph.EntityGraphType.FETCH)
-    List<Cart> findByUserId(@Param("id")Long userId);
+    Optional<List<Cart>> findByUserId(@Param("id")Long userId);
 }

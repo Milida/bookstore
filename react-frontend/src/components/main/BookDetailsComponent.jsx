@@ -29,7 +29,6 @@ class BookDetailsComponent extends Component {
                 description: book.description,
                 price: book.price,
                 quantity: book.quantity,
-                description: book.description
             });
         });
     }
@@ -67,11 +66,17 @@ class BookDetailsComponent extends Component {
 
                 {
                     localStorage.getItem('userId')
-                    ? <button class="btn btn-primary btn-lg" type="button">Add to cart</button>
-                    : <div>
-                        <button class="btn btn-primary btn-lg disabled" type="button">Add to cart</button>
-                        <p className="text-muted">Please login to buy this product</p>
-                    </div>
+                        ? <div><div class="input-group col-3 pl-0">
+                            <input type="number" class="form-control" placeholder="Quantity" />
+                            <div class="input-group-append">
+                                <button class="btn btn-primary" type="button">Add to cart</button>
+                            </div>
+                        </div>
+                        <small className="text-muted">{this.state.quantity} items left</small></div>
+                        : <div>
+                            <button class="btn btn-secondary btn-lg disabled" type="button">Add to cart</button>
+                            <p className="text-muted">Please login to buy this product</p>
+                        </div>
                 }
 
 
