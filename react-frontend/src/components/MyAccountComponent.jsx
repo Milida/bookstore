@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import UserService from "../services/UserService";
 import OrderService from "../services/OrderService";
+import DeleteAccountAlertComponent from "./DeleteAccountAlertComponent";
 
 class MyAccountComponent extends Component {
 
@@ -26,21 +27,6 @@ class MyAccountComponent extends Component {
 
     editUser() {
         this.props.history.push(`/update-user/${this.state.user.id}`);
-    }
-    removeUser() {
-        alert("Are you sure you want to delete your account?"); //TODO ?
-        //usunalem this.state.user.isActive = false - Michal
-        this.setState(state => ({
-            user: {
-                ...state.user,
-                isActive: false
-            }
-        }));
-        console.log('user =>' + JSON.stringify(this.state.user));
-        UserService.updateUser(this.state.user, this.state.user.id).then(res => {
-            UserService.logout();
-        });
-
     }
 
 
@@ -83,7 +69,7 @@ class MyAccountComponent extends Component {
                     </table>
                     <div className="d-flex justify-content-between">
                         <button style={{ marginRight: "10px" }} onClick={() => this.editUser()} className="btn btn-info">Edit your data</button>
-                        <button onClick={() => this.removeUser()} className="btn btn-danger">Delete your account</button>
+                        <DeleteAccountAlertComponent />
                     </div>
                 </div>
                 <h2 className="text-center">Your orders</h2>

@@ -22,6 +22,10 @@ class UserService {
         return axios.put(USER_API_BASE_URL + '/' + userId, user);
     }
 
+    removeUser(userId) {
+        return axios.delete(USER_API_BASE_URL + '/' + userId);
+    }
+
     getLoggedUser(){
         return this.user;
     }

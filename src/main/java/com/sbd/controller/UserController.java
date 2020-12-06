@@ -73,7 +73,6 @@ public class UserController {
     ResponseEntity<?> login(@RequestBody Credentials credentials) {
         User user = userRepository.findByEmailAndPassword(credentials.getEmail(), credentials.getPassword())
                 .orElseThrow(() -> new UnauthorisedException("Invalid login or password!"));
-        System.out.println(user.getIsActive());
         if (user.getIsActive()) {
             HttpHeaders responseHeaders = new HttpHeaders();
 
