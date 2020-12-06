@@ -101,7 +101,7 @@ class BookDetailsComponent extends Component {
                         </div>
                         <small className="text-muted">{this.state.quantity} items left</small></div>
                         : <div>
-                            <button class="btn btn-secondary btn-lg disabled" type="button">Add to cart</button>
+                            <button class="btn btn-secondary btn-lg" type="button" disabled>Add to cart</button>
                             <p className="text-muted">Please login to buy this product</p>
                         </div>
                 }

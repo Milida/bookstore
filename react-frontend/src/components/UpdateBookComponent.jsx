@@ -46,7 +46,7 @@ class UpdateBookComponent extends Component {
                 categories: book.categories,
                 price: book.price,
                 quantity: book.quantity,
-                description: book.description
+                description: book.description ? book.description : ''
             });
 
             AuthorService.getAuthors().then(res => {

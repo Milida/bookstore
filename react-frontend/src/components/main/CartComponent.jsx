@@ -51,7 +51,6 @@ class CartComponent extends Component {
 
     removeItem(itemId) {
         CartService.removeItem(this.state.userId, itemId).then(res => {
-            //this.setState({ cart: this.state.cart.filter(item => item.book.id !== itemId) })
             this.componentDidMount();
         }).catch(err => alert('Cannot remove this item'));
     }

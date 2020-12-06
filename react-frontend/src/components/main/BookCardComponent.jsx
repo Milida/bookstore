@@ -43,8 +43,8 @@ class BookCardComponent extends Component {
                     <div className="card-footer text-center">
                         {
                             localStorage.getItem('userId')
-                            ? <a href="#" className="card-link" onClick={this.addToCart}>Add to cart</a>
-                            : <a href="#" className="card-link text-muted disabled">Please login to buy this product</a>
+                            ? <button type="button" className="btn p-0 btn-link card-link" onClick={this.addToCart}>Add to cart</button>
+                            : <button type="button" className="btn p-0 btn-link card-link text-muted" disabled>Please login to buy this product</button>
                         }
                         
                     </div>
