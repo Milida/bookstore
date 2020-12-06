@@ -1,7 +1,10 @@
 package com.sbd.controller;
 
+import com.sbd.bookstore.repository.OrderBookRepository;
 import com.sbd.bookstore.repository.OrderRepository;
 import com.sbd.model.Order;
+import com.sbd.model.OrderBook;
+import com.sbd.model.embedded.OrderBookId;
 import com.sbd.payroll.NotFoundException;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +21,9 @@ public class OrderController {
     @Autowired
     private OrderRepository orderRepository;
 
+    @Autowired
+    private OrderBookRepository orderBookRepository;
+
     @GetMapping
     ResponseEntity<List<Order>> getOrders() {
         return new ResponseEntity<>(orderRepository.findAll(), HttpStatus.OK);
@@ -31,7 +37,20 @@ public class OrderController {
     }
 
     @PostMapping
-    ResponseEntity<Order> addOder(@RequestBody Order order) {
+    ResponseEntity<Order> addOrder(@RequestBody Order orderBody) {
+
+        Order order = orderRepository.save(orderBody);
+        order.setOrderBook(orderBody.getOrderBook());
+
+        for (OrderBook orderBook : orderBody.getOrderBook()) {
+            OrderBookId orderBookId = new OrderBookId();
+            orderBookId.setBookId(orderBook.getBook().getId());
+            orderBookId.setBookId(order.getId());
+            orderBook.setId(orderBookId);
+            orderBook.setOrder(order);
+            orderBookRepository.save(orderBook);
+        }
+
         return new ResponseEntity<>(orderRepository.save(order), HttpStatus.CREATED);
     }
 
@@ -51,4 +70,3 @@ public class OrderController {
         return new ResponseEntity<>("Deleted successfully", HttpStatus.OK);
     }
 }
-
