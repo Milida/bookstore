@@ -13,7 +13,7 @@ class CartComponent extends Component {
 
         this.state = {
             cart: [],
-            userId: localStorage.getItem('userId'),
+            userId: Number(localStorage.getItem('userId')),
             total: 0,
             payment: { id: 0, price: 0 },
             shipment: { id: 0, price: 0 },
@@ -55,7 +55,7 @@ class CartComponent extends Component {
         }).catch(err => alert('Cannot remove this item'));
     }
 
-    removeAll(){
+    removeAll() {
         CartService.removeAllUserItems(this.state.userId).then(res => {
             this.componentDidMount();
         }).catch(err => alert('Cannot remove one or more of these items'));
@@ -74,8 +74,33 @@ class CartComponent extends Component {
     }
 
     makeOrder() {
-        //to do
-        //OrderService.addOrder()
+        let order = {
+            price: Math.round((this.state.total + this.state.shipment.price) * 100) / 100,
+            "user": {
+                "id": this.state.userId
+            },
+            "status": {
+                "id": 1
+            },
+            "payment": {
+                "id": this.state.payment.id
+            },
+            "shipment": {
+                "id": this.state.shipment.id
+            },
+            "orderBook": this.state.cart.map(item => ({
+                book: {
+                    "id": item.book.id
+                },
+                "quantity": item.quantity,
+                "price": Math.round((item.quantity * item.book.price * 100)) / 100
+            }))
+        };
+        OrderService.addOrder(order).then(res => {
+            CartService.removeAllUserItems(this.state.userId);
+            this.props.history.push("/");
+            alert("You order is created!")
+        }).catch(err => alert("Please select payment and shipment type."))
     }
 
     render() {
@@ -161,7 +186,12 @@ class CartComponent extends Component {
 
                     <div className="ml-auto d-flex flex-column">
                         <h4 className="float-right">Total: {Math.round((this.state.total + this.state.shipment.price) * 100) / 100} zł</h4>
-                        <button onClick={this.makeOrder} className="btn-primary btn-lg">Order</button>
+                        {
+                            this.state.cart.length > 0
+                            ? <button onClick={this.makeOrder} className="btn-primary btn-lg">Order</button>
+                            : <button disabled className="btn-primary btn-lg">Order</button>
+                        }
+
                     </div>
 
 
