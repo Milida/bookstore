@@ -22,6 +22,8 @@ class CartComponent extends Component {
 
 
         }
+        this.removeItem = this.removeItem.bind(this);
+        this.removeAll = this.removeAll.bind(this);
         this.setPayment = this.setPayment.bind(this);
         this.setShipment = this.setShipment.bind(this);
         this.makeOrder = this.makeOrder.bind(this);
@@ -53,6 +55,13 @@ class CartComponent extends Component {
             this.componentDidMount();
         }).catch(err => alert('Cannot remove this item'));
     }
+
+    removeAll(){
+        CartService.removeAllUserItems(this.state.userId).then(res => {
+            this.componentDidMount();
+        }).catch(err => alert('Cannot remove one or more of these items'));
+    }
+
     setPayment(e) {
         this.setState({
             payment: e.value
@@ -78,7 +87,9 @@ class CartComponent extends Component {
                     <h2 className="text-center col-md-6 offset-md-3">Cart</h2>
                     {
                         this.state.cart !== [] &&
-                        <button className="btn btn-danger ml-auto mr-1 my-1">Delete All</button>
+
+
+                        <button className="btn btn-danger ml-auto mr-1 my-1" onClick={this.removeAll}>Delete All</button>
                     }
 
                 </div>

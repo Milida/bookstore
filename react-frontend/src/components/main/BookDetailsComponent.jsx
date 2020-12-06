@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import BookService from '../../services/BookService';
+import CartService from "../../services/CartService";
 
 
 class BookDetailsComponent extends Component {
@@ -16,6 +17,7 @@ class BookDetailsComponent extends Component {
             categories: [],
             description: '',
         }
+        this.addToCart = this.addToCart.bind(this);
     }
 
     componentDidMount() {
@@ -29,8 +31,33 @@ class BookDetailsComponent extends Component {
                 description: book.description,
                 price: book.price,
                 quantity: book.quantity,
+                cartQuantity: 1
             });
         });
+        this.changeQuantityHandler = this.changeQuantityHandler.bind(this);
+    }
+
+    addToCart() {
+        let userId = localStorage.getItem('userId');
+        CartService.addToCart(
+            {
+                "id": {
+                    "userId": userId,
+                    "bookId": this.state.id
+                },
+                "user": {
+                    "id": userId
+                },
+                "book": {
+                    "id": this.state.id
+                },
+                "quantity": this.state.cartQuantity
+            }
+        ).then(res => {alert("Product added to your cart")})
+    }
+
+    changeQuantityHandler = (event) =>{
+        this.setState({cartQuantity: event.target.value});
     }
 
     render() {
@@ -67,9 +94,9 @@ class BookDetailsComponent extends Component {
                 {
                     localStorage.getItem('userId')
                         ? <div><div class="input-group col-3 pl-0">
-                            <input type="number" class="form-control" placeholder="Quantity" />
+                            <input type="number" class="form-control" onChange={this.changeQuantityHandler} min="1" placeholder="Quantity" />
                             <div class="input-group-append">
-                                <button class="btn btn-primary" type="button">Add to cart</button>
+                                <button class="btn btn-primary" onClick={this.addToCart} type="button">Add to cart</button>
                             </div>
                         </div>
                         <small className="text-muted">{this.state.quantity} items left</small></div>

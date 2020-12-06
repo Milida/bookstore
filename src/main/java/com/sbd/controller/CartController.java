@@ -27,6 +27,7 @@ public class CartController {
 
     @PostMapping
     ResponseEntity<?> addBook(@RequestBody Cart cart) {
+        System.out.println(cart);
         try {
             return new ResponseEntity<>(cartRepository.save(cart), HttpStatus.OK);
         } catch (DataIntegrityViolationException ex) {
@@ -34,10 +35,20 @@ public class CartController {
         }
     }
 
-    @PostMapping("/remove")
+    @PutMapping("/remove")
     ResponseEntity<?> removeItem(@RequestBody Cart cart) {
-
         cartRepository.delete(cart);
+        return new ResponseEntity<>("Deleted successfully", HttpStatus.OK);
+
+    }
+
+    @DeleteMapping("/remove/{id}")
+    ResponseEntity<?> removeUserItems(@PathVariable Long id) {
+        List<Cart> carts = cartRepository.findByUserId(id);
+        for (Cart cart: carts) {
+            System.out.println(cart.getUser().getFirstname());
+            cartRepository.delete(cart);
+        }
         return new ResponseEntity<>("Deleted successfully", HttpStatus.OK);
 
     }

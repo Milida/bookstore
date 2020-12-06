@@ -13,18 +13,18 @@ class BookCardComponent extends Component {
         this.addToCart = this.addToCart.bind(this);
     }
 
-    addToCart(bookId) {
+    addToCart() {
         CartService.addToCart(
             {
                 "id": {
                     "userId": this.state.userId,
-                    "bookId": bookId
+                    "bookId": this.state.book.id
                 },
                 "user": {
                     "id": this.state.userId
                 },
                 "book": {
-                    "id": bookId
+                    "id": this.state.book.id
                 },
                 "quantity": 1
             }

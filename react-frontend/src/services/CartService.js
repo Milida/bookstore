@@ -13,7 +13,7 @@ class CartService {
     }
 
     removeItem(userId, itemId) {
-        return axios.post(CART_API_BASE_URL + '/remove', {
+        return axios.put(CART_API_BASE_URL + '/remove', {
             "id": {
                 "userId": userId,
                 "bookId": itemId
@@ -25,6 +25,10 @@ class CartService {
                 "id": itemId
             }
         });
+    }
+
+    removeAllUserItems(userId){
+        return axios.delete(CART_API_BASE_URL + '/remove/' + userId);
     }
 }
 
