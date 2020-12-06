@@ -27,8 +27,12 @@ public class CartController {
 
     @PostMapping
     ResponseEntity<?> addBook(@RequestBody Cart cart) {
-        System.out.println(cart);
         try {
+            Cart oldCart = cartRepository.findByUserIdAndBookId(cart.getUser().getId(), cart.getBook().getId());
+            if (oldCart != null) {
+                oldCart.setQuantity(oldCart.getQuantity() + cart.getQuantity());
+                return new ResponseEntity<>(cartRepository.save(oldCart), HttpStatus.OK);
+            }
             return new ResponseEntity<>(cartRepository.save(cart), HttpStatus.OK);
         } catch (DataIntegrityViolationException ex) {
             return new ResponseEntity<>("Incorrect user/book ID", HttpStatus.BAD_REQUEST);

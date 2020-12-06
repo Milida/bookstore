@@ -9,7 +9,7 @@ import java.util.List;
 
 @Repository
 public interface CartRepository extends JpaRepository<Cart, Long> {
-    //@EntityGraph(value = "User.Cart", type = EntityGraph.EntityGraphType.FETCH)
     List<Cart> findByUserId(@Param("id")Long userId);
+    Cart findByUserIdAndBookId(Long userId, Long bookId);
 
 }
