@@ -98,19 +98,25 @@ class BookDetailsComponent extends Component {
 
                 {
                     localStorage.getItem('userId')
-                        ? this.state.quantity < 1
-                            ? <div>
-                                <button class="btn btn-secondary btn-lg" type="button" disabled>Add to cart</button>
-                                <p className="text-muted">Produt not available</p>
-                            </div>
-
-                            : <div><div class="input-group col-3 pl-0">
-                                <input type="number" defaultValue="1" class="form-control" onChange={this.changeQuantityHandler} min="1" placeholder="Quantity" />
-                                <div class="input-group-append">
-                                    <button class="btn btn-primary" onClick={this.addToCart} type="button">Add to cart</button>
+                        ? localStorage.getItem('isWorker') === "false"
+                            ? this.state.quantity < 1
+                                ? <div>
+                                    <button class="btn btn-secondary btn-lg" type="button" disabled>Add to cart</button>
+                                    <p className="text-muted">Produt not available</p>
                                 </div>
+                                : <div>
+                                    <div class="input-group col-3 pl-0">
+                                        <input type="number" defaultValue="1" class="form-control" onChange={this.changeQuantityHandler} min="1" placeholder="Quantity" />
+                                        <div class="input-group-append">
+                                            <button class="btn btn-primary" onClick={this.addToCart} type="button">Add to cart</button>
+                                        </div>
+                                    </div>
+                                    <small className="text-muted">{this.state.quantity} items left</small>
+                                </div>
+                            : <div>
+                                <button className="btn btn-secondary btn-lg" type="button" disabled>Add to cart</button>
+                                <p className="text-muted">Login to your user account to buy this product</p>
                             </div>
-                                <small className="text-muted">{this.state.quantity} items left</small></div>
                         : <div>
                             <button class="btn btn-secondary btn-lg" type="button" disabled>Add to cart</button>
                             <p className="text-muted">Please login to buy this product</p>

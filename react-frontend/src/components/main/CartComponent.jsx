@@ -31,7 +31,7 @@ class CartComponent extends Component {
     }
 
     componentDidMount() {
-        if (!this.state.userId) {
+        if (!this.state.userId || localStorage.getItem('isWorker') === "true") {
             this.props.history.push('/');
         }
         CartService.getCart(this.state.userId).then(res => {

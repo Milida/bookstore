@@ -67,15 +67,21 @@ class MyAccountComponent extends Component {
                             </tr>
                         </tbody>
                     </table>
+                    {localStorage.getItem('isWorker') === "false" &&
                     <div className="d-flex justify-content-between">
-                        <button style={{ marginRight: "10px" }} onClick={() => this.editUser()} className="btn btn-info">Edit your data</button>
-                        <DeleteAccountAlertComponent />
+                        <button style={{marginRight: "10px"}} onClick={() => this.editUser()}
+                                className="btn btn-info">Edit your data
+                        </button>
+                        <DeleteAccountAlertComponent/>
                     </div>
+                    }
                 </div>
-                <h2 className="text-center">Your orders</h2>
-                <div className="row">
-                    <table className="table table-striped table-bordered">
-                        <thead>
+                {localStorage.getItem('isWorker') === "false" &&
+                <div>
+                    <h2 className="text-center">Your orders</h2>
+                    <div className="row">
+                        <table className="table table-striped table-bordered">
+                            <thead>
                             <tr>
                                 <th>Date:</th>
                                 <th>Books:</th>
@@ -84,14 +90,17 @@ class MyAccountComponent extends Component {
                                 <th>Status:</th>
                                 <th>Price:</th>
                             </tr>
-                        </thead>
-                        <tbody>
+                            </thead>
+                            <tbody>
                             {
                                 this.state.orders.map(
                                     order =>
                                         <tr key={order.id}>
                                             <td>{order.date.slice(0, 10)}</td>
-                                            <td><ul>{order.orderBook.map(orderbook => <li key={orderbook.book.id}>{orderbook.book.title + ", " + orderbook.quantity}</li>)} </ul></td>
+                                            <td>
+                                                <ul>{order.orderBook.map(orderbook => <li
+                                                    key={orderbook.book.id}>{orderbook.book.title + ", " + orderbook.quantity}</li>)} </ul>
+                                            </td>
                                             <td>{order.shipment.name}</td>
                                             <td>{order.payment.name}</td>
                                             <td>{order.status.name}</td>
@@ -99,9 +108,11 @@ class MyAccountComponent extends Component {
                                         </tr>
                                 )
                             }
-                        </tbody>
-                    </table>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
+                }
             </div>
         );
     }
