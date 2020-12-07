@@ -69,7 +69,7 @@ class MyAccountComponent extends Component {
                     </table>
                     {localStorage.getItem('isWorker') === "false" &&
                     <div className="d-flex justify-content-between">
-                        <button style={{marginRight: "10px"}} onClick={() => this.editUser()}
+                        <button style={{marginRight: "847px"}} onClick={() => this.editUser()}
                                 className="btn btn-info">Edit your data
                         </button>
                         <DeleteAccountAlertComponent/>
