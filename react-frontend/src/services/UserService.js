@@ -4,9 +4,6 @@ const USER_API_BASE_URL = "http://localhost:8080/users";
 
 class UserService {
 
-    static user = '';
-    static isWorker = false;
-
     getUsers() {
         return axios.get(USER_API_BASE_URL);
     }

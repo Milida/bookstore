@@ -1,10 +1,13 @@
 package com.sbd.controller;
 
+import com.sbd.bookstore.repository.BookRepository;
 import com.sbd.bookstore.repository.OrderBookRepository;
 import com.sbd.bookstore.repository.OrderRepository;
+import com.sbd.model.Book;
 import com.sbd.model.Order;
 import com.sbd.model.OrderBook;
 import com.sbd.model.embedded.OrderBookId;
+import com.sbd.payroll.BadRequestException;
 import com.sbd.payroll.NotFoundException;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +27,9 @@ public class OrderController {
     @Autowired
     private OrderBookRepository orderBookRepository;
 
+    @Autowired
+    private BookRepository bookRepository;
+
     @GetMapping
     ResponseEntity<List<Order>> getOrders() {
         return new ResponseEntity<>(orderRepository.findAll(), HttpStatus.OK);
@@ -38,6 +44,27 @@ public class OrderController {
 
     @PostMapping
     ResponseEntity<Order> addOrder(@RequestBody Order orderBody) {
+
+        if (orderBody.getPayment().getId() < 1)
+            throw new BadRequestException("Please select payment type");
+
+        if (orderBody.getShipment().getId() < 1)
+            throw new BadRequestException("Please select shipment type");
+
+        for (OrderBook orderBook : orderBody.getOrderBook()) {
+            Book book = bookRepository.findById(orderBook.getBook().getId()).orElseThrow(() -> new NotFoundException(
+                    String.format("Book with ID = %d was not found!", orderBook.getBook().getId())));
+            if (book.getQuantity() < orderBook.getQuantity()) {
+                throw new BadRequestException(
+                        String.format("Maxiumum number of '%s' available is %d", book.getTitle(), book.getQuantity()));
+            }
+        }
+
+        for (OrderBook orderBook : orderBody.getOrderBook()) {
+            Book book = bookRepository.findById(orderBook.getBook().getId()).get();
+            book.setQuantity(book.getQuantity() - orderBook.getQuantity());
+            bookRepository.save(book);
+        }
 
         Order order = orderRepository.save(orderBody);
         order.setOrderBook(orderBody.getOrderBook());

@@ -39,25 +39,30 @@ class BookDetailsComponent extends Component {
 
     addToCart() {
         let userId = localStorage.getItem('userId');
-        CartService.addToCart(
-            {
-                "id": {
-                    "userId": userId,
-                    "bookId": this.state.id
-                },
-                "user": {
-                    "id": userId
-                },
-                "book": {
-                    "id": this.state.id
-                },
-                "quantity": this.state.cartQuantity
-            }
-        ).then(res => {alert("Product added to your cart")})
+        if (this.state.cartQuantity > this.state.quantity) {
+            alert("You've selected too many items!");
+        } else {
+            CartService.addToCart(
+                {
+                    "id": {
+                        "userId": userId,
+                        "bookId": this.state.id
+                    },
+                    "user": {
+                        "id": userId
+                    },
+                    "book": {
+                        "id": this.state.id
+                    },
+                    "quantity": this.state.cartQuantity
+                }
+            ).then(res => { alert("Product added to your cart") })
+        }
+
     }
 
-    changeQuantityHandler = (event) =>{
-        this.setState({cartQuantity: event.target.value});
+    changeQuantityHandler = (event) => {
+        this.setState({ cartQuantity: event.target.value });
     }
 
     render() {
@@ -93,13 +98,19 @@ class BookDetailsComponent extends Component {
 
                 {
                     localStorage.getItem('userId')
-                        ? <div><div class="input-group col-3 pl-0">
-                            <input type="number" class="form-control" onChange={this.changeQuantityHandler} min="1" placeholder="Quantity" />
-                            <div class="input-group-append">
-                                <button class="btn btn-primary" onClick={this.addToCart} type="button">Add to cart</button>
+                        ? this.state.quantity < 1
+                            ? <div>
+                                <button class="btn btn-secondary btn-lg" type="button" disabled>Add to cart</button>
+                                <p className="text-muted">Produt not available</p>
                             </div>
-                        </div>
-                        <small className="text-muted">{this.state.quantity} items left</small></div>
+
+                            : <div><div class="input-group col-3 pl-0">
+                                <input type="number" defaultValue="1" class="form-control" onChange={this.changeQuantityHandler} min="1" placeholder="Quantity" />
+                                <div class="input-group-append">
+                                    <button class="btn btn-primary" onClick={this.addToCart} type="button">Add to cart</button>
+                                </div>
+                            </div>
+                                <small className="text-muted">{this.state.quantity} items left</small></div>
                         : <div>
                             <button class="btn btn-secondary btn-lg" type="button" disabled>Add to cart</button>
                             <p className="text-muted">Please login to buy this product</p>

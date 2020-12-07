@@ -5,18 +5,15 @@ class FooterComponent extends Component {
         super(props)
 
         this.state = {
-            
+
         }
     }
-    
+
     render() {
         return (
-            <div>
-                <footer className="footer">
-                    Project created by: Ida Milewska, Michał Sawicki, Natalia Tarasiuk
-                </footer>
-                
-            </div>
+            <footer className="footer bg-dark text-white">
+                Project created by: Ida Milewska, Michał Sawicki, Natalia Tarasiuk
+            </footer>
         );
     }
 }

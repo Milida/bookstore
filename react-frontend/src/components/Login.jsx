@@ -33,10 +33,10 @@ class Login extends Component {
             localStorage.setItem('userFirstname', res.data.firstname);
             EmployeeService.employeeExistsById(localStorage.getItem('userId')).then(res => {
                 localStorage.setItem('isWorker', res.data);
+                this.props.history.push('/');
+                window.location.reload();
             });
-            this.props.history.push('/');
-            window.location.reload();
-        }).catch(error => alert("Invalid login or password!"));
+        }).catch(error => alert(error.response.data.message));
     }
 
     handleChange(event) {

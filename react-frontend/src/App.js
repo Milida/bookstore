@@ -27,9 +27,7 @@ import UpdateUserComponent from "./components/UpdateUserComponent";
 
 function App() {
   return (
-    <div>
       <Router>
-        <div className = "container">
           <HeaderComponent />
             <main className="container">
               <Switch>
@@ -58,11 +56,8 @@ function App() {
               </Switch>
             </main>
           <FooterComponent />
-        </div>
       </Router>
-    </div>
-    
-
+  
   );
 }
 

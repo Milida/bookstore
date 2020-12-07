@@ -100,7 +100,9 @@ class CartComponent extends Component {
             CartService.removeAllUserItems(this.state.userId);
             this.props.history.push("/");
             alert("You order is created!")
-        }).catch(err => alert("Please select payment and shipment type."))
+        }).catch(err => {
+            alert(err.response.data.message)
+        })
     }
 
     render() {

@@ -8,7 +8,7 @@ class HeaderComponent extends Component {
 
         this.state = {
             user: false,
-            isWorker: localStorage.getItem('isWorker')
+            isWorker: false
         }
     }
 
