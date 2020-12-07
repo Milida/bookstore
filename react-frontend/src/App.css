@@ -9,14 +9,13 @@
     margin: 0 auto;
   }
 
-
   .card-text-limited {
       display: block;
-      width: inherit;
+      width: 100%;
       overflow: hidden;
-      white-space: pre-line;
-      text-overflow: ellipsis;
-      height: 10.5rem;
+      text-overflow: '...';
+      line-height: 1.5rem;
+      height: 9.1rem;
     }
 
     .navbar-brand:hover {
