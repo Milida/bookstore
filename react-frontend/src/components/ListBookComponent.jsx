@@ -15,8 +15,6 @@ class ListBookComponent extends Component {
     }
 
     componentDidMount() {
-        if (localStorage.getItem('isWorker') !== "true")
-            this.props.history.push("/");
         BookService.getBooks().then((res) => {
             this.setState({ books: res.data });
         });

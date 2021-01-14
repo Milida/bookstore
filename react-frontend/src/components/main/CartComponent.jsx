@@ -19,8 +19,6 @@ class CartComponent extends Component {
             shipment: { id: 0, price: 0 },
             paymentList: [],
             shipmentList: []
-
-
         }
         this.removeItem = this.removeItem.bind(this);
         this.removeAll = this.removeAll.bind(this);
@@ -31,7 +29,7 @@ class CartComponent extends Component {
     }
 
     componentDidMount() {
-        if (!this.state.userId || localStorage.getItem('isWorker') === "true") {
+        if (!this.state.userId) {
             this.props.history.push('/');
         }
         CartService.getCart(this.state.userId).then(res => {

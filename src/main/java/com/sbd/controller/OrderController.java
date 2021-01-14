@@ -3,9 +3,11 @@ package com.sbd.controller;
 import com.sbd.bookstore.repository.BookRepository;
 import com.sbd.bookstore.repository.OrderBookRepository;
 import com.sbd.bookstore.repository.OrderRepository;
+import com.sbd.bookstore.repository.UserRepository;
 import com.sbd.model.Book;
 import com.sbd.model.Order;
 import com.sbd.model.OrderBook;
+import com.sbd.model.User;
 import com.sbd.model.embedded.OrderBookId;
 import com.sbd.payroll.BadRequestException;
 import com.sbd.payroll.NotFoundException;
@@ -16,6 +18,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @CrossOrigin(origins = "*")
 @RestController
@@ -29,6 +32,9 @@ public class OrderController {
 
     @Autowired
     private BookRepository bookRepository;
+
+    @Autowired
+    private UserRepository userRepository;
 
     @GetMapping
     ResponseEntity<List<Order>> getOrders() {
@@ -44,7 +50,6 @@ public class OrderController {
 
     @PostMapping
     ResponseEntity<Order> addOrder(@RequestBody Order orderBody) {
-
         if (orderBody.getPayment().getId() < 1)
             throw new BadRequestException("Please select payment type");
 
@@ -65,6 +70,9 @@ public class OrderController {
             book.setQuantity(book.getQuantity() - orderBook.getQuantity());
             bookRepository.save(book);
         }
+
+        Optional<User> user = userRepository.findById(orderBody.getUser().getId());
+        user.ifPresent(orderBody::setUser);
 
         Order order = orderRepository.save(orderBody);
         order.setOrderBook(orderBody.getOrderBook());

@@ -39,14 +39,25 @@ public class DatabaseInitializer implements CommandLineRunner {
     EmployeeRepository employeeRepository;
     @Autowired
     CartRepository cartRepository;
+    @Autowired
+    RoleRepository roleRepository;
 
     @Override
-    public void run(String... args) throws Exception {
+    public void run(String... args) {
+        Role student = new Role("Student");
+        Role employee = new Role("Employee");
+        Role company = new Role("Company");
+        Role regular = new Role("Regular");
+        roleRepository.save(student);
+        roleRepository.save(employee);
+        roleRepository.save(company);
+        roleRepository.save(regular);
+
         List<User> users = new ArrayList<>();
-        users.add(new User("Natalia", "Tarasiuk", "natalia.tarasiuk@123.pl", "qweasdzxc", "123456789", "...", "12-345", "xyz"));
-        users.add(new User("Michał", "Sawicki", "msawicki@email.com", "qwerty", "123456789", "...", "12-345", "xyz"));
-        users.add(new User("Ida", "Milewska", "ida.milewska@123.pl", "qweasdzxc", "123456789", "...", "12-345", "xyz"));
-        users.add(new User("Natka", "Kot", "natka@wp.pl", "natka", "123456789", "Malinowa 1", "15-455", "Bajkolandia"));
+        users.add(new User("Natalia", "Tarasiuk", "natalia.tarasiuk@123.pl", "qweasdzxc", "123456789", "...", "12-345", "xyz", company));
+        users.add(new User("Michał", "Sawicki", "msawicki@email.com", "qwerty", "123456789", "...", "12-345", "xyz", employee));
+        users.add(new User("Ida", "Milewska", "ida.milewska@123.pl", "qweasdzxc", "123456789", "...", "12-345", "xyz", student));
+        users.add(new User("Natka", "Kot", "natka@wp.pl", "natka", "123456789", "Malinowa 1", "15-455", "Bajkolandia", regular));
 
         Employee e = new Employee();
         e.setUser(users.get(1));

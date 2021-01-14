@@ -98,7 +98,6 @@ class BookDetailsComponent extends Component {
 
                 {
                     localStorage.getItem('userId')
-                        ? localStorage.getItem('isWorker') === "false"
                             ? this.state.quantity < 1
                                 ? <div>
                                     <button class="btn btn-secondary btn-lg" type="button" disabled>Add to cart</button>
@@ -113,10 +112,6 @@ class BookDetailsComponent extends Component {
                                     </div>
                                     <small className="text-muted">{this.state.quantity} items left</small>
                                 </div>
-                            : <div>
-                                <button className="btn btn-secondary btn-lg" type="button" disabled>Add to cart</button>
-                                <p className="text-muted">Login to your user account to buy this product</p>
-                            </div>
                         : <div>
                             <button class="btn btn-secondary btn-lg" type="button" disabled>Add to cart</button>
                             <p className="text-muted">Please login to buy this product</p>

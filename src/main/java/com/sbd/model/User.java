@@ -7,12 +7,7 @@ import com.fasterxml.jackson.annotation.JsonProperty.Access;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 
 @Entity(name = "users")
 public class User {
@@ -53,11 +48,15 @@ public class User {
     @Column(nullable = false)
     private Boolean isActive = true;
 
+    @JsonIgnoreProperties({"users", "hibernateLazyInitializer"})
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Role role;
+
     public User() {
     }
 
     public User(String firstname, String lastname, String email, String password, String phone, String address,
-            String postalCode, String city) {
+            String postalCode, String city, Role role) {
         this.firstname = firstname;
         this.lastname = lastname;
         this.email = email;
@@ -67,6 +66,7 @@ public class User {
         this.postalCode = postalCode;
         this.city = city;
         this.isActive = true;
+        this.role = role;
     }
 
     public Long getId() {
@@ -155,6 +155,14 @@ public class User {
     
     public void setIsActive(Boolean isActive) {
         this.isActive = isActive;
+    }
+
+    public Role getRole() {
+        return role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
     }
 
     public void addOrder(Order order) {

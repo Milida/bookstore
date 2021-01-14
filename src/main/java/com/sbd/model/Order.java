@@ -39,15 +39,29 @@ public class Order {
     @JsonIgnoreProperties("order")
     private List<OrderBook> orderBook;
 
-    public Order(){}
+    @Transient
+    private PriceStrategy priceStrategy;
+
+    public Order(){
+        this.priceStrategy = new RegularPriceStrategy();
+    }
 
     public Order(User user, OrderStatus status, Payment payment, Shipment shipment, BigDecimal price, Date date) {
         this.user = user;
         this.status = status;
         this.payment = payment;
         this.shipment = shipment;
-        this.price = price;
         this.date = date;
+        if("Student".equals(user.getRole().getName())){
+            this.priceStrategy = new StudentPriceStrategy();
+        } else if ("Employee".equals(user.getRole().getName())) {
+            this.priceStrategy = new WorkerPriceStrategy();
+        } else if ("Company".equals(user.getRole().getName())) {
+            this.priceStrategy = new CompanyPriceStrategy();
+        } else {
+            this.priceStrategy = new RegularPriceStrategy();
+        }
+        this.price = priceStrategy.calculate(price);
     }
 
     public Long getId() {
@@ -64,9 +78,7 @@ public class Order {
         return status;
     }
 
-    public BigDecimal getPrice() {
-        return price;
-    }
+    public BigDecimal getPrice() { return price; }
 
     public Date getDate() {
         return date;
@@ -86,6 +98,16 @@ public class Order {
 
     public void setUser(User user) {
         this.user = user;
+        if (user.getRole() != null) {
+           if ("Student".equals(user.getRole().getName())) {
+               this.priceStrategy = new StudentPriceStrategy();
+           } else if ("Employee".equals(user.getRole().getName())) {
+               this.priceStrategy = new WorkerPriceStrategy();
+           } else if ("Company".equals(user.getRole().getName())) {
+               this.priceStrategy = new CompanyPriceStrategy();
+           }
+           this.price = this.priceStrategy.calculate(this.price);
+        }
     }
 
     public void setStatus(OrderStatus status) {
@@ -93,7 +115,11 @@ public class Order {
     }
 
     public void setPrice(BigDecimal price) {
-        this.price = price;
+        if(this.priceStrategy != null)
+            this.price = this.priceStrategy.calculate(price);
+        else
+            this.price = price;
+
     }
 
     public void setDate(Date date) {
@@ -106,6 +132,10 @@ public class Order {
 
     public void setShipment(Shipment shipment) {
         this.shipment = shipment;
+    }
+
+    public void setPriceStrategy(PriceStrategy priceStrategy) {
+        this.priceStrategy = priceStrategy;
     }
 
     @Override

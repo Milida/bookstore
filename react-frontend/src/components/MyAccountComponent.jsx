@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import UserService from "../services/UserService";
 import OrderService from "../services/OrderService";
 import DeleteAccountAlertComponent from "./DeleteAccountAlertComponent";
+import RoleService from "../services/RoleService";
 
 class MyAccountComponent extends Component {
 
@@ -10,15 +11,22 @@ class MyAccountComponent extends Component {
 
         this.state = {
             user: {},
-            orders: []
+            orders: [],
+            role: {}
         }
+
     }
 
     componentDidMount() {
         if (!localStorage.getItem('userId'))
             this.props.history.push("/");
         UserService.getUserById(localStorage.getItem('userId')).then((res) => {
-            this.setState({ user: res.data });
+            this.setState({ user: res.data});
+            console.log(res.data);
+            RoleService.getRoleById(res.data.role.id).then(res => {
+                console.log(res.data)
+                this.setState({role: res.data});
+            })
         });
         OrderService.getOrders().then((res) => {
             this.setState({ orders: res.data.filter(order => order.user.id === this.state.user.id) });
@@ -65,6 +73,10 @@ class MyAccountComponent extends Component {
                                 <th>City</th>
                                 <td>{this.state.user.city}</td>
                             </tr>
+                            <tr>
+                                <th>Role</th>
+                                <td>{this.state.role.name}</td>
+                            </tr>
                         </tbody>
                     </table>
                     {localStorage.getItem('isWorker') === "false" &&
@@ -76,7 +88,6 @@ class MyAccountComponent extends Component {
                     </div>
                     }
                 </div>
-                {localStorage.getItem('isWorker') === "false" &&
                 <div>
                     <h2 className="text-center">Your orders</h2>
                     <div className="row">
@@ -112,7 +123,6 @@ class MyAccountComponent extends Component {
                         </table>
                     </div>
                 </div>
-                }
             </div>
         );
     }
