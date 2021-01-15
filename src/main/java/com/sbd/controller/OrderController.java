@@ -1,9 +1,6 @@
 package com.sbd.controller;
 
-import com.sbd.bookstore.repository.BookRepository;
-import com.sbd.bookstore.repository.OrderBookRepository;
-import com.sbd.bookstore.repository.OrderRepository;
-import com.sbd.bookstore.repository.UserRepository;
+import com.sbd.bookstore.repository.*;
 import com.sbd.model.Book;
 import com.sbd.model.Order;
 import com.sbd.model.OrderBook;
@@ -35,6 +32,9 @@ public class OrderController {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private PackingRepository packingRepository;
 
     @GetMapping
     ResponseEntity<List<Order>> getOrders() {
@@ -86,11 +86,19 @@ public class OrderController {
             orderBookRepository.save(orderBook);
         }
 
+        if (order.getTypeOfPacking() != null) {
+            order.setDedication(orderBody.getDedication());
+            order.createPacking(order.getTypeOfPacking());
+            packingRepository.save(order.getPacking());
+        }
+
         return new ResponseEntity<>(orderRepository.save(order), HttpStatus.CREATED);
     }
 
     @PutMapping("/{id}")
     ResponseEntity<?> updateOrder(@RequestBody Order order, @PathVariable Long id) {
+        Optional<User> user = userRepository.findById(order.getUser().getId());
+        user.ifPresent(order::setUser);
         orderRepository.findById(id).map(oldOrder -> {
             BeanUtils.copyProperties(order, oldOrder, new String[] { "id" });
             return orderRepository.save(oldOrder);

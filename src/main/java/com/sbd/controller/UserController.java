@@ -1,5 +1,6 @@
 package com.sbd.controller;
 
+import com.sbd.bookstore.repository.RoleRepository;
 import com.sbd.bookstore.repository.UserRepository;
 import com.sbd.model.User;
 import com.sbd.payroll.ConflictException;
@@ -25,6 +26,9 @@ public class UserController {
     @Autowired
     private UserRepository userRepository;
 
+    @Autowired
+    private RoleRepository roleRepository;
+
     @GetMapping
     ResponseEntity<List<User>> getUsers() {
         return new ResponseEntity<>(userRepository.findAll(), HttpStatus.OK);
@@ -39,6 +43,9 @@ public class UserController {
 
     @PostMapping
     ResponseEntity<User> addUser(@RequestBody User user) {
+        if (user.getRole() == null) {
+            user.setRole(roleRepository.findByName("Regular"));
+        }
 
         if (userRepository.existsByEmail(user.getEmail()))
             throw new ConflictException(String.format("User with email '%s' already exists", user.getEmail()));

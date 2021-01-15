@@ -20,6 +20,13 @@ public class RoleController {
     @Autowired
     private RoleRepository roleRepository;
 
+    @GetMapping
+    ResponseEntity<List<Role>> getRoles() {
+        List<Role> roles = roleRepository.findAll();
+        roles.remove(roleRepository.findByName("Employee"));
+        return new ResponseEntity<>(roles, HttpStatus.OK);
+    }
+
     @GetMapping("/{id}")
     ResponseEntity<Role> getRole(@PathVariable Long id) {
         Role role = roleRepository.findById(id)

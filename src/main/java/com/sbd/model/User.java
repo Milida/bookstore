@@ -56,6 +56,19 @@ public class User {
     }
 
     public User(String firstname, String lastname, String email, String password, String phone, String address,
+                String postalCode, String city) {
+        this.firstname = firstname;
+        this.lastname = lastname;
+        this.email = email;
+        this.password = password;
+        this.phone = phone;
+        this.address = address;
+        this.postalCode = postalCode;
+        this.city = city;
+        this.isActive = true;
+    }
+
+    public User(String firstname, String lastname, String email, String password, String phone, String address,
             String postalCode, String city, Role role) {
         this.firstname = firstname;
         this.lastname = lastname;

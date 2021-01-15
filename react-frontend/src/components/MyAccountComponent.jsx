@@ -5,7 +5,6 @@ import DeleteAccountAlertComponent from "./DeleteAccountAlertComponent";
 import RoleService from "../services/RoleService";
 
 class MyAccountComponent extends Component {
-
     constructor(props) {
         super(props)
 
@@ -100,6 +99,7 @@ class MyAccountComponent extends Component {
                                 <th>Payment:</th>
                                 <th>Status:</th>
                                 <th>Price:</th>
+                                <th>Packing:</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -115,7 +115,8 @@ class MyAccountComponent extends Component {
                                             <td>{order.shipment.name}</td>
                                             <td>{order.payment.name}</td>
                                             <td>{order.status.name}</td>
-                                            <td>{order.price}</td>
+                                            <td>{order.dedicatedPrice}</td>
+                                            <td>{order.packing.dedication}</td>
                                         </tr>
                                 )
                             }

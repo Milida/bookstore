@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 import UserService from "../services/UserService";
+import RoleService from "../services/RoleService";
+import Select from "react-select";
 
 class Registration extends Component {
   constructor(props) {
@@ -14,15 +16,20 @@ class Registration extends Component {
       address: '',
       postalCode: '',
       city: '',
+      roles: []
     };
 
     this.handleChange = this.handleChange.bind(this);
     this.saveUser = this.saveUser.bind(this);
+    this.setRole = this.setRole.bind(this);
   }
 
   componentDidMount() {
     if (localStorage.getItem('userId'))
       this.props.history.push("/");
+    RoleService.getRoles().then(res => this.setState({
+      roles: res.data.map(role => ({ value: role, label: role.name}))
+    }));
   }
 
   handleChange(event) {
@@ -41,11 +48,18 @@ class Registration extends Component {
       phone: this.state.phone,
       address: this.state.address,
       postalCode: this.state.postalCode,
-      city: this.state.city
+      city: this.state.city,
+      role: this.state.role
     };
     UserService.addUser(user).then(res => {
       this.props.history.push('/');
     }).catch(error => alert("This user already exists!"));
+  }
+
+  setRole(e) {
+    this.setState({
+      role: e.value
+    });
   }
 
   render() {
@@ -153,6 +167,16 @@ class Registration extends Component {
                       value={this.state.city}
                       onChange={this.handleChange}
                       required
+                    />
+                  </div>
+                  <div className="flex-grow-1">
+                    <label>Role:  </label>{"\n"}
+                    <Select
+                        onChange={this.setRole}
+                        name="payment"
+                        options={this.state.roles}
+                        className="basic-single"
+                        classNamePrefix="select"
                     />
                   </div>
 

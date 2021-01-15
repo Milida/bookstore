@@ -20,7 +20,8 @@ class UpdateOrderComponent extends Component{
             payment: {},
             statusesList: [],
             shipmentsList: [],
-            paymentsList: []
+            paymentsList: [],
+            packing: {}
         }
         this.changeStatusHandler = this.changeStatusHandler.bind(this);
         this.changeShipmentHandler = this.changeShipmentHandler.bind(this);
@@ -39,7 +40,9 @@ class UpdateOrderComponent extends Component{
                 status: order.status,
                 price: order.price,
                 shipment: order.shipment,
-                payment: order.payment
+                payment: order.payment,
+                dedicatedPrice: order.dedicatedPrice,
+                packing: order.packing
             });
         });
         OrderStatusService.getOrderStatuses().then(res => {
@@ -67,9 +70,11 @@ class UpdateOrderComponent extends Component{
 
         let order = {
             user: this.state.user, date: this.state.date, orderBook: this.state.orderBook, status: this.state.status,
-            price: this.state.price, shipment: this.state.shipment, payment: this.state.payment
+            price: this.state.price, shipment: this.state.shipment, payment: this.state.payment, dedicatedPrice: this.dedicatedPrice,
+            packing: this.state.packing
         };
         console.log('order =>' + JSON.stringify(order));
+        console.log('price =>' + this.state.user.id);
 
         OrderService.updateOrder(order, this.state.id).then(() => {
             this.props.history.push('/orders');
@@ -110,7 +115,7 @@ class UpdateOrderComponent extends Component{
                             <div className="card-body">
                                 <p>User: {this.state.user.firstname + " " + this.state.user.lastname}</p>
                                 <p>{this.state.orderBook.map(orderbook => <li key={orderbook.book.id}>{orderbook.book.title + ", " + orderbook.quantity}</li>)}</p>
-                                <p>Price: {this.state.price}</p>
+                                <p>Price: {this.state.dedicatedPrice}</p>
                                 <p>Date: {this.state.date.slice(0, 10)}</p>
                                     <form>
                                         <div className="form-group">

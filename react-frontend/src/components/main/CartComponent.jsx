@@ -17,13 +17,19 @@ class CartComponent extends Component {
             total: 0,
             payment: { id: 0, price: 0 },
             shipment: { id: 0, price: 0 },
+            packing: {},
             paymentList: [],
-            shipmentList: []
+            shipmentList: [],
+            packingList: [],
+            dedication: '',
+            showDedication: false
         }
         this.removeItem = this.removeItem.bind(this);
         this.removeAll = this.removeAll.bind(this);
         this.setPayment = this.setPayment.bind(this);
         this.setShipment = this.setShipment.bind(this);
+        this.setPacking = this.setPacking.bind(this);
+        this.setDedication = this.setDedication.bind(this);
         this.makeOrder = this.makeOrder.bind(this);
 
     }
@@ -44,6 +50,9 @@ class CartComponent extends Component {
         PaymentService.getPayments().then(res => this.setState({
             paymentList: res.data.map(pay => ({ value: pay, label: pay.name }))
         }));
+        this.setState({
+            packingList: [{value: null, label: "None"}, {value: "Christmas", label: "Christmas"}, {value: "Birthday", label: "Birthday"}, {value: "Valentines", label: "Valentines"}]
+        })
     }
 
 
@@ -71,6 +80,23 @@ class CartComponent extends Component {
         });
     }
 
+    setPacking(e) {
+        this.setState({
+            packing: e.value
+        });
+        if (e.value !== null) {
+            this.setState({showDedication: true})
+        } else {
+            this.setState({showDedication: false})
+        }
+    }
+
+    setDedication(e) {
+        this.setState({
+            dedication: e.target.value
+        });
+    }
+
     makeOrder() {
         let order = {
             price: Math.round((this.state.total + this.state.shipment.price) * 100) / 100,
@@ -92,7 +118,9 @@ class CartComponent extends Component {
                 },
                 "quantity": item.quantity,
                 "price": Math.round((item.quantity * item.book.price * 100)) / 100
-            }))
+            })),
+            "typeOfPacking": this.state.packing,
+            "dedication": this.state.dedication
         };
         OrderService.addOrder(order).then(res => {
             CartService.removeAllUserItems(this.state.userId);
@@ -101,6 +129,7 @@ class CartComponent extends Component {
         }).catch(err => {
             alert(err.response.data.message)
         })
+        console.log("order => " + JSON.stringify(order))
     }
 
     render() {
@@ -165,7 +194,7 @@ class CartComponent extends Component {
                             </div>
                         </div>
 
-                        <div className="d-flex">
+                        <div className="d-flex  mb-3">
                             <div className="input-group-prepend">
                                 <label style={{ minWidth: 8 + 'rem' }} className="input-group-text" htmlFor="shipment">Shipment</label>
                             </div>
@@ -180,6 +209,36 @@ class CartComponent extends Component {
                             </div>
 
                         </div>
+                        <div className="d-flex mb-3">
+                            <div className="input-group-prepend">
+                                <label style={{ minWidth: 8 + 'rem' }} className="input-group-text" htmlFor="packing">Packing</label>
+                            </div>
+                            <div className="flex-grow-1">
+                                <Select
+                                    onChange={this.setPacking}
+                                    name="packing"
+                                    options={this.state.packingList}
+                                    className="basic-single"
+                                    classNamePrefix="select"
+                                />
+                            </div>
+
+                        </div>
+                        {this.state.showDedication && <div className="d-flex">
+                            <div className="input-group-prepend">
+                                <label style={{minWidth: 8 + 'rem'}} className="input-group-text"
+                                       htmlFor="dedication">Dedication</label>
+                            </div>
+                            <div className="flex-grow-1">
+                                <input
+                                    onChange={this.setDedication}
+                                    name="dedication"
+                                    className="basic-single"
+                                />
+                            </div>
+
+                        </div>
+                        }
 
 
                     </div>
