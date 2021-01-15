@@ -13,6 +13,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
 @Component
+@SuppressWarnings("deprecation")
 public class DatabaseInitializer implements CommandLineRunner {
 
     @Autowired
@@ -41,7 +42,11 @@ public class DatabaseInitializer implements CommandLineRunner {
     CartRepository cartRepository;
     @Autowired
     RoleRepository roleRepository;
-
+    @Autowired
+    BookstoreRepository bookstoreRepository;
+    @Autowired
+    RateRepository rateRepository;
+    
     @Override
     public void run(String... args) {
         Role student = new Role("Student");
@@ -108,6 +113,22 @@ public class DatabaseInitializer implements CommandLineRunner {
         books.get(15).setDescription("The Cossack uprising under the command of Chmielnicki breaks out. A haughty leader wins more victories. Jan Skrzetuski is following with concern the development of events. He is very concerned about the fate of Helena Kurcewiczówna, his beloved, but he puts patriotic duty ahead of personal happiness. However, he has faithful friends - Zagłoba, Wołodyjowski and Rzędzian will try to free Helena from the hands of the dangerous Bohun.");
         books.get(16).setDescription("A drama that is a polemic with historiosophical projects included in the third part of 'Dziady'. It shows the fate of a sensitive young man who tries to find an idea that will allow him to direct his life, and when they find it in the fight for the freedom of their homeland, he falls victim to his sensitivity and compulsions in history ruled by evil forces.");
         books.get(17).setDescription("A beautifully illustrated ballad by Adam Mickiewicz. Large format, hardcover, elegant color edition - these are the main advantages of this item. This publication teaches respect for parents and faith in the power of prayer. We recommend it especially to children who, thanks to beautiful 'Disney' illustrations, can move into the described world of fantasy. Classic always good!");
+
+        Bookstore bookstore = Bookstore.getInstance();
+
+        bookstore.setName("Best Bookstore");
+        bookstore.bookRepository = bookRepository;
+        bookstore.setBooks(books);
+        bookstoreRepository.save(bookstore);
+        
+        for (Book book : books) {
+            book.setBookstore(bookstore);
+        }
+
+        Rate rate = new Rate("Euro", "€", BigDecimal.valueOf(0.22));
+        rate.addObserver(bookstore);
+        rate.setRate(BigDecimal.valueOf(0.22));
+        rateRepository.save(rate);
 
 
         List<Category> categories = new ArrayList<>();
@@ -259,6 +280,7 @@ public class DatabaseInitializer implements CommandLineRunner {
         publishers.get(0).addBook(books.get(16));
         publishers.get(0).addBook(books.get(17));
 
+        
         for (Category category : categories) {
             categoryRepository.save(category);
         }
@@ -271,9 +293,11 @@ public class DatabaseInitializer implements CommandLineRunner {
             publisherRepository.save(publisher);
         }
 
+
         for (Book book : books) {
-            bookRepository.save(book);
+            bookRepository.saveAndFlush(book);
         }
+        
 
         for (User user : users) {
             userRepository.save(user);

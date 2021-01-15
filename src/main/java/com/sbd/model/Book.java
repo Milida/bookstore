@@ -31,6 +31,9 @@ public class Book {
     @Column(nullable = false)
     private BigDecimal price;
 
+    @Column
+    private BigDecimal priceEur;
+
     @Column(nullable = false)
     private Integer quantity;
 
@@ -40,6 +43,10 @@ public class Book {
     @JsonIgnoreProperties({"books", "hibernateLazyInitializer"})
     @ManyToOne(cascade = { CascadeType.MERGE})
     private Publisher publisher;
+
+    @JsonIgnoreProperties({"books", "hibernateLazyInitializer"})
+    @ManyToOne(cascade = { CascadeType.MERGE})
+    private Bookstore bookstore;
 
     @JsonIgnoreProperties("books")
     @ManyToMany(cascade = CascadeType.MERGE)
@@ -72,6 +79,10 @@ public class Book {
         return price;
     }
 
+    public BigDecimal getPriceEur() {
+        return priceEur;
+    }
+
     public Integer getQuantity() {
         return quantity;
     }
@@ -92,6 +103,10 @@ public class Book {
         return authors;
     }
 
+    public Bookstore getBookstore() {
+        return bookstore;
+    }
+
     public void setId(Long id) {
         this.id = id;
     }
@@ -102,6 +117,10 @@ public class Book {
 
     public void setPrice(BigDecimal price) {
         this.price = price;
+    }
+    
+    public void setPriceEur(BigDecimal priceEur) {
+        this.priceEur = priceEur;
     }
 
     public void setQuantity(Integer quantity) {
@@ -142,6 +161,10 @@ public class Book {
     public void removeAuthor(Author author) {
         authors.remove(author);
         author.getBooks().remove(this);
+    }
+
+    public void setBookstore(Bookstore bookstore) {
+        this.bookstore = bookstore;
     }
 
     @Override
