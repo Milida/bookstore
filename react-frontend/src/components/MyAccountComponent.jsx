@@ -116,7 +116,10 @@ class MyAccountComponent extends Component {
                                             <td>{order.payment.name}</td>
                                             <td>{order.status.name}</td>
                                             <td>{order.dedicatedPrice}</td>
-                                            <td>{order.packing.dedication}</td>
+                                            {order.packing ?
+                                                <td>{order.packing.dedication}</td>
+                                                : <td/>
+                                            }
                                         </tr>
                                 )
                             }
