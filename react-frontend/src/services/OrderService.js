@@ -15,6 +15,10 @@ class OrderService {
         return axios.get(ORDER_API_BASE_URL +'/' + orderId);
     }
 
+    getPrice(order) {
+        return axios.post(ORDER_API_BASE_URL + '/price', order);
+    }
+
     updateOrder(order, orderId){
         return axios.put(ORDER_API_BASE_URL + '/' + orderId, order);
     }
@@ -23,5 +27,6 @@ class OrderService {
         return axios.delete(ORDER_API_BASE_URL + '/' + order.id);
     }
 }
+
 
 export default new OrderService()

@@ -15,9 +15,10 @@ class CartComponent extends Component {
             cart: [],
             userId: Number(localStorage.getItem('userId')),
             total: 0,
+            dedicatedPrice: 0,
             payment: { id: 0, price: 0 },
             shipment: { id: 0, price: 0 },
-            packing: {},
+            packing: 'None',
             paymentList: [],
             shipmentList: [],
             packingList: [],
@@ -43,6 +44,16 @@ class CartComponent extends Component {
 
             this.setState({ total: this.state.cart.reduce((sum, item) => sum + (item.book.price * item.quantity), 0) });
             this.setState({ total: Math.round((this.state.total * 100)) / 100 });
+        }).then(() => {
+            let order = {
+                price: Math.round((this.state.total + this.state.shipment.price) * 100) / 100,
+                "user": {
+                    "id": this.state.userId
+                }
+            }
+            OrderService.getPrice(order).then(res => {
+                this.setState({dedicatedPrice: Math.round((res.data * 100)) / 100 });
+            })
         });
         ShipmentService.getShipments().then(res => this.setState({
             shipmentList: res.data.map(ship => ({ value: ship, label: ship.name + ` (${ship.price} zl)`, price: ship.price }))
@@ -53,6 +64,8 @@ class CartComponent extends Component {
         this.setState({
             packingList: [{value: null, label: "None"}, {value: "Christmas", label: "Christmas"}, {value: "Birthday", label: "Birthday"}, {value: "Valentines", label: "Valentines"}]
         })
+
+
     }
 
 
@@ -78,6 +91,19 @@ class CartComponent extends Component {
         this.setState({
             shipment: e.value
         });
+        setTimeout(() => {
+            let order = {
+                price: Math.round((this.state.total + this.state.shipment.price) * 100) / 100,
+                "user": {
+                    "id": this.state.userId
+                }
+            }
+            OrderService.getPrice(order).then(res => {
+                this.setState({dedicatedPrice: Math.round((res.data * 100)) / 100 });
+            })
+        }, 100);
+
+
     }
 
     setPacking(e) {
@@ -244,7 +270,7 @@ class CartComponent extends Component {
                     </div>
 
                     <div className="ml-auto d-flex flex-column">
-                        <h4 className="float-right">Total: {Math.round((this.state.total + this.state.shipment.price) * 100) / 100} zł</h4>
+                        <h4 className="float-right">Total: {this.state.dedicatedPrice} zł</h4>
                         {
                             this.state.cart.length > 0
                             ? <button onClick={this.makeOrder} className="btn-primary btn-lg">Order</button>
