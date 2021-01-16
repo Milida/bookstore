@@ -1,7 +1,5 @@
 package com.sbd.model;
 
-
-import javax.persistence.*;
 import java.math.BigDecimal;
 
 public abstract class PackingBuilder {

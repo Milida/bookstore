@@ -14,6 +14,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
 
@@ -46,6 +47,15 @@ public class OrderController {
         Order order = orderRepository.findById(id)
                 .orElseThrow(() -> new NotFoundException(String.format("Order with ID = %d was not found", id)));
         return new ResponseEntity<>(order, HttpStatus.OK);
+    }
+
+    @PostMapping("/price")
+    ResponseEntity<BigDecimal> getPrice(@RequestBody Order orderBody) {
+
+        Optional<User> user = userRepository.findById(orderBody.getUser().getId());
+        user.ifPresent(orderBody::setUser);
+
+        return new ResponseEntity<>(orderBody.getDedicatedPrice(), HttpStatus.OK);
     }
 
     @PostMapping
