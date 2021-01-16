@@ -54,8 +54,9 @@ public class OrderController {
 
         Optional<User> user = userRepository.findById(orderBody.getUser().getId());
         user.ifPresent(orderBody::setUser);
+        orderBody.setPrice(orderBody.getPrice());
 
-        return new ResponseEntity<>(orderBody.getDedicatedPrice(), HttpStatus.OK);
+        return new ResponseEntity<>(orderBody.getPrice(), HttpStatus.OK);
     }
 
     @PostMapping
@@ -86,6 +87,7 @@ public class OrderController {
 
         Order order = orderRepository.save(orderBody);
         order.setOrderBook(orderBody.getOrderBook());
+        order.setPrice(orderBody.getPrice());
 
         for (OrderBook orderBook : orderBody.getOrderBook()) {
             OrderBookId orderBookId = new OrderBookId();

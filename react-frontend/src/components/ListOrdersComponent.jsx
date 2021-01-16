@@ -58,12 +58,13 @@ class ListOrdersComponent extends Component {
                                         <td>{order.user.firstname}</td>
                                         <td>{order.user.lastname}</td>
                                         <td><ul>{order.orderBook.map(orderbook => <li key={orderbook.book.id}>{orderbook.book.title + ", " + orderbook.quantity}</li>)} </ul></td>
-                                        <td>{order.dedicatedPrice}</td>
+                                        <td>{order.price}</td>
                                         <td>{order.shipment.name}</td>
                                         <td>{order.status.name}</td>
                                         <td>{order.payment.name}</td>
                                         <td>{order.date.slice(0, 10)}</td>
-                                        {order.packing != null ? <td>{order.packing.dedication} {order.packing.paper}</td>
+                                        {order.packing != null ? <td>Dedication: <i>{order.packing.dedication}</i><br />
+                                                Paper: <i>{order.packing.paper}</i></td>
                                             : <td/>}
                                         <td>
                                             <button onClick ={() => this.editOrder(order)} className="btn btn-info">Update</button>

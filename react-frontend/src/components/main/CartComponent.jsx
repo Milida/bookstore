@@ -18,7 +18,7 @@ class CartComponent extends Component {
             dedicatedPrice: 0,
             payment: { id: 0, price: 0 },
             shipment: { id: 0, price: 0 },
-            packing: 'None',
+            packing: {value: null, price: 0},
             paymentList: [],
             shipmentList: [],
             packingList: [],
@@ -46,7 +46,7 @@ class CartComponent extends Component {
             this.setState({ total: Math.round((this.state.total * 100)) / 100 });
         }).then(() => {
             let order = {
-                price: Math.round((this.state.total + this.state.shipment.price) * 100) / 100,
+                price: Math.round((this.state.total + this.state.shipment.price + this.state.packing.price) * 100) / 100,
                 "user": {
                     "id": this.state.userId
                 }
@@ -62,7 +62,7 @@ class CartComponent extends Component {
             paymentList: res.data.map(pay => ({ value: pay, label: pay.name }))
         }));
         this.setState({
-            packingList: [{value: null, label: "None"}, {value: "Christmas", label: "Christmas"}, {value: "Birthday", label: "Birthday"}, {value: "Valentines", label: "Valentines"}]
+            packingList: [{value: null, label: "None", price: 0}, {value: "Christmas", label: "Christmas (+10zł)", price:10}, {value: "Birthday", label: "Birthday (+12zł)", price:12}, {value: "Valentines", label: "Valentines (+9zł)", price: 9}]
         })
 
 
@@ -93,7 +93,7 @@ class CartComponent extends Component {
         });
         setTimeout(() => {
             let order = {
-                price: Math.round((this.state.total + this.state.shipment.price) * 100) / 100,
+                price: Math.round((this.state.total + this.state.shipment.price + this.state.packing.price) * 100) / 100,
                 "user": {
                     "id": this.state.userId
                 }
@@ -108,13 +108,24 @@ class CartComponent extends Component {
 
     setPacking(e) {
         this.setState({
-            packing: e.value
+            packing: {value : e.value, price: e.price}
         });
         if (e.value !== null) {
             this.setState({showDedication: true})
         } else {
             this.setState({showDedication: false})
         }
+        setTimeout(() => {
+            let order = {
+                price: Math.round((this.state.total + this.state.shipment.price + this.state.packing.price) * 100) / 100,
+                "user": {
+                    "id": this.state.userId
+                }
+            }
+            OrderService.getPrice(order).then(res => {
+                this.setState({dedicatedPrice: Math.round((res.data * 100)) / 100 });
+            })
+        }, 100);
     }
 
     setDedication(e) {
@@ -125,7 +136,7 @@ class CartComponent extends Component {
 
     makeOrder() {
         let order = {
-            price: Math.round((this.state.total + this.state.shipment.price) * 100) / 100,
+            price: Math.round((this.state.total + this.state.shipment.price + this.state.packing.price) * 100) / 100,
             "user": {
                 "id": this.state.userId
             },
@@ -145,7 +156,7 @@ class CartComponent extends Component {
                 "quantity": item.quantity,
                 "price": Math.round((item.quantity * item.book.price * 100)) / 100
             })),
-            "typeOfPacking": this.state.packing,
+            "typeOfPacking": this.state.packing.value,
             "dedication": this.state.dedication
         };
         OrderService.addOrder(order).then(res => {
@@ -260,6 +271,7 @@ class CartComponent extends Component {
                                     onChange={this.setDedication}
                                     name="dedication"
                                     className="basic-single"
+                                    placeholder="Type the name"
                                 />
                             </div>
 

@@ -34,9 +34,6 @@ public class Order {
     private BigDecimal price;
 
     @Column(nullable = false)
-    private BigDecimal dedicatedPrice;
-
-    @Column(nullable = false)
     private Date date = new Date();
 
     @OneToMany(mappedBy = "order")
@@ -80,7 +77,6 @@ public class Order {
             this.priceStrategy = new RegularPriceStrategy();
         }
         this.price = price;
-        this.dedicatedPrice = priceStrategy.calculate(price);
     }
 
     public String getTypeOfPacking() {
@@ -106,10 +102,6 @@ public class Order {
     }
 
     public BigDecimal getPrice() { return price; }
-
-    public BigDecimal getDedicatedPrice() {
-        return dedicatedPrice;
-    }
 
     public Date getDate() {
         return date;
@@ -139,7 +131,6 @@ public class Order {
            } else {
                this.priceStrategy = new RegularPriceStrategy();
            }
-           this.dedicatedPrice = this.priceStrategy.calculate(this.price);
         }
     }
 
@@ -150,7 +141,7 @@ public class Order {
     public void setPrice(BigDecimal price) {
         this.price = price;
         if (this.priceStrategy != null) {
-            this.dedicatedPrice = priceStrategy.calculate(price);
+            this.price = priceStrategy.calculate(price);
         }
     }
 
@@ -217,8 +208,10 @@ public class Order {
             this.packingBuilder = new ChristmasPackingBuilder();
         } else if ("Valentines".equals(packing)){
             this.packingBuilder = new ValentinePackingBuilder();
-        } else {
+        } else if ("Birthday".equals(packing)){
             this.packingBuilder = new BirthdayPackingBuilder();
+        } else {
+            return;
         }
         packingBuilder.setDedication(dedication);
         packingBuilder.setWrapping();
