@@ -36,6 +36,10 @@ public class Cart {
     @Column(nullable = false)
     private Integer quantity;
 
+    @Column
+    private Integer decoratorId;
+
+
     public Cart() {
     }
 
@@ -43,6 +47,7 @@ public class Cart {
         this.user = user;
         this.book = book;
     }
+
 
 
     public CartId getId() {

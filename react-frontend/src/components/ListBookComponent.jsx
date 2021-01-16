@@ -66,11 +66,9 @@ class ListBookComponent extends Component {
                                             <td>{book.price}</td>
                                             <td>{book.quantity}</td>
                                             <td><ul>{book.categories.map(category => <li key={category.id}>{category.name}</li>)}</ul></td>
-                                            <td>
-                                                <div className="d-flex justify-content-between">
+                                            <td className="d-flex justify-content-between">
                                                 <button onClick ={() => this.editBook(book)} className="btn btn-info">Update</button>
                                                 <button onClick={() => this.removeBook(book)} className="btn btn-danger">Delete</button>
-                                                </div>
                                             </td>
                                         </tr>
                                 )
