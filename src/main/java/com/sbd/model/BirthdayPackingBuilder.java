@@ -12,11 +12,6 @@ public class BirthdayPackingBuilder extends PackingBuilder{
     }
 
     @Override
-    public void setWrapping() {
-
-    }
-
-    @Override
     public void setPaper() {
         packing.setPaper(paper);
     }

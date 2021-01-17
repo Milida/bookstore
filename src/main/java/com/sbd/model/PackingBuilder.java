@@ -11,8 +11,6 @@ public abstract class PackingBuilder {
 
     public abstract void setDedication(String dedication);
 
-    public abstract void setWrapping();
-
     public abstract void setPaper();
 
     public abstract void setPrice();

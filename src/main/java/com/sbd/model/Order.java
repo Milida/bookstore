@@ -214,7 +214,6 @@ public class Order {
             return;
         }
         packingBuilder.setDedication(dedication);
-        packingBuilder.setWrapping();
         packingBuilder.setPaper();
         packingBuilder.setPrice();
         this.packing = packingBuilder.getPacking();

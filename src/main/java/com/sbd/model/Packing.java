@@ -11,15 +11,13 @@ public class Packing {
     private Long id;
 
     private String dedication;
-    private String wrapping;
-    private String paper; //TODO Image
+    private String paper;
     private BigDecimal price;
 
     public Packing(){}
 
-    public Packing(String dedication, String wrapping, String paper, BigDecimal price){
+    public Packing(String dedication, String paper, BigDecimal price){
         this.dedication = dedication;
-        this.wrapping = wrapping;
         this.paper = paper;
         this.price = price;
     }
@@ -44,10 +42,6 @@ public class Packing {
         return paper;
     }
 
-    public String getWrapping() {
-        return wrapping;
-    }
-
     public void setDedication(String dedication) {
         this.dedication = dedication;
     }
@@ -58,9 +52,5 @@ public class Packing {
 
     public void setPrice(BigDecimal price) {
         this.price = price;
-    }
-
-    public void setWrapping(String wrapping) {
-        this.wrapping = wrapping;
     }
 }
