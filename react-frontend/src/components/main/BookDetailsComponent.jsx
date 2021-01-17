@@ -39,6 +39,18 @@ class BookDetailsComponent extends Component {
 
     addToCart() {
         let userId = localStorage.getItem('userId');
+        let decorators = [];
+
+        if(document.getElementById('check1').checked)
+            decorators.push({"id": 1, "name": "Hard Cover"});
+        if(document.getElementById('check2').checked)
+            decorators.push({"id": 2, "name": "Additional Cover"});
+        if(document.getElementById('check3').checked)
+            decorators.push({"id": 3, "name": "Big Format"});
+        if(document.getElementById('check4').checked)
+            decorators.push({"id": 4, "name": "CD Book"});
+        
+
         if (this.state.cartQuantity > this.state.quantity) {
             alert("You've selected too many items!");
         } else {
@@ -54,7 +66,8 @@ class BookDetailsComponent extends Component {
                     "book": {
                         "id": this.state.id
                     },
-                    "quantity": this.state.cartQuantity
+                    "quantity": this.state.cartQuantity,
+                    "decorators": decorators
                 }
             ).then(res => { alert("Product added to your cart") })
         }
@@ -111,6 +124,36 @@ class BookDetailsComponent extends Component {
                                         </div>
                                     </div>
                                     <small className="text-muted">{this.state.quantity} items left</small>
+                                    <div className="d-flex">
+                                        <div>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" value="1" id="check1"/>
+                                                <label class="form-check-label" for="check1">
+                                                    Hard cover
+                                                </label>
+                                            </div>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" value="2" id="check2"/>
+                                                <label class="form-check-label" for="check2">
+                                                Additional Cover
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <div className="ml-5">
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" value="3" id="check3"/>
+                                                <label class="form-check-label" for="check3">
+                                                    Big format
+                                                </label>
+                                            </div>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" value="4" id="check4"/>
+                                                <label class="form-check-label" for="check4">
+                                                    Book CD
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                         : <div>
                             <button class="btn btn-secondary btn-lg" type="button" disabled>Add to cart</button>

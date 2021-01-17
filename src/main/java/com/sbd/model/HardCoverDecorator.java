@@ -10,18 +10,8 @@ public class HardCoverDecorator extends Decorator {
         super(book);
     }
 
-    @Override
     public BigDecimal getPrice() {
         return super.getPrice().add(HARD_COVER_PRICE);
     }
 
-    /*@Override
-    public String getFeaturesDescription() {
-        return this.book.getFeaturesDescription() + "Book in hard cover";
-    }
-
-    @Override
-    public String getTitle() {
-        return this.book.getTitle();
-    }*/
 }

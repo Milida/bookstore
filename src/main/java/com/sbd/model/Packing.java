@@ -1,7 +1,6 @@
 package com.sbd.model;
 
 import javax.persistence.*;
-import java.awt.*;
 import java.math.BigDecimal;
 
 @Entity(name = "packings")

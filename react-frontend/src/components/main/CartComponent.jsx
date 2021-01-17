@@ -22,6 +22,7 @@ class CartComponent extends Component {
             shipmentList: [],
             packingList: [],
             dedication: '',
+            decorators: [],
             showDedication: false
         }
         this.removeItem = this.removeItem.bind(this);
@@ -40,7 +41,6 @@ class CartComponent extends Component {
         }
         CartService.getCart(this.state.userId).then(res => {
             this.setState({ cart: res.data });
-
             this.setState({ total: this.state.cart.reduce((sum, item) => sum + (item.book.price * item.quantity), 0) });
             this.setState({ total: Math.round((this.state.total * 100)) / 100 });
         });
@@ -164,7 +164,22 @@ class CartComponent extends Component {
                                 this.state.cart.map(
                                     item =>
                                         <tr key={item.book.id}>
-                                            <td>{item.book.title}</td>
+                                            <td>
+                                                {item.book.title}
+                                                <small>
+                                                    <ul>
+                                                        {
+                                                            item.decorators.map(
+                                                                decorator => 
+                                                                <li key={decorator.id}>
+                                                                    {decorator.name}
+                                                                </li>
+                                                            )
+                                                        }
+                                                    </ul>
+                                                </small>
+                                                
+                                            </td>
                                             <td>{item.book.price} zł</td>
                                             <td>{item.quantity}</td>
                                             <td>{Math.round((item.quantity * item.book.price * 100)) / 100} zł</td>
