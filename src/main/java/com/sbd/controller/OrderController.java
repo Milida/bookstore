@@ -14,6 +14,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
 
@@ -48,6 +49,16 @@ public class OrderController {
         return new ResponseEntity<>(order, HttpStatus.OK);
     }
 
+    @PostMapping("/price")
+    ResponseEntity<BigDecimal> getPrice(@RequestBody Order orderBody) {
+
+        Optional<User> user = userRepository.findById(orderBody.getUser().getId());
+        user.ifPresent(orderBody::setUser);
+        orderBody.setPrice(orderBody.getPrice());
+
+        return new ResponseEntity<>(orderBody.getPrice(), HttpStatus.OK);
+    }
+
     @PostMapping
     ResponseEntity<Order> addOrder(@RequestBody Order orderBody) {
         if (orderBody.getPayment().getId() < 1)
@@ -76,6 +87,7 @@ public class OrderController {
 
         Order order = orderRepository.save(orderBody);
         order.setOrderBook(orderBody.getOrderBook());
+        order.setPrice(orderBody.getPrice());
 
         for (OrderBook orderBook : orderBody.getOrderBook()) {
             OrderBookId orderBookId = new OrderBookId();

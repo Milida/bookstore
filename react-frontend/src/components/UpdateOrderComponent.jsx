@@ -41,7 +41,6 @@ class UpdateOrderComponent extends Component{
                 price: order.price,
                 shipment: order.shipment,
                 payment: order.payment,
-                dedicatedPrice: order.dedicatedPrice,
                 packing: order.packing
             });
         });
@@ -70,8 +69,7 @@ class UpdateOrderComponent extends Component{
 
         let order = {
             user: this.state.user, date: this.state.date, orderBook: this.state.orderBook, status: this.state.status,
-            price: this.state.price, shipment: this.state.shipment, payment: this.state.payment, dedicatedPrice: this.dedicatedPrice,
-            packing: this.state.packing
+            price: this.state.price, shipment: this.state.shipment, payment: this.state.payment, packing: this.state.packing
         };
         console.log('order =>' + JSON.stringify(order));
         console.log('price =>' + this.state.user.id);
@@ -115,7 +113,7 @@ class UpdateOrderComponent extends Component{
                             <div className="card-body">
                                 <p>User: {this.state.user.firstname + " " + this.state.user.lastname}</p>
                                 <p>{this.state.orderBook.map(orderbook => <li key={orderbook.book.id}>{orderbook.book.title + ", " + orderbook.quantity}</li>)}</p>
-                                <p>Price: {this.state.dedicatedPrice}</p>
+                                <p>Price: {this.state.price}</p>
                                 <p>Date: {this.state.date.slice(0, 10)}</p>
                                     <form>
                                         <div className="form-group">
