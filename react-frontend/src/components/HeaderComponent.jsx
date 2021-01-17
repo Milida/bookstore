@@ -35,6 +35,7 @@ class HeaderComponent extends Component {
                                 <div><Link className="navbar-brand" to="/categories">Categories</Link></div>
                                 <div><Link className="navbar-brand" to="/users">Users</Link></div>
                                 <div><Link className="navbar-brand" to = "/orders">Orders</Link></div>
+                                <div><Link className="navbar-brand" to = "/rates">Rates</Link></div>
                                 </> : <></>
                             }
                         </div>

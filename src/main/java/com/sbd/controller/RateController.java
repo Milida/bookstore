@@ -1,5 +1,7 @@
 package com.sbd.controller;
 
+import java.util.List;
+
 import com.sbd.bookstore.repository.RateRepository;
 import com.sbd.model.Bookstore;
 import com.sbd.model.Rate;
@@ -24,6 +26,12 @@ public class RateController {
     @Autowired
     private RateRepository rateRepository;
 
+    @GetMapping
+    ResponseEntity<List<Rate>> getRates() {
+        return new ResponseEntity<>(rateRepository.findAll(), HttpStatus.OK);
+    }
+
+
     @GetMapping("/{id}")
     ResponseEntity<Rate> getRate(@PathVariable Long id) {
         Rate rate = rateRepository.findById(id)
@@ -32,10 +40,14 @@ public class RateController {
     }
 
     @PostMapping
-    ResponseEntity<Rate> setRate(@RequestBody Rate newRate) {
-        Rate rate = getRate(newRate.getId()).getBody();
-        rate.addObserver(Bookstore.getInstance());
-        rate.setRate(newRate.getRate());
-        return new ResponseEntity<>(rateRepository.save(rate), HttpStatus.OK);
+    ResponseEntity<List<Rate>> setRate(@RequestBody List<Rate> rates) {
+
+        for (Rate rate : rates) {
+            rateRepository.save(rate);
+            rate.addObserver(Bookstore.getInstance());
+            rate.setRate(rate.getRate());
+        }
+
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 }

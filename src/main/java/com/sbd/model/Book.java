@@ -31,15 +31,25 @@ public class Book {
     @Column(nullable = false)
     private BigDecimal price;
 
+    @Column
+    private BigDecimal priceEur;
+
     @Column(nullable = false)
     private Integer quantity;
 
     @Column(length = 1023)
     private String description;
 
+    @Column(length = 1023)
+    private final String featureDescription =" ";
+
     @JsonIgnoreProperties({"books", "hibernateLazyInitializer"})
     @ManyToOne(cascade = { CascadeType.MERGE})
     private Publisher publisher;
+
+    @JsonIgnoreProperties({"books", "hibernateLazyInitializer"})
+    @ManyToOne(cascade = { CascadeType.MERGE})
+    private Bookstore bookstore;
 
     @JsonIgnoreProperties("books")
     @ManyToMany(cascade = CascadeType.MERGE)
@@ -51,26 +61,37 @@ public class Book {
     @JoinTable(name = "authorsBooks", joinColumns = @JoinColumn(name = "book_id"), inverseJoinColumns = @JoinColumn(name = "author_id"))
     private List<Author> authors = new ArrayList<>();
 
-    public Book() {
-    }
-
     public Book(String title, BigDecimal price, Integer quantity) {
         this.title = title;
         this.price = price;
         this.quantity = quantity;
     }
 
+    public Book() {
+    }
+
     public Long getId() {
         return id;
     }
+
 
     public String getTitle() {
         return title;
     }
 
+    @Override
     public BigDecimal getPrice() {
         return price;
     }
+
+    public BigDecimal getPriceEur() {
+        return priceEur;
+    }
+
+
+    // public String getFeaturesDescription() {
+    //     return featureDescription;
+    // }
 
     public Integer getQuantity() {
         return quantity;
@@ -92,6 +113,10 @@ public class Book {
         return authors;
     }
 
+    public Bookstore getBookstore() {
+        return bookstore;
+    }
+
     public void setId(Long id) {
         this.id = id;
     }
@@ -100,8 +125,13 @@ public class Book {
         this.title = title;
     }
 
+
     public void setPrice(BigDecimal price) {
         this.price = price;
+    }
+    
+    public void setPriceEur(BigDecimal priceEur) {
+        this.priceEur = priceEur;
     }
 
     public void setQuantity(Integer quantity) {
@@ -142,6 +172,10 @@ public class Book {
     public void removeAuthor(Author author) {
         authors.remove(author);
         author.getBooks().remove(this);
+    }
+
+    public void setBookstore(Bookstore bookstore) {
+        this.bookstore = bookstore;
     }
 
     @Override

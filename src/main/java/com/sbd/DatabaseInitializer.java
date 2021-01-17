@@ -7,12 +7,14 @@ import java.util.List;
 
 import com.sbd.bookstore.repository.*;
 import com.sbd.model.*;
+import com.sbd.model.embedded.CartId;
 import com.sbd.model.embedded.OrderBookId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
 @Component
+@SuppressWarnings("deprecation")
 public class DatabaseInitializer implements CommandLineRunner {
 
     @Autowired
@@ -41,6 +43,12 @@ public class DatabaseInitializer implements CommandLineRunner {
     CartRepository cartRepository;
     @Autowired
     RoleRepository roleRepository;
+    @Autowired
+    BookstoreRepository bookstoreRepository;
+    @Autowired
+    RateRepository rateRepository;
+    @Autowired
+    DecoratorRepository decoratorRepository;
 
     @Override
     public void run(String... args) {
@@ -90,6 +98,7 @@ public class DatabaseInitializer implements CommandLineRunner {
         books.add(new Book("Ogniem i mieczem", BigDecimal.valueOf(47.99), 20));
         books.add(new Book("Kordian", BigDecimal.valueOf(13.99), 20));
         books.add(new Book("Powrót taty", BigDecimal.valueOf(19.99), 20));
+
         books.get(0).setDescription("Harry Potter is a series of seven fantasy novels written by British author J. K. Rowling. The novels chronicle the lives of a young wizard, Harry Potter, and his friends Hermione Granger and Ron Weasley, all of whom are students at Hogwarts School of Witchcraft and Wizardry. The main story arc concerns Harry's struggle against Lord Voldemort, a dark wizard who intends to become immortal, overthrow the wizard governing body known as the Ministry of Magic and subjugate all wizards and Muggles (non-magical people).");
         books.get(1).setDescription(" Pan Tadeusz is an epic poem by the Polish poet, writer, translator and philosopher Adam Mickiewicz. The book, written in Polish alexandrines, was first published on 28 June 1834 in Paris. It is deemed the last great epic poem in European literature.");
         books.get(2).setDescription("This part is thought to be the most significant one, or even one of the finest poems in the Polish literature. The main character bears a resemblance to Gustaw from the IV part, but he is no longer a 'romantic lover'. The drama was written after the failure of the November Insurrection");
@@ -108,6 +117,22 @@ public class DatabaseInitializer implements CommandLineRunner {
         books.get(15).setDescription("The Cossack uprising under the command of Chmielnicki breaks out. A haughty leader wins more victories. Jan Skrzetuski is following with concern the development of events. He is very concerned about the fate of Helena Kurcewiczówna, his beloved, but he puts patriotic duty ahead of personal happiness. However, he has faithful friends - Zagłoba, Wołodyjowski and Rzędzian will try to free Helena from the hands of the dangerous Bohun.");
         books.get(16).setDescription("A drama that is a polemic with historiosophical projects included in the third part of 'Dziady'. It shows the fate of a sensitive young man who tries to find an idea that will allow him to direct his life, and when they find it in the fight for the freedom of their homeland, he falls victim to his sensitivity and compulsions in history ruled by evil forces.");
         books.get(17).setDescription("A beautifully illustrated ballad by Adam Mickiewicz. Large format, hardcover, elegant color edition - these are the main advantages of this item. This publication teaches respect for parents and faith in the power of prayer. We recommend it especially to children who, thanks to beautiful 'Disney' illustrations, can move into the described world of fantasy. Classic always good!");
+
+        Bookstore bookstore = Bookstore.getInstance();
+
+        bookstore.setName("Best Bookstore");
+        bookstore.bookRepository = bookRepository;
+        bookstore.setBooks(books);
+        bookstoreRepository.save(bookstore);
+        
+        for (Book book : books) {
+            book.setBookstore(bookstore);
+        }
+
+        Rate rate = new Rate("Euro", "€", BigDecimal.valueOf(0.22));
+        rate.addObserver(bookstore);
+        rate.setRate(BigDecimal.valueOf(0.22));
+        rateRepository.save(rate);
 
 
         List<Category> categories = new ArrayList<>();
@@ -183,16 +208,6 @@ public class DatabaseInitializer implements CommandLineRunner {
         orderBooks.get(0).setId(orderBookIds.get(0));
         orderBooks.get(1).setId(orderBookIds.get(1));
 
-        // CartId cartId = new CartId();
-        // cartId.setBookId(books.get(0).getId());
-        // cartId.setUserId(users.get(0).getId());
-
-        // Cart cart = new Cart();
-        // cart.setId(cartId);
-        // cart.setBook(books.get(0));
-        // cart.setUser(users.get(0));
-        // cart.setQuantity(5);
-        // cartRepository.save(cart);
 
 
         books.get(0).addCategory(categories.get(1));
@@ -259,6 +274,7 @@ public class DatabaseInitializer implements CommandLineRunner {
         publishers.get(0).addBook(books.get(16));
         publishers.get(0).addBook(books.get(17));
 
+        
         for (Category category : categories) {
             categoryRepository.save(category);
         }
@@ -271,9 +287,11 @@ public class DatabaseInitializer implements CommandLineRunner {
             publisherRepository.save(publisher);
         }
 
+
         for (Book book : books) {
-            bookRepository.save(book);
+            bookRepository.saveAndFlush(book);
         }
+        
 
         for (User user : users) {
             userRepository.save(user);
@@ -290,6 +308,15 @@ public class DatabaseInitializer implements CommandLineRunner {
         for (Shipment shipment: shipments) {
             shipmentRepository.save(shipment);
         }
+
+        Decorator decorator1 = new Decorator("Hard cover");
+        Decorator decorator2 = new Decorator("Additional cover");
+        Decorator decorator3 = new Decorator("Big Format");
+        Decorator decorator4 = new Decorator("CD Book");
+        decoratorRepository.save(decorator1);
+        decoratorRepository.save(decorator2);
+        decoratorRepository.save(decorator3);
+        decoratorRepository.save(decorator4);
 
         orderRepository.save(order);
 
