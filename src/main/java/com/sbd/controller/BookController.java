@@ -53,7 +53,7 @@ public class BookController {
     }
 
     @PutMapping("/{id}")
-    ResponseEntity<?> updateBook(@RequestBody Book book, @PathVariable Long id) {
+    public ResponseEntity<?> updateBook(@RequestBody Book book, @PathVariable Long id) {
 
         bookRepository.findById(id).map(oldBook -> {
             BeanUtils.copyProperties(book, oldBook, new String[] { "id" });

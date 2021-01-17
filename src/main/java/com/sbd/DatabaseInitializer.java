@@ -117,21 +117,6 @@ public class DatabaseInitializer implements CommandLineRunner {
         books.get(16).setDescription("A drama that is a polemic with historiosophical projects included in the third part of 'Dziady'. It shows the fate of a sensitive young man who tries to find an idea that will allow him to direct his life, and when they find it in the fight for the freedom of their homeland, he falls victim to his sensitivity and compulsions in history ruled by evil forces.");
         books.get(17).setDescription("A beautifully illustrated ballad by Adam Mickiewicz. Large format, hardcover, elegant color edition - these are the main advantages of this item. This publication teaches respect for parents and faith in the power of prayer. We recommend it especially to children who, thanks to beautiful 'Disney' illustrations, can move into the described world of fantasy. Classic always good!");
 
-        Bookstore bookstore = Bookstore.getInstance();
-
-        bookstore.setName("Best Bookstore");
-        bookstore.bookRepository = bookRepository;
-        bookstore.setBooks(books);
-        bookstoreRepository.save(bookstore);
-        
-        for (Book book : books) {
-            book.setBookstore(bookstore);
-        }
-
-        Rate rate = new Rate("Euro", "€", BigDecimal.valueOf(0.22));
-        rate.addObserver(bookstore);
-        rate.setRate(BigDecimal.valueOf(0.22));
-        rateRepository.save(rate);
 
 
         List<Category> categories = new ArrayList<>();
@@ -288,7 +273,7 @@ public class DatabaseInitializer implements CommandLineRunner {
 
 
         for (Book book : books) {
-            bookRepository.saveAndFlush(book);
+            bookRepository.save(book);
         }
         
 
@@ -316,6 +301,22 @@ public class DatabaseInitializer implements CommandLineRunner {
         decoratorRepository.save(decorator2);
         decoratorRepository.save(decorator3);
         decoratorRepository.save(decorator4);
+
+        Bookstore bookstore = Bookstore.getInstance();
+
+        bookstore.setName("Best Bookstore");
+        bookstore.bookRepository = bookRepository;
+        bookstore.setBooks(books);
+        bookstoreRepository.save(bookstore);
+        
+        for (Book book : books) {
+            book.setBookstore(bookstore);
+        }
+
+        Rate rate = new Rate("Euro", "€", BigDecimal.valueOf(0.22));
+        rate.addObserver(bookstore);
+        rate.setRate(BigDecimal.valueOf(0.22));
+        rateRepository.save(rate);
 
         orderRepository.save(order);
 

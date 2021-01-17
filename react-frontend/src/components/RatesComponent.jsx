@@ -23,20 +23,19 @@ class RatesComponent extends Component {
 
     changeRate(e) {
         let newRate = this.state.rates.find(rate => rate.id === e);
-        console.log(newRate);
         newRate.rate = document.getElementById('rate'+e).value;
-
         let rates = [...this.state.rates];
         let rate = {...rates.find(rate => rate.id === e)};
         rate.rate = document.getElementById('rate'+e).value;
-        
         this.setState({rates: rates.map(r => r.id === e ? rate : r)});
     }
 
     saveRates(e) {
-        RateService.setRates(this.state.rates).then(res => {
+        this.state.rates.some(rate => rate.rate < 0)
+        ? alert ('Rate value cannot be less than 0!')
+        : RateService.setRates(this.state.rates).then(res => {
             alert('Success');
-        })
+        });
     }
 
     render() {
@@ -61,7 +60,7 @@ class RatesComponent extends Component {
                                     <td>{rate.symbol}</td>
                                     <td>
                                     <div class="form-group">
-                                        <input onChange={() => this.changeRate(rate.id)} id={'rate' + rate.id} type="number" class="form-control" value={rate.rate}/>
+                                        <input min="0" onChange={() => this.changeRate(rate.id)} id={'rate' + rate.id} type="number" class="form-control" value={rate.rate}/>
                                     </div>
                                     </td>
                                 </tr>

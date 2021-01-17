@@ -43,9 +43,10 @@ public class RateController {
     ResponseEntity<List<Rate>> setRate(@RequestBody List<Rate> rates) {
 
         for (Rate rate : rates) {
-            rateRepository.save(rate);
+            
             rate.addObserver(Bookstore.getInstance());
             rate.setRate(rate.getRate());
+            rateRepository.save(rate);
         }
 
         return new ResponseEntity<>(HttpStatus.OK);

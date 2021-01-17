@@ -14,9 +14,10 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Transient;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonInclude;
 import com.sbd.bookstore.repository.BookRepository;
+import com.sbd.controller.BookController;
 
 
 @Entity(name = "bookstores")
@@ -33,11 +34,11 @@ public class Bookstore implements Observer {
     @OneToMany(mappedBy = "bookstore", fetch = FetchType.LAZY)
     private List<Book> books = new ArrayList<>();
 
-    @JsonInclude()
+    @JsonIgnore()
     @Transient
     private static Bookstore INSTANCE;
 
-    @JsonInclude()
+    @JsonIgnore()
     @Transient
     public BookRepository bookRepository;
 
@@ -56,8 +57,9 @@ public class Bookstore implements Observer {
         Rate rate = (Rate) arg;
         for (Book book : books) {
             book.setPriceEur(book.getPrice().multiply(rate.getRate()));
-            bookRepository.saveAndFlush(book);
+            
         }
+        bookRepository.saveAll(books);
     }
 
     public Long getId() {
