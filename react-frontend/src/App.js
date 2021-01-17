@@ -24,6 +24,7 @@ import Login from './components/Login'
 import CartComponent from './components/main/CartComponent';
 import MyAccountComponent from "./components/MyAccountComponent";
 import UpdateUserComponent from "./components/UpdateUserComponent";
+import RatesComponent from "./components/RatesComponent";
 
 function App() {
   return (
@@ -53,6 +54,7 @@ function App() {
                 <Route path = "/registration" component = {Registration}></Route>
                 <Route path = "/login" component = {Login}></Route>
                 <Route path = "/cart" component = {CartComponent}></Route>
+                <Route path = "/rates" component = {RatesComponent}></Route>
               </Switch>
             </main>
           <FooterComponent />

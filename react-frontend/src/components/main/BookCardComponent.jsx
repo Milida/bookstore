@@ -37,7 +37,7 @@ class BookCardComponent extends Component {
                 <div className="card" style={{ width: 20 + 'rem', height: 20 + 'rem' }}>
                     <div className="card-body">
                         <h5 className="card-title"> <Link to={`books/${this.state.book.id}`}>{this.state.book.title}</Link></h5>
-                        <h6 className="card-subtitle mb-2">{this.state.book.price + ' ZŁ'}</h6>
+                        <h6 className="card-subtitle mb-2">{this.state.book.price + ' ZŁ / ' + this.state.book.priceEur + ' €'}</h6>
                         <p className="card-text text-justify card-text-limited"> {this.state.book.description} </p>
                     </div>
                     <div className="card-footer text-center">
