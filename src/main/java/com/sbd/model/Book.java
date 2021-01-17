@@ -19,8 +19,8 @@ import javax.persistence.ManyToOne;
 
 
 @Entity(name = "books")
-public class Book {
-
+public class Book implements BaseBook{
+    
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -40,6 +40,9 @@ public class Book {
     @Column(length = 1023)
     private String description;
 
+    @Column(length = 1023)
+    private final String featureDescription =" ";
+
     @JsonIgnoreProperties({"books", "hibernateLazyInitializer"})
     @ManyToOne(cascade = { CascadeType.MERGE})
     private Publisher publisher;
@@ -58,23 +61,25 @@ public class Book {
     @JoinTable(name = "authorsBooks", joinColumns = @JoinColumn(name = "book_id"), inverseJoinColumns = @JoinColumn(name = "author_id"))
     private List<Author> authors = new ArrayList<>();
 
-    public Book() {
-    }
-
     public Book(String title, BigDecimal price, Integer quantity) {
         this.title = title;
         this.price = price;
         this.quantity = quantity;
     }
 
+    public Book() {
+    }
+
     public Long getId() {
         return id;
     }
+
 
     public String getTitle() {
         return title;
     }
 
+    @Override
     public BigDecimal getPrice() {
         return price;
     }
@@ -82,6 +87,11 @@ public class Book {
     public BigDecimal getPriceEur() {
         return priceEur;
     }
+    
+
+    // public String getFeaturesDescription() {
+    //     return featureDescription;
+    // }
 
     public Integer getQuantity() {
         return quantity;

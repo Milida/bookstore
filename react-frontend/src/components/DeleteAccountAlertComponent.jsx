@@ -24,7 +24,7 @@ export default function AlertDialog() {
 
     return (
         <div>
-            <button onClick={handleClickOpen} className="btn btn-danger">Delete your account</button>
+            <button style={{marginLeft: "836px"}} onClick={handleClickOpen} className="btn btn-danger">Delete your account</button>
             <Dialog
                 open={open}
                 onClose={handleClose}

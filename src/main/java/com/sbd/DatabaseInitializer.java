@@ -47,6 +47,8 @@ public class DatabaseInitializer implements CommandLineRunner {
     @Autowired
     RateRepository rateRepository;
     
+    DecoratorRepository decoratorRepository;
+
     @Override
     public void run(String... args) {
         Role student = new Role("Student");
@@ -95,6 +97,16 @@ public class DatabaseInitializer implements CommandLineRunner {
         books.add(new Book("Ogniem i mieczem", BigDecimal.valueOf(47.99), 20));
         books.add(new Book("Kordian", BigDecimal.valueOf(13.99), 20));
         books.add(new Book("Powrót taty", BigDecimal.valueOf(19.99), 20));
+
+
+        // BaseBook piz = new AdditionalCoverDecorator(new Book("Powrót taty2", BigDecimal.valueOf(19.99), 20));
+
+        // System.out.println();
+        // System.out.println();
+        // System.out.println(piz.getPrice());
+        // System.out.println();
+        // System.out.println();
+
         books.get(0).setDescription("Harry Potter is a series of seven fantasy novels written by British author J. K. Rowling. The novels chronicle the lives of a young wizard, Harry Potter, and his friends Hermione Granger and Ron Weasley, all of whom are students at Hogwarts School of Witchcraft and Wizardry. The main story arc concerns Harry's struggle against Lord Voldemort, a dark wizard who intends to become immortal, overthrow the wizard governing body known as the Ministry of Magic and subjugate all wizards and Muggles (non-magical people).");
         books.get(1).setDescription(" Pan Tadeusz is an epic poem by the Polish poet, writer, translator and philosopher Adam Mickiewicz. The book, written in Polish alexandrines, was first published on 28 June 1834 in Paris. It is deemed the last great epic poem in European literature.");
         books.get(2).setDescription("This part is thought to be the most significant one, or even one of the finest poems in the Polish literature. The main character bears a resemblance to Gustaw from the IV part, but he is no longer a 'romantic lover'. The drama was written after the failure of the November Insurrection");
@@ -204,16 +216,6 @@ public class DatabaseInitializer implements CommandLineRunner {
         orderBooks.get(0).setId(orderBookIds.get(0));
         orderBooks.get(1).setId(orderBookIds.get(1));
 
-        // CartId cartId = new CartId();
-        // cartId.setBookId(books.get(0).getId());
-        // cartId.setUserId(users.get(0).getId());
-
-        // Cart cart = new Cart();
-        // cart.setId(cartId);
-        // cart.setBook(books.get(0));
-        // cart.setUser(users.get(0));
-        // cart.setQuantity(5);
-        // cartRepository.save(cart);
 
 
         books.get(0).addCategory(categories.get(1));
@@ -314,6 +316,15 @@ public class DatabaseInitializer implements CommandLineRunner {
         for (Shipment shipment: shipments) {
             shipmentRepository.save(shipment);
         }
+
+        Decorator decorator1 = new Decorator("Hard cover");
+        Decorator decorator2 = new Decorator("Additional cover");
+        Decorator decorator3 = new Decorator("Big Format");
+        Decorator decorator4 = new Decorator("CD Book");
+        decoratorRepository.save(decorator1);
+        decoratorRepository.save(decorator2);
+        decoratorRepository.save(decorator3);
+        decoratorRepository.save(decorator4);
 
         orderRepository.save(order);
 
