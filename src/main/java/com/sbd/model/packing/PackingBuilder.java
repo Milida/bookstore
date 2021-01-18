@@ -1,7 +1,5 @@
 package com.sbd.model.packing;
 
-import java.math.BigDecimal;
-
 public abstract class PackingBuilder {
     protected Packing packing = new Packing();
 

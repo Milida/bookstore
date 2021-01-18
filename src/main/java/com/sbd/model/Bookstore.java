@@ -17,7 +17,6 @@ import javax.persistence.Transient;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.sbd.bookstore.repository.BookRepository;
-import com.sbd.controller.BookController;
 
 
 @Entity(name = "bookstores")
