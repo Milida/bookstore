@@ -1,6 +1,8 @@
 package com.sbd.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.sbd.model.packing.*;
+import com.sbd.model.priceStrategy.*;
 
 import java.math.BigDecimal;
 import java.util.Date;
@@ -50,10 +52,10 @@ public class Order {
     private PackingBuilder packingBuilder;
 
     @Transient
-    private String typeOfPacking;
+    private String typeOfPacking; //which type of packing builder should we use
 
     @Transient
-    private String dedication;
+    private String dedication; //name of person/team you want to dedicate your packing
 
     public Order(){
         this.priceStrategy = new RegularPriceStrategy();
@@ -65,13 +67,15 @@ public class Order {
         this.payment = payment;
         this.shipment = shipment;
         this.date = date;
-        if (user.getRole() != null) {
+        if (user.getRole() != null) { //if user has assigned role we check which one strategy we should use
             if ("Student".equals(user.getRole().getName())) {
                 this.priceStrategy = new StudentPriceStrategy();
             } else if ("Employee".equals(user.getRole().getName())) {
                 this.priceStrategy = new WorkerPriceStrategy();
             } else if ("Company".equals(user.getRole().getName())) {
                 this.priceStrategy = new CompanyPriceStrategy();
+            } else {
+                this.priceStrategy = new RegularPriceStrategy();
             }
         } else {
             this.priceStrategy = new RegularPriceStrategy();
@@ -119,7 +123,7 @@ public class Order {
         this.id = id;
     }
 
-    public void setUser(User user) {
+    public void setUser(User user) { //when we change user, we should change the price strategy we use
         this.user = user;
         if (user.getRole() != null) {
            if ("Student".equals(user.getRole().getName())) {
@@ -131,6 +135,8 @@ public class Order {
            } else {
                this.priceStrategy = new RegularPriceStrategy();
            }
+        } else {
+            this.priceStrategy = new RegularPriceStrategy();
         }
     }
 
@@ -203,19 +209,25 @@ public class Order {
         this.dedication = dedication;
     }
 
-    public void createPacking(String packing) {
-        if("Christmas".equals(packing)) {
+    /**
+     * Creating packing of the order
+     * @param packingType type of the packing / occasion (i.e. "Christmas", "Valentines")
+     */
+    public void createPacking(String packingType) {
+        if("Christmas".equals(packingType)) { //choosing right builder
             this.packingBuilder = new ChristmasPackingBuilder();
-        } else if ("Valentines".equals(packing)){
+        } else if ("Valentines".equals(packingType)){
             this.packingBuilder = new ValentinePackingBuilder();
-        } else if ("Birthday".equals(packing)){
+        } else if ("Birthday".equals(packingType)){
             this.packingBuilder = new BirthdayPackingBuilder();
         } else {
             return;
         }
+        //scenario
         packingBuilder.setDedication(dedication);
         packingBuilder.setPaper();
         packingBuilder.setPrice();
-        this.packing = packingBuilder.getPacking();
+        //scenario
+        this.packing = packingBuilder.getPacking();//getting built packing
     }
 }

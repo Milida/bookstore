@@ -1,9 +1,9 @@
-package com.sbd.model;
+package com.sbd.model.priceStrategy;
 
 import java.math.BigDecimal;
 import java.util.Calendar;
 
-public class StudentPriceStrategy implements PriceStrategy{
+public class StudentPriceStrategy implements PriceStrategy {
     @Override
     public BigDecimal calculate(BigDecimal price) {
         Calendar c = Calendar.getInstance();

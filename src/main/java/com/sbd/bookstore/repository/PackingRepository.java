@@ -1,6 +1,6 @@
 package com.sbd.bookstore.repository;
 
-import com.sbd.model.Packing;
+import com.sbd.model.packing.Packing;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

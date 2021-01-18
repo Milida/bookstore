@@ -1,8 +1,8 @@
-package com.sbd.model;
+package com.sbd.model.packing;
 
 import java.math.BigDecimal;
 
-public class ValentinePackingBuilder extends PackingBuilder{
+public class ValentinePackingBuilder extends PackingBuilder {
     protected String paper = "Valentine paper";
     protected BigDecimal price = BigDecimal.valueOf(9);
 

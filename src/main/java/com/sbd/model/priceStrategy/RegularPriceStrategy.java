@@ -1,4 +1,4 @@
-package com.sbd.model;
+package com.sbd.model.priceStrategy;
 
 import java.math.BigDecimal;
 import java.util.Calendar;

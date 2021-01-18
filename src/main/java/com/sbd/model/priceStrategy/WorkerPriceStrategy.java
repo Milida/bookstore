@@ -1,5 +1,4 @@
-package com.sbd.model;
-
+package com.sbd.model.priceStrategy;
 
 import java.math.BigDecimal;
 
