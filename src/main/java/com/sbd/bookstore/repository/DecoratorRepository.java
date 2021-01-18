@@ -1,6 +1,6 @@
 package com.sbd.bookstore.repository;
 
-import com.sbd.model.Decorator;
+import com.sbd.model.bookDecorators.Decorator;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;

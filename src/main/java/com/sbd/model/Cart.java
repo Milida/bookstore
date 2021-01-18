@@ -16,6 +16,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.MapsId;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.sbd.model.bookDecorators.Decorator;
 import com.sbd.model.embedded.CartId;
 
 import org.hibernate.annotations.OnDelete;

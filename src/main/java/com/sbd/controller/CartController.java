@@ -2,12 +2,12 @@ package com.sbd.controller;
 
 import com.sbd.bookstore.repository.BookRepository;
 import com.sbd.bookstore.repository.CartRepository;
-import com.sbd.model.AdditionalCoverDecorator;
-import com.sbd.model.BigFormatDecorator;
+import com.sbd.model.bookDecorators.AdditionalCoverDecorator;
+import com.sbd.model.bookDecorators.BigFormatDecorator;
 import com.sbd.model.Cart;
-import com.sbd.model.Decorator;
-import com.sbd.model.HardCoverDecorator;
-import com.sbd.model.CdDecorator;
+import com.sbd.model.bookDecorators.Decorator;
+import com.sbd.model.bookDecorators.HardCoverDecorator;
+import com.sbd.model.bookDecorators.CdDecorator;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -35,16 +35,16 @@ public class CartController {
             for (Decorator decorator : cart.getDecorators()) {
                 switch(decorator.getId().intValue()) {
                     case 1:
-                    cart.getBook().setPrice(new HardCoverDecorator(cart.getBook()).getPrice());;
+                    cart.getBook().setPrice(new HardCoverDecorator(cart.getBook()).getPrice());
                     break;
                     case 2:
-                    cart.getBook().setPrice(new AdditionalCoverDecorator(cart.getBook()).getPrice());;
+                    cart.getBook().setPrice(new AdditionalCoverDecorator(cart.getBook()).getPrice());
                     break;
                     case 3:
-                    cart.getBook().setPrice(new BigFormatDecorator(cart.getBook()).getPrice());;
+                    cart.getBook().setPrice(new BigFormatDecorator(cart.getBook()).getPrice());
                     break;
                     case 4:
-                    cart.getBook().setPrice(new CdDecorator(cart.getBook()).getPrice());;
+                    cart.getBook().setPrice(new CdDecorator(cart.getBook()).getPrice());
                     break;
                 }
             }
