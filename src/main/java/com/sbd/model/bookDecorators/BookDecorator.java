@@ -21,7 +21,7 @@ import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
 @Entity(name="decorators")
-public class Decorator implements BaseBook {
+public class BookDecorator implements BaseBook {
   
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -30,8 +30,8 @@ public class Decorator implements BaseBook {
     @Column(name = "name")
     private String name;
     
-    @ManyToMany(mappedBy = "decorators")
-    @JsonIgnoreProperties("decorators")
+    @ManyToMany(mappedBy = "bookDecorators")
+    @JsonIgnoreProperties("bookDecorators")
     @OnDelete(action = OnDeleteAction.CASCADE)
     private List<Cart> carts = new ArrayList<>();
 
@@ -39,10 +39,10 @@ public class Decorator implements BaseBook {
     @JsonIgnore
     private BaseBook book;
     
-    public Decorator() {
+    public BookDecorator() {
     }
-    public Decorator(String name){this.name = name;}
-    public Decorator(BaseBook book){this.book = book;}
+    public BookDecorator(String name){this.name = name;}
+    public BookDecorator(BaseBook book){this.book = book;}
 
     public Long getId() {
       return id;

@@ -7,7 +7,7 @@ import java.util.List;
 
 import com.sbd.bookstore.repository.*;
 import com.sbd.model.*;
-import com.sbd.model.bookDecorators.Decorator;
+import com.sbd.model.bookDecorators.BookDecorator;
 import com.sbd.model.embedded.OrderBookId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -294,14 +294,14 @@ public class DatabaseInitializer implements CommandLineRunner {
             shipmentRepository.save(shipment);
         }
 
-        Decorator decorator1 = new Decorator("Hard cover");
-        Decorator decorator2 = new Decorator("Additional cover");
-        Decorator decorator3 = new Decorator("Big Format");
-        Decorator decorator4 = new Decorator("CD Book");
-        decoratorRepository.save(decorator1);
-        decoratorRepository.save(decorator2);
-        decoratorRepository.save(decorator3);
-        decoratorRepository.save(decorator4);
+        BookDecorator bookDecorator1 = new BookDecorator("Hard cover");
+        BookDecorator bookDecorator2 = new BookDecorator("Additional cover");
+        BookDecorator bookDecorator3 = new BookDecorator("Big Format");
+        BookDecorator bookDecorator4 = new BookDecorator("CD Book");
+        decoratorRepository.save(bookDecorator1);
+        decoratorRepository.save(bookDecorator2);
+        decoratorRepository.save(bookDecorator3);
+        decoratorRepository.save(bookDecorator4);
 
         Bookstore bookstore = Bookstore.getInstance();
 

@@ -16,7 +16,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.MapsId;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.sbd.model.bookDecorators.Decorator;
+import com.sbd.model.bookDecorators.BookDecorator;
 import com.sbd.model.embedded.CartId;
 
 import org.hibernate.annotations.OnDelete;
@@ -49,7 +49,7 @@ public class Cart {
         @JoinColumn(name="book_id"),
         @JoinColumn(name="user_id")
     })
-    private List<Decorator> decorators = new ArrayList<>();
+    private List<BookDecorator> bookDecorators = new ArrayList<>();
 
     public Cart() {
     }
@@ -75,8 +75,8 @@ public class Cart {
         return quantity;
     }
 
-    public List<Decorator> getDecorators() {
-        return decorators;
+    public List<BookDecorator> getBookDecorators() {
+        return bookDecorators;
     }
 
     public void setId(CartId id) {
@@ -95,18 +95,18 @@ public class Cart {
         this.quantity = quantity;
     }
 
-    public void setDecorators(List<Decorator> decorators) {
-        this.decorators = decorators;
+    public void setBookDecorators(List<BookDecorator> bookDecorators) {
+        this.bookDecorators = bookDecorators;
     }
         
-    public void addDecorator(Decorator decorator) {
-        this.decorators.add(decorator);
+    public void addDecorator(BookDecorator decorator) {
+        this.bookDecorators.add(decorator);
         decorator.getCarts().add(this);
     }
 
-    public void removeDecorator(Decorator decorator) {
-        this.decorators.remove(decorator);
-        decorator.getCarts().remove(this);
+    public void removeDecorator(BookDecorator bookDecorator) {
+        this.bookDecorators.remove(bookDecorator);
+        bookDecorator.getCarts().remove(this);
     }
 
     @Override

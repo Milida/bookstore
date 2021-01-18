@@ -23,7 +23,7 @@ class CartComponent extends Component {
             shipmentList: [],
             packingList: [],
             dedication: '',
-            decorators: [],
+            bookDecorators: [],
             showDedication: false
         }
         this.removeItem = this.removeItem.bind(this);
@@ -206,7 +206,7 @@ class CartComponent extends Component {
                                                 <small>
                                                     <ul>
                                                         {
-                                                            item.decorators.map(
+                                                            item.bookDecorators.map(
                                                                 decorator => 
                                                                 <li key={decorator.id}>
                                                                     {decorator.name}

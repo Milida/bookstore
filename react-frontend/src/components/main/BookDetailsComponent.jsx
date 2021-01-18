@@ -69,7 +69,7 @@ class BookDetailsComponent extends Component {
                         "id": this.state.id
                     },
                     "quantity": this.state.cartQuantity,
-                    "decorators": decorators
+                    "bookDecorators": decorators
                 }
             ).then(res => { alert("Product added to your cart") })
         }

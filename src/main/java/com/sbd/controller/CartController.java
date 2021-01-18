@@ -2,12 +2,12 @@ package com.sbd.controller;
 
 import com.sbd.bookstore.repository.BookRepository;
 import com.sbd.bookstore.repository.CartRepository;
-import com.sbd.model.bookDecorators.AdditionalCoverDecorator;
-import com.sbd.model.bookDecorators.BigFormatDecorator;
+import com.sbd.model.bookDecorators.AdditionalCoverBookDecorator;
+import com.sbd.model.bookDecorators.BigFormatBookDecorator;
 import com.sbd.model.Cart;
-import com.sbd.model.bookDecorators.Decorator;
-import com.sbd.model.bookDecorators.HardCoverDecorator;
-import com.sbd.model.bookDecorators.CdDecorator;
+import com.sbd.model.bookDecorators.BookDecorator;
+import com.sbd.model.bookDecorators.HardCoverBookDecorator;
+import com.sbd.model.bookDecorators.CdBookDecorator;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -32,19 +32,19 @@ public class CartController {
     ResponseEntity<List<Cart>> getUserCart(@PathVariable Long id) {
         List<Cart> carts = cartRepository.findByUserId(id);
         for (Cart cart : carts) {
-            for (Decorator decorator : cart.getDecorators()) {
-                switch(decorator.getId().intValue()) {
+            for (BookDecorator bookDecorator : cart.getBookDecorators()) {
+                switch(bookDecorator.getId().intValue()) {
                     case 1:
-                    cart.getBook().setPrice(new HardCoverDecorator(cart.getBook()).getPrice());
+                    cart.getBook().setPrice(new HardCoverBookDecorator(cart.getBook()).getPrice());
                     break;
                     case 2:
-                    cart.getBook().setPrice(new AdditionalCoverDecorator(cart.getBook()).getPrice());
+                    cart.getBook().setPrice(new AdditionalCoverBookDecorator(cart.getBook()).getPrice());
                     break;
                     case 3:
-                    cart.getBook().setPrice(new BigFormatDecorator(cart.getBook()).getPrice());
+                    cart.getBook().setPrice(new BigFormatBookDecorator(cart.getBook()).getPrice());
                     break;
                     case 4:
-                    cart.getBook().setPrice(new CdDecorator(cart.getBook()).getPrice());
+                    cart.getBook().setPrice(new CdBookDecorator(cart.getBook()).getPrice());
                     break;
                 }
             }

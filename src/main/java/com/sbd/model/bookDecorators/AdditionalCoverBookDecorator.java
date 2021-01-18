@@ -4,11 +4,11 @@ import com.sbd.model.BaseBook;
 
 import java.math.BigDecimal;
 
-public class AdditionalCoverDecorator extends Decorator {
+public class AdditionalCoverBookDecorator extends BookDecorator {
 
     private static final BigDecimal ADDITIONAL_COVER_PRICE = new BigDecimal(5.99);
 
-    public AdditionalCoverDecorator(BaseBook book) {
+    public AdditionalCoverBookDecorator(BaseBook book) {
         super(book);
     }
 

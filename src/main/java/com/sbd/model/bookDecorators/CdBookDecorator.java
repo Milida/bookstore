@@ -4,10 +4,10 @@ import com.sbd.model.BaseBook;
 
 import java.math.BigDecimal;
 
-public class CdDecorator extends Decorator {
+public class CdBookDecorator extends BookDecorator {
     private static final BigDecimal ADD_CD_PRICE = new BigDecimal(19.99);
 
-    public CdDecorator(BaseBook book) {
+    public CdBookDecorator(BaseBook book) {
         super(book);
     }
 
