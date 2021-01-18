@@ -3,8 +3,6 @@ package com.sbd.model.packing;
 import java.math.BigDecimal;
 
 public class BirthdayPackingBuilder extends PackingBuilder {
-    protected String paper = "Birthday paper"; //Paper name
-    protected BigDecimal price = BigDecimal.valueOf(12); //price of packing
 
     @Override
     public void setDedication(String dedication) {
@@ -13,11 +11,11 @@ public class BirthdayPackingBuilder extends PackingBuilder {
 
     @Override
     public void setPaper() {
-        packing.setPaper(paper);
+        packing.setPaper("Birthday paper");
     }
 
     @Override
     public void setPrice() {
-        packing.setPrice(price);
+        packing.setPrice(BigDecimal.valueOf(12));
     }
 }

@@ -40,9 +40,6 @@ public class Book implements BaseBook{
     @Column(length = 1023)
     private String description;
 
-    @Column(length = 1023)
-    private final String featureDescription =" ";
-
     @JsonIgnoreProperties({"books", "hibernateLazyInitializer"})
     @ManyToOne(cascade = { CascadeType.MERGE})
     private Publisher publisher;
