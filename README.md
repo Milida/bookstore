@@ -1,5 +1,5 @@
 # bookstore
-
+![App preview](https://i.imgur.com/mSKRsho.png)
 ## Contributors:
 * [Ida Milewska](https://github.com/Milida)
 * [Michał Sawicki](https://github.com/mksawic)
