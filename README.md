@@ -1,5 +1,10 @@
 # bookstore
 
+## Contributors:
+* [Ida Milewska](https://github.com/Milida)
+* [Michał Sawicki](https://github.com/mksawic)
+* [Natalia Tarasiuk](https://github.com/natka853)
+
 ## Soft:
 * [MySQL Installer 8.0.22](https://dev.mysql.com/downloads/installer/)
 * [Java SE Development Kit 11](https://www.oracle.com/java/technologies/javase-jdk11-downloads.html)
@@ -22,7 +27,7 @@ OpenJDK 64-Bit Server VM AdoptOpenJDK (build 11.0.9+11, mixed mode)
 ```
 
 ### Back-end
-`mvnw.cmd spring-boot:run`
+```mvnw.cmd spring-boot:run```
 
 ### Front-end
 ```
